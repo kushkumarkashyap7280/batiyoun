@@ -1,0 +1,15 @@
+{
+  "name": "batiyoun-root",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "common"
+  ],
+  "scripts": {
+    "dev": "echo \"Run client and server separately\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.0"
+  }
+}
