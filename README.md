@@ -1,90 +1,98 @@
-# 🔐 Batiyoun (Secure E2E Chat)
+# 💬 Batiyoun (Talk)
 
-> **"Privacy by Design, not by Policy."**
-> A military-grade, end-to-end encrypted messaging platform where the server truly knows nothing.
+**Batiyoun** is a high-performance, End-to-End Encrypted (E2E) real-time messaging platform designed with a hybrid microservices architecture. It creates a seamless bridge between Serverless scalability and Stateful real-time communication.
 
-![Project Status](https://img.shields.io/badge/Status-Development-orange)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Status](https://img.shields.io/badge/status-Active_Development-green.svg)
 
-## 📖 Overview
-Batiyoun is a real-time messaging application built on a **High-Performance Monorepo Architecture**. Unlike standard chat apps, Batiyoun implements true **End-to-End Encryption (E2EE)** using the **Web Crypto API**.
+## 🏗 System Architecture
 
-The server acts as a "Zero-Knowledge" relay. It stores encrypted binary blobs but lacks the private keys required to decrypt them. Even if the database is leaked, the messages remain mathematically unreadable.
+Batiyoun uses a **Polyglot Persistence** pattern to optimize for both transactional integrity and high-write throughput.
 
----
+- **Authentication & User Management:** Handled by **Next.js** (Serverless) + **PostgreSQL** (ACID Compliance).
+- **Real-Time Messaging Engine:** Handled by a custom **Node.js/Socket.io** Server (Stateful) + **MongoDB** (High Write Speed).
+- **Validation:** Shared Typescript/Zod package (`@batiyoun/common`) ensuring strict contract adherence between services.
 
-## 🏗️ Architecture
+### The Stack
 
-The project is structured as a **TypeScript Monorepo** using npm workspaces.
-
-| Package | Path | Description |
+| Component | Technology | Role |
 | :--- | :--- | :--- |
-| **Client** | `apps/client` | Next.js 14 (App Router) + TailwindCSS. Handles encryption/decryption locally in the browser. |
-| **Server** | `apps/server` | Node.js + Express + Socket.io. Handles WebSocket connections and MongoDB storage. |
-| **Common** | `packages/common` | Shared Zod Schemas & TypeScript Types. Ensures the API contract is strictly enforced on both ends. |
+| **Client** | Next.js 14 (App Router) | Server-Side Rendering & UI |
+| **Auth DB** | PostgreSQL (Prisma ORM) | Users, Relations, Auth |
+| **Realtime Server** | Node.js + Express + Socket.io | WebSocket Management |
+| **Chat DB** | MongoDB (Mongoose) | Message Persistence |
+| **Validation** | Zod | Runtime Schema Validation |
+| **DevOps** | Docker, Turborepo | Containerization & Orchestration |
 
+## 🚀 Getting Started
 
+### Prerequisites
+- Node.js (v20+)
+- Docker (Optional, for Redis/Mongo)
+- PostgreSQL URI
+- MongoDB URI
 
-[Image of System Architecture Diagram]
+### Installation
 
+1. **Clone the Monorepo**
+   ```bash
+   git clone https://github.com/kushkumarkashyap7280/batiyoun.git
+   cd batiyoun
+   ```
+
+2. **Install Dependencies (Root)**
+   We use npm workspaces to manage the monorepo.
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+   Create a `.env` file in both `client/` and `server/` directories.
+
+   **Client (.env)**
+   ```bash
+   DATABASE_URL="postgresql://..."
+   NEXT_PUBLIC_SOCKET_URL="http://localhost:4000"
+   ```
+
+   **Server (.env)**
+   ```bash
+   MONGO_URI="mongodb+srv://..."
+   PORT=4000
+   CLIENT_URL="http://localhost:3000"
+   ```
+
+4. **Run Development Mode**
+   Start both the Next.js client and Node.js server simultaneously.
+   ```bash
+   npm run dev
+   ```
+
+## 📂 Project Structure
+
+```
+.
+├── client/          # Next.js Application (Frontend + Auth API)
+│   ├── features/    # Feature-Driven Logic (Auth, Chat)
+│   └── lib/         # Prisma Client (Postgres)
+├── server/          # Node.js WebSocket Server
+│   ├── src/
+│   │   ├── config/  # DB Connections & Env Validation
+│   │   ├── models/  # Mongoose Schemas (MongoDB)
+│   │   └── controllers/ # Socket Logic
+└── common/          # Shared Zod Schemas & TypeScript Types
+```
+
+## 🔐 Security Features (In Progress)
+
+- **Zero-Knowledge Architecture:** Messages are encrypted on the client before transmission.
+- **ECDH Key Exchange:** Secure shared secret generation.
+- **Stateless Handoff:** JWT-based authentication flow between Next.js and Socket Server.
+
+## 🤝 Contribution
+
+This is an open-source educational project. Feel free to open issues or PRs.
 
 ---
 
-## 🚀 Tech Stack
-
-### Core
-* **Runtime:** Node.js (v20+)
-* **Language:** TypeScript (Strict Mode)
-* **Monorepo Tooling:** NPM Workspaces
-* **Validation:** Zod (Shared between frontend/backend)
-
-### Frontend (Client)
-* **Framework:** Next.js 14
-* **Styling:** TailwindCSS
-* **State Management:** React Context + Hooks
-* **Cryptography:** Web Crypto API (Native Browser Standard)
-    * *ECDH (Elliptic Curve Diffie-Hellman)* for Key Exchange
-    * *AES-GCM-256* for Message Encryption
-
-### Backend (Server)
-* **Framework:** Express.js
-* **Real-time Engine:** Socket.io
-* **Database:** MongoDB (Stores Ciphertext only)
-* **Tooling:** `tsx` for high-performance development execution
-
----
-
-## 🔒 The Security Model (How it works)
-
-This is the core differentiator of Batiyoun.
-
-1.  **Key Generation:** On sign-up, the user's browser generates a `Public Key` and `Private Key` (ECDH-P256).
-2.  **Key Storage:**
-    * **Private Key:** Stored in the browser's **IndexedDB** (Never leaves the device).
-    * **Public Key:** Sent to the server so other users can find you.
-3.  **The Handshake:** When User A chats with User B, their browsers perform a Diffie-Hellman exchange to derive a shared **Session Key** (AES).
-4.  **Encryption:** Messages are encrypted locally using AES-GCM before they ever touch the network.
-5.  **Storage:** The MongoDB database stores:
-    ```json
-    {
-      "content": "8f7a9c2b...", // <--- Encrypted Garbage
-      "iv": "123456...",        // <--- Random Salt
-      "senderId": "user_123"
-    }
-    ```
-
----
-
-## 🛠️ Getting Started
-
-Follow these steps to run the complete system locally.
-
-### 1. Prerequisites
-* Node.js installed (v18 or higher)
-* MongoDB running locally or a generic connection string
-
-### 2. Installation
-Install dependencies for the entire monorepo from the root:
-```bash
-npm install
+Built with ❤️ by Kush Kumar
