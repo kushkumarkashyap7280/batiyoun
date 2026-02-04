@@ -7,11 +7,11 @@
     "common"
   ],
   "scripts": {
-    "dev": "echo \"Run client and server separately\""
+    "dev": "echo \"Run client and server separately\"",
+    "setup": "npm install && npm run build -w @batiyoun/common"
   },
   "devDependencies": {
     "@types/node": "^25.2.0",
-    "@types/pg": "^8.16.0",
     "tsx": "^4.21.0"
   }
 }
