@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@batiyoun/common"],
-  serverExternalPackages: ['resend'],
+  /* config options here */
 };
 
 export default nextConfig;

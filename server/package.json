@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@batiyoun/common": "*",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
@@ -22,6 +23,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    
     "@types/connect": "^3.4.38",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",

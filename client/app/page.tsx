@@ -1,64 +1,65 @@
-import type { Metadata } from "next";
-import { WelcomeScreen } from "@/components/welcome-screen";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "Batiyoun - Your Space, Your Frequency",
-  description: "Privacy-first, offline-capable communication platform. Speak freely in your own digital space with end-to-end encryption.",
-  keywords: ["privacy", "chat", "messaging", "end-to-end encryption", "offline", "open source"],
-  authors: [{ name: "Batiyoun Team" }],
-  openGraph: {
-    title: "Batiyoun - Your Space, Your Frequency",
-    description: "Privacy-first communication platform with end-to-end encryption",
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Batiyoun - Your Space, Your Frequency",
-    description: "Privacy-first communication platform with end-to-end encryption",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
-
-export default function HomePage() {
-  return <WelcomeScreen />;
-
+export default function Home() {
   return (
-    <div className="h-screen flex flex-col items-center justify-between p-6 bg-[#FAFAF9] dark:bg-[#111827] relative overflow-hidden">
-      
-      {/* Background Decor */}
-      <div className="absolute top-[-20%] left-[-20%] w-150 h-150 bg-[#0F766E]/10 rounded-full blur-[120px]" />
-
-      {/* 1. The Brand (Center) */}
-      <div className="flex-1 flex flex-col items-center justify-center z-10 space-y-6">
-        <div className="w-24 h-24 bg-linear-to-br from-[#0F766E] to-[#115E59] rounded-3xl shadow-2xl flex items-center justify-center transform rotate-3">
-          <span className="text-5xl">🪐</span>
-        </div>
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Batiyoun
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+        <Image
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={100}
+          height={20}
+          priority
+        />
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+            To get started, edit the page.tsx file.
           </h1>
-          <p className="text-lg text-gray-500 max-w-62.5">
-            Speak freely. Your space, your frequency.
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+            Looking for a starting point or more instructions? Head over to{" "}
+            <a
+              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Templates
+            </a>{" "}
+            or the{" "}
+            <a
+              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Learning
+            </a>{" "}
+            center.
           </p>
         </div>
-      </div>
-
-      {/* 2. The Actions (Bottom Thumb Zone) */}
-      <div className="w-full space-y-4 z-10 mb-8">
-        <Button asChild className="w-full h-14 text-lg rounded-2xl bg-[#0F766E] hover:bg-[#0D6E66] shadow-lg shadow-[#0F766E]/20">
-          <Link href="/signup">Get Started</Link>
-        </Button>
-        
-        <Button asChild variant="ghost" className="w-full h-14 text-lg rounded-2xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-          <Link href="/login">I already have an account</Link>
-        </Button>
-      </div>
+        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <a
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              className="dark:invert"
+              src="/vercel.svg"
+              alt="Vercel logomark"
+              width={16}
+              height={16}
+            />
+            Deploy Now
+          </a>
+          <a
+            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
+            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Documentation
+          </a>
+        </div>
+      </main>
     </div>
   );
 }
