@@ -44,9 +44,16 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
   useEffect(() => {
     if (searchParams) {
       const messageParam = searchParams.get('message');
+      const errorParam = searchParams.get('error');
+      
       if (messageParam) {
         setMessage(messageParam);
         toast.success(messageParam);
+      }
+      
+      if (errorParam) {
+        setMessage(errorParam);
+        toast.error(errorParam);
       }
     }
   }, [searchParams]);
@@ -84,7 +91,8 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
 
       // Store user data in auth store
       if (result.data) {
-        setAuth(result.data.user, result.data.token);
+        // Set auth state (token is in HTTP-only cookie)
+        setAuth(result.data.user);
       }
 
       toast.success('Welcome back!');
@@ -102,6 +110,11 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
     }
   };
 
+  const handleGoogleLogin = () => {
+    if (isLoading) return;
+    window.location.href = '/api/auth/google';
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center space-y-1">
@@ -109,7 +122,12 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
         <p className="text-sm text-gray-500">Enter your frequency.</p>
       </div>
 
-      <Button variant="outline" className="w-full h-12 rounded-2xl border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium shadow-sm" disabled={isLoading}>
+      <Button 
+        onClick={handleGoogleLogin}
+        variant="outline" 
+        className="w-full h-12 rounded-2xl border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium shadow-sm" 
+        disabled={isLoading}
+      >
         <Chrome className="w-5 h-5 mr-3 text-red-500" />
         Continue with Google
       </Button>

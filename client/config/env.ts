@@ -17,6 +17,9 @@ const envSchema = z.object({
     },
     "RESEND_FROM_EMAIL must be a valid email address or 'Display Name <email@domain.com>' format"
   ),
+  GOOGLE_CLIENT_ID: z.string().min(1, "GOOGLE_CLIENT_ID is required"),
+  GOOGLE_CLIENT_SECRET: z.string().min(1, "GOOGLE_CLIENT_SECRET is required"),
+  NEXTAUTH_URL: z.string().url("NEXTAUTH_URL must be a valid URL").default("http://localhost:3000"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 
