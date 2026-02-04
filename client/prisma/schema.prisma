@@ -5,10 +5,82 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
+  // output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id            String    @id @default(uuid())
+  username      String    @unique
+  email         String    @unique
+  phoneNumber   String?   @unique
+  password      String?
+  googleId      String?   @unique
+
+  displayName   String?
+  bio           String?   @db.Text
+
+  avatarType    AvatarType @default(INITIALS)
+  avatarUrl     String?
+  avatarId      String?
+
+  bannerUrl     String?
+  socialLinks   Json?
+  
+
+  publicKey     String
+  keyVersion    Int        @default(1)
+
+  isVerified    Boolean    @default(false)
+
+  isPublic      Boolean    @default(false)
+  lastSeenMode  PrivacyMode @default(CONTACTS)
+  accountType   AccountType @default(PUBLIC)
+
+  blockedUsers  String[]
+  mutedSpaces   String[]
+
+  trustScore    Int        @default(0)
+  screenTime    Int        @default(0)
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+enum AvatarType {
+  INITIALS
+  LINK
+  CLOUD
+}
+
+enum PrivacyMode {
+  EVERYONE
+  CONTACTS
+  NOBODY
+}
+
+enum AccountType {
+  PUBLIC 
+  PRIVATE
+}
+
+model SystemAdmin {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  role        AdminRole @default(MODERATOR)
+}
+
+enum AdminRole {
+  OWNER
+  MODERATOR
+  SUPPORT
+}
+
+
+
+
