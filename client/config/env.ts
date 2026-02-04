@@ -7,6 +7,16 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url("DATABASE_URL must be a valid PostgreSQL connection string"),
   UPSTASH_REDIS_REST_URL: z.string().url("UPSTASH_REDIS_REST_URL must be a valid URL"),
   UPSTASH_REDIS_REST_TOKEN: z.string().min(1, "UPSTASH_REDIS_REST_TOKEN is required"),
+  RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required"),
+  RESEND_FROM_EMAIL: z.string().min(1, "RESEND_FROM_EMAIL is required").refine(
+    (email) => {
+      // Accept both plain email and "Display Name <email@domain.com>" format
+      const plainEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const namedEmailRegex = /^.+\s<[^\s@]+@[^\s@]+\.[^\s@]+>$/;
+      return plainEmailRegex.test(email) || namedEmailRegex.test(email);
+    },
+    "RESEND_FROM_EMAIL must be a valid email address or 'Display Name <email@domain.com>' format"
+  ),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 
