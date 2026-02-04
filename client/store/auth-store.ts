@@ -26,8 +26,9 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>()(
-  persist(
-    (set, get) => ({
+  typeof window !== 'undefined' 
+    ? persist(
+        (set, get) => ({
       user: null,
       token: null,
       isAuthenticated: false,
@@ -128,4 +129,45 @@ export const useAuthStore = create<AuthState>()(
       }),
     }
   )
+  : // Server-side fallback without persistence
+    (set, get) => ({
+      user: null,
+      token: null,
+      isAuthenticated: false,
+      isLoading: false,
+
+      setAuth: (user: User, token: string) => {
+        set({
+          user,
+          token,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+      },
+
+      clearAuth: () => {
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          isLoading: false,
+        });
+      },
+
+      setLoading: (loading: boolean) => {
+        set({ isLoading: loading });
+      },
+
+      logout: async () => {
+        get().clearAuth();
+      },
+
+      checkAuthStatus: async () => {
+        set({ isLoading: false });
+      },
+
+      getAuthHeaders: () => {
+        return {};
+      },
+    })
 );

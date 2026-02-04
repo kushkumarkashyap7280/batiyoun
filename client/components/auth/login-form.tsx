@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -26,9 +26,9 @@ interface LoginFormProps {
 
 export function LoginForm({ onSuccess }: LoginFormProps = {}) {
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const message = searchParams?.get('message');
   const { setAuth } = useAuthStore();
 
   const {
@@ -40,10 +40,16 @@ export function LoginForm({ onSuccess }: LoginFormProps = {}) {
     resolver: zodResolver(loginSchema),
   });
 
-  // Show success message if redirected from signup
-  if (message && !toast.message) {
-    toast.success(message);
-  }
+  // Handle search params and toast on client side only
+  useEffect(() => {
+    if (searchParams) {
+      const messageParam = searchParams.get('message');
+      if (messageParam) {
+        setMessage(messageParam);
+        toast.success(messageParam);
+      }
+    }
+  }, [searchParams]);
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);

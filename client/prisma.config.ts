@@ -1,4 +1,12 @@
-import 'dotenv/config'
+// Conditionally load dotenv for local development
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    require('dotenv/config');
+  } catch (e) {
+    // Ignore if dotenv is not available
+  }
+}
+
 import { defineConfig, env } from 'prisma/config';
 
 export default defineConfig({
