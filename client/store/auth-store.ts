@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { checkAuthFromCookie, logout as clientLogout } from '@/lib/client-auth';
 
 export interface User {
   id: string;
@@ -10,19 +11,15 @@ export interface User {
 
 interface AuthState {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   
   // Actions
-  setAuth: (user: User, token: string) => void;
+  setAuth: (user: User) => void;
   clearAuth: () => void;
   setLoading: (loading: boolean) => void;
   logout: () => Promise<void>;
   checkAuthStatus: () => Promise<void>;
-  
-  // Helpers
-  getAuthHeaders: () => { Authorization: string } | {};
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -30,14 +27,12 @@ export const useAuthStore = create<AuthState>()(
     ? persist(
         (set, get) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
       isLoading: false,
 
-      setAuth: (user: User, token: string) => {
+      setAuth: (user: User) => {
         set({
           user,
-          token,
           isAuthenticated: true,
           isLoading: false,
         });
@@ -46,7 +41,6 @@ export const useAuthStore = create<AuthState>()(
       clearAuth: () => {
         set({
           user: null,
-          token: null,
           isAuthenticated: false,
           isLoading: false,
         });
@@ -58,60 +52,27 @@ export const useAuthStore = create<AuthState>()(
 
       logout: async () => {
         try {
-          // Call logout API to clear server-side cookie
-          await fetch('/api/auth/logout', {
-            method: 'POST',
-          });
+          await clientLogout();
+          get().clearAuth();
         } catch (error) {
-          console.error('Logout API call failed:', error);
-        } finally {
-          // Clear local state regardless of API call result
+          console.error('Logout failed:', error);
           get().clearAuth();
         }
-      },
-
-      getAuthHeaders: () => {
-        const token = get().token;
-        return token ? { Authorization: `Bearer ${token}` } : {};
       },
 
       checkAuthStatus: async () => {
         set({ isLoading: true });
         
         try {
-          // Check if we have a stored token
-          const currentState = get();
-          if (!currentState.token) {
-            set({ isLoading: false });
-            return;
-          }
-
-          // Validate the token by calling the user API
-          const response = await fetch('/api/user/me', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${currentState.token}`,
-            },
-          });
-
-          if (!response.ok) {
-            // Token is invalid, clear auth
-            get().clearAuth();
-            return;
-          }
-
-          const result = await response.json();
+          const { user, isAuthenticated } = await checkAuthFromCookie();
           
-          if (result.success && result.data?.user) {
-            // Token is valid, update user data
+          if (isAuthenticated && user) {
             set({
-              user: result.data.user,
+              user,
               isAuthenticated: true,
               isLoading: false,
             });
           } else {
-            // Invalid response, clear auth
             get().clearAuth();
           }
         } catch (error) {
@@ -124,7 +85,6 @@ export const useAuthStore = create<AuthState>()(
       name: 'auth-storage',
       partialize: (state) => ({
         user: state.user,
-        token: state.token,
         isAuthenticated: state.isAuthenticated,
       }),
     }
@@ -132,14 +92,12 @@ export const useAuthStore = create<AuthState>()(
   : // Server-side fallback without persistence
     (set, get) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
       isLoading: false,
 
-      setAuth: (user: User, token: string) => {
+      setAuth: (user: User) => {
         set({
           user,
-          token,
           isAuthenticated: true,
           isLoading: false,
         });
@@ -148,7 +106,6 @@ export const useAuthStore = create<AuthState>()(
       clearAuth: () => {
         set({
           user: null,
-          token: null,
           isAuthenticated: false,
           isLoading: false,
         });
@@ -164,10 +121,6 @@ export const useAuthStore = create<AuthState>()(
 
       checkAuthStatus: async () => {
         set({ isLoading: false });
-      },
-
-      getAuthHeaders: () => {
-        return {};
       },
     })
 );

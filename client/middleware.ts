@@ -75,6 +75,7 @@ function isPublicRoute(pathname: string): boolean {
     '/signup',
     '/api/auth/login',
     '/api/auth/signup',
+    '/api/auth/google',
     '/api/auth/otp',
     '/_next',
     '/favicon.ico',

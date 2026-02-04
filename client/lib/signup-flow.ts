@@ -199,6 +199,61 @@ export function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+// Generate unique username from display name
+export async function generateUsername(displayName: string): Promise<string> {
+  try {
+    const prisma = await import('@/lib/prisma').then(m => m.default);
+    
+    // Clean the display name to create a base username
+    let baseUsername = displayName
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '')
+      .substring(0, 15);
+    
+    // If the cleaned name is too short, add a fallback
+    if (baseUsername.length < 3) {
+      baseUsername = 'user';
+    }
+    
+    // Check if the base username is available
+    const existingUser = await prisma.user.findUnique({
+      where: { username: baseUsername }
+    });
+    
+    if (!existingUser) {
+      return baseUsername;
+    }
+    
+    // If not available, try with numbers
+    let counter = 1;
+    let candidateUsername = baseUsername;
+    
+    while (counter < 1000) { // Prevent infinite loop
+      candidateUsername = `${baseUsername}${counter}`;
+      
+      const existingWithNumber = await prisma.user.findUnique({
+        where: { username: candidateUsername }
+      });
+      
+      if (!existingWithNumber) {
+        return candidateUsername;
+      }
+      
+      counter++;
+    }
+    
+    // Fallback to random string if all attempts fail
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    return `user_${randomSuffix}`;
+    
+  } catch (error) {
+    console.error('Error generating username:', error);
+    // Fallback to random username
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    return `user_${randomSuffix}`;
+  }
+}
+
 /* 
 USAGE EXAMPLE IN REACT COMPONENT:
 

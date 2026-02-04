@@ -100,6 +100,12 @@ export function SignupForm() {
     }
   };
 
+  // Handle Google OAuth signup
+  const handleGoogleSignup = () => {
+    if (loading) return;
+    window.location.href = '/api/auth/google';
+  };
+
   // Verify OTP
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,7 +241,12 @@ export function SignupForm() {
           <p className="text-sm text-gray-500">Join the open space.</p>
         </div>
 
-        <Button variant="outline" className="w-full h-12 rounded-2xl border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium shadow-sm">
+        <Button 
+          onClick={handleGoogleSignup}
+          variant="outline" 
+          className="w-full h-12 rounded-2xl border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium shadow-sm"
+          disabled={loading}
+        >
           <Chrome className="w-5 h-5 mr-3 text-red-500" />
           Continue with Google
         </Button>

@@ -27,7 +27,7 @@ interface UserDetails {
 export default function UserProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { user, logout, isAuthenticated, getAuthHeaders } = useAuthStore();
+  const { user, logout, isAuthenticated } = useAuthStore();
   const router = useRouter();
   
   // Unwrap the Promise-based params using React.use()
@@ -47,9 +47,9 @@ export default function UserProfilePage({ params }: { params: Promise<{ username
     try {
       const response = await fetch('/api/user/me', {
         method: 'GET',
+        credentials: 'include', // Use cookies instead of Authorization header
         headers: {
           'Content-Type': 'application/json',
-          ...getAuthHeaders(),
         },
       });
 
