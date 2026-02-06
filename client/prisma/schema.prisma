@@ -12,3 +12,38 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+
+model User {
+  // --- Identity ---
+  id            String    @id @default(uuid())
+  googleId      String?   @unique @map("google_id")
+  fullName      String    @map("full_name")
+  email         String    @unique
+  username      String    @unique
+  passwordHash  String?    @map("password_hash")
+  
+  // --- Profile ---
+  avatar        String?
+  bio           String?
+  
+  // --- E2E Security ---
+  // The Public Key is mandatory. A user cannot exist without an encryption identity.
+  publicKey     String?    @map("public_key")
+  refreshToken  String?    @map("refresh_token")
+  
+  // Optional encrypted backup of their private key
+  keyBackup     String?   @map("key_backup")
+
+  // --- Metadata ---
+  isVerified    Boolean   @default(false) @map("is_verified")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // --- Relationships (Future Proofing) ---
+  // messagesSent     Message[]  @relation("sender")
+  // conversations    ConversationMember[]
+
+  @@map("users") // Table name should be plural lowercase
+}
