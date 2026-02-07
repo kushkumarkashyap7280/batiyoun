@@ -5,39 +5,33 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#09090b",
   "theme_color": "#09090b",
   "categories": ["social", "communication", "productivity"],
   "lang": "en-US",
   "dir": "ltr",
-  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
   "icons": [
     {
-      "src": "/icon-192.svg",
+      "src": "/icon",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-maskable-192.svg",
-      "sizes": "192x192",
+      "src": "/favicon.svg",
+      "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icon-maskable-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
+  "screenshots": [],
   "shortcuts": [
     {
       "name": "New Chat",
@@ -46,46 +40,11 @@
       "url": "/",
       "icons": [
         {
-          "src": "/icon-192.svg",
+          "src": "/icon",
           "sizes": "192x192",
-          "type": "image/svg+xml"
+          "type": "image/png"
         }
       ]
-    },
-    {
-      "name": "Settings",
-      "short_name": "Settings",
-      "description": "Manage your account and privacy settings",
-      "url": "/settings",
-      "icons": [
-        {
-          "src": "/icon-192.svg",
-          "sizes": "192x192",
-          "type": "image/svg+xml"
-        }
-      ]
-    }
-  ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url",
-      "files": [
-        {
-          "name": "media",
-          "accept": ["image/*", "video/*", "audio/*", ".pdf", ".doc", ".docx"]
-        }
-      ]
-    }
-  },
-  "protocol_handlers": [
-    {
-      "protocol": "web+batiyoun",
-      "url": "/?action=%s"
     }
   ],
   "prefer_related_applications": false,

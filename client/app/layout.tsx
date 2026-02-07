@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata ,Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeInitializer } from "@/components/ThemeInitializer";
@@ -14,26 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Batiyoun - Secure Messaging",
-  description: "End-to-end encrypted messaging. Offline-first architecture. No compromises.",
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Batiyoun",
-  },
-  formatDetection: {
-    telephone: false,
-  },
-  themeColor: "#0c4a6e",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-};
+export const metadata = {
+  title: 'My App',
+}
+
+// Add this new export separately
+export const viewport = {
+  themeColor: 'black',
+  width: 'device-width',
+  initialScale: 1,
+}
 
 export default function RootLayout({
   children,
