@@ -69,3 +69,16 @@ export const verifyOtpSchema = z.object({
 
 
 export type VerifyOtpData = z.infer<typeof verifyOtpSchema>;
+
+
+
+export const ZustandUserSchema = z.object({
+  id: z.string(),
+  username: UsernameSchema.shape.username,
+  email: EmailSchema.shape.email,
+  fullName: z.string(),
+  avatar: z.string().optional(),
+  isAdmin: z.boolean(),
+});
+
+export type ZustandUser = z.infer<typeof ZustandUserSchema>;

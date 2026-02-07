@@ -3,7 +3,7 @@ import { env } from "@/config/env";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import { generateAccessToken, generateRefreshToken } from "@/utils/tokens";
-import { TokenPayload, ApiError } from "@batiyoun/common";
+import { TokenPayload, ApiError, UsernameSchema } from "@batiyoun/common";
 
 interface GoogleTokenResponse {
   access_token: string;
@@ -29,15 +29,17 @@ export async function GET(req: Request) {
   const code = url.searchParams.get("code");
   const error = url.searchParams.get("error");
 
+  const originUrl = url.origin;
+
   if (error) {
     return NextResponse.redirect(
-      `${env.NEXTAUTH_URL || "http://localhost:3000"}/login?error=${error}`
+      `${originUrl}/login?error=${error}`
     );
   }
 
   if (!code) {
     return NextResponse.redirect(
-      `${env.NEXTAUTH_URL || "http://localhost:3000"}/login?error=no_code`
+      `${originUrl}/login?error=no_code`
     );
   }
 
@@ -103,7 +105,9 @@ export async function GET(req: Request) {
           },
         });
       } else {
-        const username = googleUser.email.split("@")[0] + "_" + Math.random().toString(36).substring(2, 7);
+        const emailPrefix = googleUser.email.split("@")[0].replace(/[^a-zA-Z0-9_]/g, "");
+        const timestamp = Date.now().toString(36);
+        const username = (emailPrefix || "user") + "_" + timestamp;
         
         user = await prisma.user.create({
           data: {
@@ -129,7 +133,7 @@ export async function GET(req: Request) {
       id: user.id,
       email: user.email,
       username: user.username,
-      isAdmin: false,
+      isAdmin: user.isAdmin,
     };
 
     const accessToken = await generateAccessToken(tokenPayload);
@@ -163,12 +167,12 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.redirect(
-      `${env.NEXTAUTH_URL || "http://localhost:3000"}/`
+      `${originUrl}/`
     );
   } catch (error) {
     console.error("Google OAuth callback error:", error);
     return NextResponse.redirect(
-      `${env.NEXTAUTH_URL || "http://localhost:3000"}/login?error=oauth_failed`
+      `${originUrl}/login?error=oauth_failed`
     );
   }
 }
