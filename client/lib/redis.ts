@@ -19,58 +19,75 @@ export async function setOtpWithRateLimit(email: string, otp: string) {
   const limitKey = REDIS_KEYS.OTP_LIMIT(email);
   const otpKey = REDIS_KEYS.OTP(email);
 
-  const attempts = await redis.get<number>(limitKey);
+  try {
+    const attempts = await redis.get<number>(limitKey);
 
-  if (attempts && attempts >= 3) {
-    const ttl = await redis.ttl(limitKey); // Seconds remaining
-    const minutesLeft = Math.ceil(ttl / 60);
+    if (attempts && attempts >= 3) {
+      const ttl = await redis.ttl(limitKey);
+      const minutesLeft = Math.ceil(ttl / 60);
+      const attemptsUsed = attempts;
+      
+      throw new ApiError(
+        `Maximum OTP requests (${attemptsUsed}/3) reached. Please try again in ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}.`, 
+        429
+      );
+    }
+
+    const pipeline = redis.pipeline();
+    pipeline.set(otpKey, otp, { ex: 300 }); // OTP expires in 5 minutes
+    pipeline.incr(limitKey);
+
+    const results = await pipeline.exec();
     
-    throw new ApiError(
-      `Limit exceeded. Please try again in ${minutesLeft} minutes.`, 
-      429
-    );
+    const newCount = results[1] as number;
+    if (newCount === 1) {
+      await redis.expire(limitKey, 3600); // Rate limit resets after 1 hour
+    }
+
+    return true;
+  } catch (error) {
+    // Re-throw ApiError (rate limit)
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    // Redis connection error
+    throw new ApiError("Failed to process OTP. Please try again.", 500);
   }
-
-  const pipeline = redis.pipeline();
-
-  pipeline.set(otpKey, otp, { ex: 300 });
-  pipeline.incr(limitKey);
-
-  const results = await pipeline.exec();
-  
-  const newCount = results[1] as number;
-  if (newCount === 1) {
-    await redis.expire(limitKey, 3600);
-  }
-
-  return true;
 }
 
 export async function verifyOtp(email: string, inputOtp: string) {
   const otpKey = REDIS_KEYS.OTP(email);
   const limitKey = REDIS_KEYS.OTP_LIMIT(email);
 
-  let storedOtp = await redis.get<string>(otpKey);
-  // conver to string if not null
-  if (storedOtp) {
-    storedOtp = storedOtp.toString()
-  }
+  try {
+    const storedOtp = await redis.get<string>(otpKey);
 
-  if (!storedOtp) {
-    throw new ApiError("OTP expired. Please request a new one.", 400);
-  }
-  console.log("Stored OTP:", storedOtp ,"type of ", typeof storedOtp, "Input OTP:", inputOtp, "type of", typeof  inputOtp);
-  
-  if (storedOtp !== inputOtp) {
-    throw new ApiError("Invalid OTP code.", 400);
-  }
+    if (!storedOtp) {
+      throw new ApiError("OTP has expired or not found. Please request a new one.", 400);
+    }
 
-  await Promise.all([
-    redis.del(otpKey),
-    redis.del(limitKey)
-  ]);
+    // Convert both to strings and trim any whitespace
+    const storedOtpStr = String(storedOtp).trim();
+    const inputOtpStr = String(inputOtp).trim();
+    
+    if (storedOtpStr !== inputOtpStr) {
+      throw new ApiError("Invalid OTP code. Please check and try again.", 400);
+    }
 
-  return true;
+    await Promise.all([
+      redis.del(otpKey),
+      redis.del(limitKey)
+    ]);
+
+    return true;
+  } catch (error) {
+    // Re-throw ApiError (OTP validation errors)
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    // Redis connection error
+    throw new ApiError("Failed to verify OTP. Please try again.", 500);
+  }
 }
 
 export default redis;

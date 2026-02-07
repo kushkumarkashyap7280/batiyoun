@@ -1,8 +1,7 @@
 import { routeWrapper } from "@/lib/api";
 import { setOtpWithRateLimit } from "@/lib/redis";
-import { NextResponse } from "next/server";
 import { generateOtp } from "@/utils/otp";
-import { SendOtpData ,sendOtpSchema ,OtpType} from "@batiyoun/common";
+import { SendOtpData ,sendOtpSchema, ApiError} from "@batiyoun/common";
 import { sendOtpEmail } from "@/lib/resend";
 import prisma from "@/lib/prisma";
 
@@ -13,26 +12,36 @@ export const POST = routeWrapper(async (request: Request) => {
     if (type === "SIGNUP") {
         const existingUser = await prisma.user.findUnique({ where: { email } })
         if (existingUser) {
-            return NextResponse.json({ success: false, message: "Email already in use" }, { status: 400 })
+            throw new ApiError("This email is already registered. Please login instead.", 400)
         }
     } else if (type === "RESET_PASSWORD" || type === "FORGOT_PASSWORD") {
         const existingUser = await prisma.user.findUnique({ where: { email } })
         if (!existingUser) {
-            return NextResponse.json({ success: false, message: "No user found with this email" }, { status: 404 })
+            throw new ApiError("No account found with this email address. Please sign up first.", 404)
         }
     }
  
     const otp = generateOtp()
 
-    const isOtpSet = await setOtpWithRateLimit(email, otp);
+    try {
+        await setOtpWithRateLimit(email, otp);
+    } catch (error) {
+        // Re-throw if it's already an ApiError (rate limit)
+        if (error instanceof ApiError) {
+            throw error;
+        }
+        throw new ApiError("Failed to generate OTP. Please try again.", 500);
+    }
 
-    if (isOtpSet) {
-        await sendOtpEmail( otp,email, type);
+    try {
+        await sendOtpEmail(otp, email, type);
+    } catch (error) {
+        throw new ApiError("Failed to send OTP email. Please check your email address and try again.", 500);
     }
 
     return {
         success: true,
-        message: "OTP sent successfully",
+        message: "OTP sent successfully to your email",
     }
 
 });

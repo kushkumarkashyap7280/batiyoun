@@ -26,25 +26,108 @@ export function processError(error: unknown) {
   if (error instanceof ApiError) {
     return {
       status: error.status,
-      body: { error: error.message },
+      body: { 
+        success: false,
+        message: error.message 
+      },
     };
   }
 
   // 2. Handle Zod Validation Errors (Zod threw these automatically)
   if (error instanceof z.ZodError) {
+    // Get the first error message for better UX
+    const firstError = error.issues[0];
+    const fieldName = firstError.path.join('.');
+    const message = firstError.message;
+    
     return {
-      status: 400, // Validation is always 400 Bad Request
+      status: 400,
       body: { 
-        error: "Validation Failed", 
-        details: error.flatten().fieldErrors // Returns { email: ["Invalid email"], ... }
+        success: false,
+        message: fieldName ? `${fieldName}: ${message}` : message,
+        errors: error.flatten().fieldErrors // Still include all errors for debugging
       },
     };
   }
 
-  // 3. Handle Unknown Crashes
+  // 3. Handle Prisma/Database Errors
+  if (error && typeof error === 'object' && 'code' in error) {
+    const prismaError = error as any;
+    
+    // Prisma error codes
+    if (prismaError.code === 'P2002') {
+      const target = prismaError.meta?.target?.[0] || 'field';
+      return {
+        status: 409,
+        body: { 
+          success: false,
+          message: `This ${target} is already taken. Please choose another one.` 
+        },
+      };
+    }
+    
+    if (prismaError.code === 'P2025') {
+      return {
+        status: 404,
+        body: { 
+          success: false,
+          message: 'Record not found. The requested resource does not exist.' 
+        },
+      };
+    }
+    
+    if (prismaError.code === 'P2003') {
+      return {
+        status: 400,
+        body: { 
+          success: false,
+          message: 'Invalid reference. The related record does not exist.' 
+        },
+      };
+    }
+
+    if (prismaError.code?.startsWith('P')) {
+      return {
+        status: 500,
+        body: { 
+          success: false,
+          message: 'Database operation failed. Please try again.' 
+        },
+      };
+    }
+  }
+
+  // 4. Handle JWT/Token Errors
+  if (error instanceof Error) {
+    if (error.message.includes('jwt') || error.message.includes('token')) {
+      return {
+        status: 401,
+        body: { 
+          success: false,
+          message: 'Invalid or expired authentication token. Please log in again.' 
+        },
+      };
+    }
+
+    // Handle generic errors with their message
+    if (error.message) {
+      return {
+        status: 500,
+        body: { 
+          success: false,
+          message: `Server error: ${error.message}` 
+        },
+      };
+    }
+  }
+
+  // 5. Handle Unknown Crashes
   console.error("💥 Uncaught Error:", error);
   return {
     status: 500,
-    body: { error: "Internal Server Error" },
+    body: { 
+      success: false,
+      message: 'An unexpected error occurred. Please try again later.' 
+    },
   };
 }

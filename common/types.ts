@@ -28,7 +28,7 @@ export type PasswordData = z.infer<typeof PasswordSchema>;
 
 export const completeSignupUserSchema = z.object({
   username: UsernameSchema.shape.username,
-  fullName: z.string().min(1, "Full name cannot be empty"),
+  fullName: z.string().nonempty({ message: "Full name is required" }).min(1, { message: "Full name cannot be empty" }),
   bio: z.string().max(160, "Bio cannot exceed 160 characters").optional(),
   password: PasswordSchema.shape.password,
 });
@@ -37,10 +37,10 @@ export type CompleteSignupUserData = z.infer<typeof completeSignupUserSchema>;
 
 
 export const tokenPayloadSchema = z.object({
-  id: z.string(),
+  id: z.string().nonempty({ message: "User ID is required" }),
   email: EmailSchema.shape.email,
   username: UsernameSchema.shape.username,
-  isAdmin: z.boolean(),
+  isAdmin: z.boolean({ message: "Admin status is required" }),
 })
 
 export type TokenPayload = z.infer<typeof tokenPayloadSchema>
@@ -49,21 +49,23 @@ export type TokenPayload = z.infer<typeof tokenPayloadSchema>
 
 
 
-export const otpTypeSchema = z.enum(["SIGNUP", "RESET_PASSWORD", "FORGOT_PASSWORD"]);
+export const otpTypeSchema = z.enum(["SIGNUP", "RESET_PASSWORD", "FORGOT_PASSWORD"], {
+  message: "OTP type must be SIGNUP, RESET_PASSWORD, or FORGOT_PASSWORD"
+});
 
 
 export type OtpType = z.infer<typeof otpTypeSchema>;
 
 export const sendOtpSchema = z.object({
   email: EmailSchema.shape.email,
-  type: otpTypeSchema, // Must be one of the enum values
+  type: otpTypeSchema,
 });
 
 export type SendOtpData = z.infer<typeof sendOtpSchema>;
 
 export const verifyOtpSchema = z.object({
   email: EmailSchema.shape.email,
-  otp: z.string().length(6, "OTP must be 6 digits"),
+  otp: z.string({ message: "OTP is required" }).length(6, "OTP must be exactly 6 digits"),
   type: otpTypeSchema,
 });
 
@@ -73,12 +75,12 @@ export type VerifyOtpData = z.infer<typeof verifyOtpSchema>;
 
 
 export const ZustandUserSchema = z.object({
-  id: z.string(),
+  id: z.string({ message: "User ID is required" }),
   username: UsernameSchema.shape.username,
   email: EmailSchema.shape.email,
-  fullName: z.string(),
-  avatar: z.string().optional(),
-  isAdmin: z.boolean(),
+  fullName: z.string({ message: "Full name is required" }),
+  avatar: z.string().nullable().optional(),
+  isAdmin: z.boolean({ message: "Admin status is required" }),
 });
 
 export type ZustandUser = z.infer<typeof ZustandUserSchema>;

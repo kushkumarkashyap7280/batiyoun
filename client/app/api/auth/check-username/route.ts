@@ -11,12 +11,11 @@ export const POST = routeWrapper(async (request: Request) => {
 
     const existingUser = await prisma.user.findUnique({ where: { username } })
     if (existingUser) {
-        throw new ApiError("Username already taken", 400)
+        throw new ApiError("This username is already taken. Please choose another one.", 400)
     }
-
 
     return {
         success: true,
         message: "Username is available",
-    }
+    };
 });

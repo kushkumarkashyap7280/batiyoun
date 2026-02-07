@@ -2,6 +2,8 @@ import type { Metadata ,Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeInitializer } from "@/components/ThemeInitializer";
+import { AuthVerifier } from "@/components/AuthVerifier";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -74,6 +76,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page dark:bg-slate-950 text-default dark:text-white transition-theme`}
       >
         <ThemeInitializer />
+        <AuthVerifier />
+        <Toaster richColors position="top-center" />
         {children}
       </body>
     </html>
