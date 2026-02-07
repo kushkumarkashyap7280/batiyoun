@@ -8,6 +8,7 @@ import {
   PasswordSchema,
   TokenPayload,
   ApiError,
+  ZustandUserSchema
 } from "@batiyoun/common";
 import { generateAccessToken, generateRefreshToken } from "@/utils/tokens";
 import { comparePasswords } from "@/utils/hashPassword";
@@ -49,7 +50,7 @@ export const POST = routeWrapper(async (request: Request) => {
     id: user.id,
     email: user.email,
     username: user.username,
-    isAdmin: false,
+    isAdmin: user.isAdmin,
   };
 
   const accessToken = await generateAccessToken(tokenPayload);
@@ -65,9 +66,6 @@ export const POST = routeWrapper(async (request: Request) => {
     },
   });
 
-  if (!isSetTokenSaved) {
-    throw new ApiError("Failed to save refresh token", 500);
-  }
 
   const cookieStore = await cookies();
 
@@ -94,11 +92,6 @@ export const POST = routeWrapper(async (request: Request) => {
   return {
     success: true,
     message: "Login successful",
-    user: {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      fullName: user.fullName,
-    },
+    user: ZustandUserSchema.parse(user),
   };
 });

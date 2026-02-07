@@ -1,0 +1,41 @@
+<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradMask512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradMask512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Dark background (full bleed for maskable) -->
+  <rect width="512" height="512" fill="#09090b"/>
+  
+  <!-- Blue chat bubble (left/incoming) - shifted inward for safe zone -->
+  <g>
+    <path d="M 133 173 Q 133 138 168 138 L 267 138 Q 302 138 302 173 L 302 245 Q 302 280 267 280 L 181 280 L 147 315 L 168 280 Q 133 280 133 245 Z" 
+          fill="url(#blueGradMask512)"/>
+    <!-- Message lines -->
+    <line x1="160" y1="186" x2="275" y2="186" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+    <line x1="160" y1="211" x2="253" y2="211" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+    <line x1="160" y1="236" x2="235" y2="236" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Green chat bubble (right/outgoing) - shifted inward for safe zone -->
+  <g>
+    <path d="M 210 232 Q 210 197 245 197 L 344 197 Q 379 197 379 232 L 379 304 Q 379 339 344 339 L 258 339 L 224 374 L 245 339 Q 210 339 210 304 Z" 
+          fill="url(#greenGradMask512)"/>
+    <!-- Message lines -->
+    <line x1="237" y1="245" x2="352" y2="245" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+    <line x1="237" y1="270" x2="330" y2="270" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+    <line x1="237" y1="295" x2="312" y2="295" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Lock/security indicator -->
+  <g transform="translate(373, 138)">
+    <circle cx="0" cy="0" r="28" fill="#10b981"/>
+    <path d="M -7 -6 L 0 3 L 9 -9" stroke="#09090b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>

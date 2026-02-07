@@ -23,6 +23,7 @@ model User {
   email         String    @unique
   username      String    @unique
   passwordHash  String?    @map("password_hash")
+  isAdmin       Boolean   @default(false) @map("is_admin")
   
   // --- Profile ---
   avatar        String?

@@ -4,8 +4,7 @@ import prisma from "@/lib/prisma";
 import { completeSignupUserSchema ,CompleteSignupUserData} from "@batiyoun/common";
 import { ApiError } from "@batiyoun/common";
 import { cookies } from "next/headers";
-
-import { env } from "@/config/env";
+import { ZustandUserSchema } from "@batiyoun/common";
 import { verifyVerifyToken } from "@/utils/tokens";
 
 export const POST = routeWrapper(async (request: Request) => {
@@ -42,6 +41,7 @@ export const POST = routeWrapper(async (request: Request) => {
             fullName,
             bio,
             passwordHash: hashedPassword,
+            isVerified: true,
         }
     })
 
@@ -54,5 +54,6 @@ export const POST = routeWrapper(async (request: Request) => {
     return {
         success: true,
         message: "User created successfully",
-    }
+        user: ZustandUserSchema.parse(user),
+    };
 });
