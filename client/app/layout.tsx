@@ -17,6 +17,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Batiyoun - Secure Messaging",
   description: "End-to-end encrypted messaging. Offline-first architecture. No compromises.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Batiyoun",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: "#0c4a6e",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({
