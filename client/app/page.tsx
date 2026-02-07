@@ -123,33 +123,43 @@ export default function Home() {
             className="text-center mb-16 space-y-4"
           >
             <h2 className="font-heading font-bold text-4xl md:text-5xl">
-              Why Batiyoun is Different
+              What Makes Batiyoun Special
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Built for transparency. No compromises. No marketing BS.
+              High encryption. Real-time chatting. One-on-one conversations. As we go further, more features coming.
             </p>
           </motion.div>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="relative">
+            {/* Connecting line - hidden on mobile */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-green-500/30 to-transparent -translate-y-1/2" />
+            
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative"
+            >
             {/* Feature 1 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <Lock className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <Lock className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">Zero Knowledge</h3>
-                <p className="text-muted-foreground">
-                  We literally cannot read your messages. If a government asked for your data, we would hand them a blank hard drive.
+                <h3 className="font-bold text-lg md:text-xl">High Encryption</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  End-to-end encrypted with RSA-OAEP and AES-256-GCM. Your messages are locked tight.
                 </p>
               </div>
             </motion.div>
@@ -157,16 +167,22 @@ export default function Home() {
             {/* Feature 2 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <Zap className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">Offline First</h3>
-                <p className="text-muted-foreground">
-                  The network is optional. Your data lives on your device. Works perfectly on a plane, in a subway, or anywhere.
+                <h3 className="font-bold text-lg md:text-xl">Real-time Chatting</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  Instant messaging with WebSocket and Socket.io. Messages arrive in milliseconds.
                 </p>
               </div>
             </motion.div>
@@ -174,16 +190,22 @@ export default function Home() {
             {/* Feature 3 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <Code2 className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">Open Protocol</h3>
-                <p className="text-muted-foreground">
-                  Powered by kush-e2e. Audit our code on GitHub. No black boxes or closed algorithms.
+                <h3 className="font-bold text-lg md:text-xl">One-on-One Chat</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  Direct private conversations. No group leaks. Just you and the person you're talking to.
                 </p>
               </div>
             </motion.div>
@@ -191,16 +213,22 @@ export default function Home() {
             {/* Feature 4 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <MessageSquare className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">No Ads</h3>
-                <p className="text-muted-foreground">
-                  Just a clean interface. No tracking pixels. No ad networks. Just the app you paid for.
+                <h3 className="font-bold text-lg md:text-xl">Offline First</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  IndexedDB storage keeps your chats on your device. Works perfectly even without internet.
                 </p>
               </div>
             </motion.div>
@@ -208,16 +236,22 @@ export default function Home() {
             {/* Feature 5 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.8 }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <Code2 className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">Tested & Verified</h3>
-                <p className="text-muted-foreground">
-                  Security audits from independent researchers. Our code is battle-tested and production-ready.
+                <h3 className="font-bold text-lg md:text-xl">Open Source</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  Every line of code is on GitHub. Audit it yourself. No secrets, no surprises.
                 </p>
               </div>
             </motion.div>
@@ -225,20 +259,27 @@ export default function Home() {
             {/* Feature 6 */}
             <motion.div
               variants={fadeInUp}
-              className="group relative p-8 rounded-lg border border-border bg-card hover:border-green-500/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/5 transition-all" />
-              <div className="relative space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-950 flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-green-600" />
+              <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
+              <motion.div 
+                className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+              />
+              <div className="relative space-y-3 md:space-y-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-100 dark:bg-green-950 flex items-center justify-center ring-4 ring-green-500/10 group-hover:ring-green-500/30 transition-all">
+                  <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                 </div>
-                <h3 className="font-bold text-xl">Lightning Fast</h3>
-                <p className="text-muted-foreground">
-                  Optimized for speed. Send and receive messages instantly with zero latency overhead.
+                <h3 className="font-bold text-lg md:text-xl">As We Go Further</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  File sharing, voice calls, group chats coming soon. We're building this in public.
                 </p>
               </div>
             </motion.div>
           </motion.div>
+          </div>
         </div>
       </section>
 

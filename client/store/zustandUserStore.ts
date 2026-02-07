@@ -16,7 +16,7 @@ export const useUserStore = create<UserState>((set) => ({
   user: null,
   isAuthenticated: false,
   isLoading: true,
-  isDark: false,
+  isDark: false, 
 
   setUser: (user) => set({ 
     user: ZustandUserSchema.parse(user),
@@ -30,20 +30,19 @@ export const useUserStore = create<UserState>((set) => ({
     isLoading: false 
   }),
 
-  toggleTheme: () => {
-    set((state) => {
-      const newValue = !state.isDark;
-      const root = document.documentElement;
-      
-      if (newValue) {
-        root.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        root.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-      
-      return { isDark: newValue };
-    });
-  },
+  toggleTheme: () => set((state) => {
+    const newIsDark = !state.isDark;
+    const root = document.documentElement;
+    
+    // Update DOM & Storage immediately
+    if (newIsDark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+    
+    return { isDark: newIsDark };
+  }),
 }));

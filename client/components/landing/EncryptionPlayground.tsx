@@ -1,299 +1,152 @@
+
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, RefreshCw, Lock, Unlock } from 'lucide-react';
-
-interface KeyPair {
-  publicKey: string;
-  privateKey: string;
-  isVisible: boolean;
-}
+import { motion } from 'framer-motion';
+import { ArrowDown, ArrowRight, Copy, Github, KeyRound, Package, ShieldCheck, TerminalSquare } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function EncryptionPlayground() {
-  const [keyPair, setKeyPair] = useState<KeyPair>({
-    publicKey: '',
-    privateKey: '',
-    isVisible: false,
-  });
-  const [plaintext, setPlaintext] = useState('Hello, world!');
-  const [ciphertext, setCiphertext] = useState('');
   const [copied, setCopied] = useState(false);
 
-  const generateKeys = async () => {
-    // Simulate key generation (in reality, this would use kush-e2e or similar)
-    const mockPublicKey = `-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2X5YZ8qL...
------END PUBLIC KEY-----`;
-
-    const mockPrivateKey = `-----BEGIN PRIVATE KEY-----
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDZ
-flhnyovl2X5YZ8qL2X5YZ8qL2X5YZ8qL...
------END PRIVATE KEY-----`;
-
-    setKeyPair({
-      publicKey: mockPublicKey,
-      privateKey: mockPrivateKey,
-      isVisible: false,
-    });
-
-    // Simulate encryption
-    setCiphertext(`0x${Array(64)
-      .fill(0)
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join('')}`);
-  };
-
-  const togglePrivateKeyVisibility = () => {
-    setKeyPair((prev) => ({
-      ...prev,
-      isVisible: !prev.isVisible,
-    }));
-  };
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('npm install kush-e2e');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
     <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
-      className="space-y-8"
+      transition={{ duration: 0.6 }}
+      className="space-y-6"
     >
-      {/* Interactive Demo Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left: Key Generation */}
-        <motion.div
-          variants={itemVariants}
-          className="space-y-4"
-        >
-          <div className="bg-page border border-line rounded-2xl shadow-lg p-8 space-y-6 transition-theme">
-            <div className="flex items-center gap-3">
-              <Lock className="w-6 h-6 text-green-600" />
-              <h3 className="font-heading font-bold text-xl text-default">
-                Key Pair Generation
-              </h3>
-            </div>
-
-            {keyPair.publicKey ? (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key="keys-visible"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="space-y-4"
-                >
-                  {/* Public Key */}
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-muted">
-                      Public Key (Safe to share)
-                    </label>
-                    <div className="relative group">
-                      <pre className="bg-surface p-4 rounded-lg text-xs font-mono text-muted overflow-x-auto max-h-32">
-                        {keyPair.publicKey.substring(0, 100)}...
-                      </pre>
-                      <button
-                        onClick={() => copyToClipboard(keyPair.publicKey)}
-                        className="absolute top-2 right-2 p-2 bg-green-600 hover:bg-green-700 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Copy public key"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Private Key */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <label className="block text-sm font-semibold text-muted">
-                        Private Key (Never share!)
-                      </label>
-                      <button
-                        onClick={togglePrivateKeyVisibility}
-                        className="text-xs px-3 py-1 bg-card text-muted rounded hover:bg-tertiary transition-colors flex items-center gap-1"
-                      >
-                        {keyPair.isVisible ? (
-                          <>
-                            <Unlock className="w-3 h-3" /> Hide
-                          </>
-                        ) : (
-                          <>
-                            <Lock className="w-3 h-3" /> Reveal
-                          </>
-                        )}
-                      </button>
-                    </div>
-                    <div className="relative group">
-                      <pre className="bg-surface p-4 rounded-lg text-xs font-mono text-muted overflow-x-auto max-h-32">
-                        {keyPair.isVisible
-                          ? keyPair.privateKey.substring(0, 100) + '...'
-                          : '••••••••••••••••••••••••••••••••••••••••••••••'}
-                      </pre>
-                      {keyPair.isVisible && (
-                        <button
-                          onClick={() => copyToClipboard(keyPair.privateKey)}
-                          className="absolute top-2 right-2 p-2 bg-green-600 hover:bg-green-700 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
-                          title="Copy private key"
-                        >
-                          <Copy className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={generateKeys}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                  >
-                    <RefreshCw className="w-4 h-4" />
-                    Generate New Pair
-                  </motion.button>
-                </motion.div>
-              </AnimatePresence>
-            ) : (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={generateKeys}
-                className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-accent text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Generate Keys
-              </motion.button>
-            )}
+      <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 space-y-6 shadow-lg min-w-0">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 dark:bg-green-950">
+            <Package className="h-6 w-6 text-green-600" />
           </div>
-        </motion.div>
+          <div>
+            <h3 className="font-heading font-bold text-xl">kush-e2e</h3>
+            <p className="text-sm text-muted-foreground">End-to-end encryption toolkit for modern apps</p>
+          </div>
+        </div>
 
-        {/* Right: Encryption Demo */}
-        <motion.div
-          variants={itemVariants}
-          className="space-y-4"
-        >
-          <div className="bg-page border border-line rounded-2xl shadow-lg p-8 space-y-6 transition-theme">
-            <div className="flex items-center gap-3">
-              <Unlock className="w-6 h-6 text-green-600" />
-              <h3 className="font-heading font-bold text-xl text-default">
-                Encryption in Action
-              </h3>
+        <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm text-muted-foreground wrap-break-word">
+          Use kush-e2e to generate identities, derive shared session keys, and encrypt messages directly in the browser.
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-3 min-w-0">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <TerminalSquare className="h-4 w-4 text-green-600" />
+              Install
             </div>
-
-            <div className="space-y-4">
-              {/* Plaintext */}
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-muted">
-                  Message
-                </label>
-                <textarea
-                  value={plaintext}
-                  onChange={(e) => setPlaintext(e.target.value)}
-                  className="w-full p-4 border border-line rounded-lg bg-surface text-default placeholder-text-subtle focus:outline-none focus:ring-2 focus:ring-green-600 transition-theme"
-                  rows={3}
-                  placeholder="Type something to encrypt..."
-                />
-              </div>
-
-              {/* Ciphertext */}
-              {ciphertext && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-2"
-                >
-                  <label className="block text-sm font-semibold text-muted">
-                    Encrypted Message
-                  </label>
-                  <div className="relative group">
-                    <pre className="bg-surface p-4 rounded-lg text-xs font-mono text-accent-light overflow-x-auto wrap-break-word max-h-24">
-                      {ciphertext}
-                    </pre>
-                    <button
-                      onClick={() => copyToClipboard(ciphertext)}
-                      className="absolute top-2 right-2 p-2 bg-green-600 hover:bg-green-700 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
-                      title="Copy encrypted text"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Encryption Status */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg space-y-2"
-              >
-                <div className="flex items-center gap-2 text-sm text-green-700 dark:text-green-300">
-                  <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
-                  <span>Encryption: Ready</span>
-                </div>
-                <div className="text-xs text-green-600 dark:text-green-400 space-y-1">
-                  <div>✓ Encrypted on device (no server transmission)</div>
-                  <div>✓ AES-256-GCM algorithm</div>
-                  <div>✓ Zero-knowledge architecture</div>
-                </div>
-              </motion.div>
-
-              {keyPair.publicKey && (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    // Simulate encryption when button is clicked
-                    if (plaintext) {
-                      setCiphertext(`0x${Array(64)
-                        .fill(0)
-                        .map(() => Math.floor(Math.random() * 16).toString(16))
-                        .join('')}`);
-                    }
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                >
-                  Encrypt Message
-                </motion.button>
-              )}
+            <div className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground wrap-break-word whitespace-pre-wrap">
+              npm install kush-e2e
+            </div>
+            <Button type="button" variant="outline" size="sm" className="w-fit" onClick={handleCopy}>
+              <Copy className="mr-2 h-4 w-4" />
+              {copied ? 'Copied' : 'Copy command'}
+            </Button>
+          </div>
+          <div className="space-y-3 min-w-0">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <KeyRound className="h-4 w-4 text-green-600" />
+              Quick usage
+            </div>
+            <div className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground wrap-break-word whitespace-pre-wrap leading-relaxed">
+              const identity = await KushE2E.createIdentity();
+              {'\n'}const sessionKey = await KushE2E.deriveSessionKey(identity.privateKey, peerPublicKey);
+              {'\n'}const encrypted = await KushE2E.encrypt('Hello', sessionKey);
             </div>
           </div>
-        </motion.div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row items-center gap-4">
+          <div className="rounded-lg border border-border bg-background p-4 min-w-0">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <ShieldCheck className="h-4 w-4 text-green-600" />
+              Step-by-step flow
+            </div>
+            <ol className="mt-2 space-y-2 text-xs text-muted-foreground list-decimal list-inside wrap-break-word">
+              <li>User A and User B each generate a public and private key.</li>
+              <li>They share public keys and run a handshake.</li>
+              <li>Each user mixes their private key with the other’s public key.</li>
+              <li>That creates the same session key on both devices.</li>
+              <li>Private keys never leave the browser. No server involved.</li>
+              <li>Messages are encrypted with the session key, and only the intended user can read them.</li>
+              <li>Network observers can see who is sending data, but not the content.</li>
+            </ol>
+          </div>
+          
+          <div className="flex items-center justify-center">
+            <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
+            <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
+          </div>
+
+          <div className="rounded-lg border border-border bg-background p-4 min-w-0 w-full lg:w-auto">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <ShieldCheck className="h-4 w-4 text-green-600" />
+              Identity generation
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 wrap-break-word">
+              Create secure public/private key pairs on-device.
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center">
+            <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
+            <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
+          </div>
+
+          <div className="rounded-lg border border-border bg-background p-4 min-w-0 w-full lg:w-auto">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <ShieldCheck className="h-4 w-4 text-green-600" />
+              Session key derivation
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 wrap-break-word">
+              Perform authenticated key exchange between peers.
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center">
+            <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
+            <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
+          </div>
+
+          <div className="rounded-lg border border-border bg-background p-4 min-w-0 w-full lg:w-auto">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <ShieldCheck className="h-4 w-4 text-green-600" />
+              Message encryption
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 wrap-break-word">
+              Encrypt and decrypt payloads with the shared session key.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button asChild className="bg-green-600 hover:bg-green-700">
+            <a href="https://www.npmjs.com/package/kush-e2e" target="_blank" rel="noopener noreferrer">
+              <Package className="mr-2 h-4 w-4" />
+              npm package
+            </a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="https://github.com/kushkumarkashyap7280/kush-e2e" target="_blank" rel="noopener noreferrer">
+              <Github className="mr-2 h-4 w-4" />
+              GitHub repo
+            </a>
+          </Button>
+        </div>
       </div>
-
-      {/* Status Indicator */}
-      <motion.div
-        variants={itemVariants}
-        className="text-center p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg"
-      >
-        <p className="text-sm font-semibold text-green-700 dark:text-green-300">
-          🔐 This demo runs 100% in your browser. No data is sent to any server.
-        </p>
-      </motion.div>
     </motion.div>
   );
 }
