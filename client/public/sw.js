@@ -1,11 +1,11 @@
 // Service Worker for Batiyoun PWA
-const CACHE_NAME = 'batiyoun-v1';
+const CACHE_NAME = 'batiyoun-v2';
 const urlsToCache = [
   '/',
   '/manifest.json',
   '/icon',
   '/apple-icon',
-  '/favicon.svg'
+  '/favicon.ico'
 ];
 
 // Install event - cache essential files
@@ -32,8 +32,26 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache when offline
+// Fetch event - serve from cache when offline, handle errors gracefully
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  
+  // CRITICAL: Skip service worker entirely for Next.js internals and dev files
+  const skipPaths = [
+    '/_next/',           // Next.js static assets & chunks
+    '/icons/',           // PWA icons that might not exist
+    '/screenshots/',     // PWA screenshots
+    '/_vercel/',         // Vercel internals
+    '/api/',             // API routes should always hit server fresh
+  ];
+  
+  const shouldSkipServiceWorker = skipPaths.some(path => url.pathname.includes(path));
+  
+  if (shouldSkipServiceWorker) {
+    // Let the request pass through without any service worker intervention
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
@@ -41,8 +59,16 @@ self.addEventListener('fetch', (event) => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
-      }
-    )
+        
+        // Try to fetch from network
+        return fetch(event.request).catch((error) => {
+          console.log('Fetch failed for:', event.request.url, error);
+          // Return a basic offline response
+          return new Response('Offline', { 
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
+      })
   );
 });

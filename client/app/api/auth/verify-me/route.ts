@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { routeWrapper } from "@/lib/api";
-import { ApiError } from "@batiyoun/common";
+import { ApiError, ZustandUserSchema } from "@batiyoun/common";
 import { cookies } from "next/headers";
 import { env } from "@/config/env";
 import { tokenPayloadSchema } from "@batiyoun/common";
@@ -16,10 +16,27 @@ export const GET = routeWrapper(async (request: Request) => {
       const payload = await verifyTokenSecret(accessToken, env.ACCESS_TOKEN_SECRET);
       const data = tokenPayloadSchema.parse(payload);
       
+      // Fetch full user data from database
+      const user = await prisma.user.findUnique({
+        where: { id: data.id },
+        select: { 
+          id: true, 
+          email: true, 
+          username: true, 
+          fullName: true,
+          avatar: true,
+          isAdmin: true,
+        } 
+      });
+
+      if (!user) {
+        throw new ApiError("User not found", 404);
+      }
+      
       return {
         success: true,
         message: "User verified",
-        user: data,
+        user: ZustandUserSchema.parse(user),
       };
     } catch (error) {
     }
@@ -39,6 +56,9 @@ export const GET = routeWrapper(async (request: Request) => {
         id: true, 
         email: true, 
         username: true, 
+        fullName: true,
+        avatar: true,
+        isAdmin: true,
         refreshToken: true
       } 
     });
@@ -51,7 +71,7 @@ export const GET = routeWrapper(async (request: Request) => {
       id: user.id,
       email: user.email,
       username: user.username,
-      isAdmin: false,
+      isAdmin: user.isAdmin,
     });
 
     cookieStore.set("access_token", newAccessToken, {
@@ -59,18 +79,13 @@ export const GET = routeWrapper(async (request: Request) => {
       secure: env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
-      maxAge: 15 * 60,
+      maxAge: 60 * 60,  // 1 hour
     });
 
     return {
       success: true,
       message: "Session refreshed",
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        isAdmin: false
-      },
+      user: ZustandUserSchema.parse(user),
     };
 
   } catch (error) {

@@ -1,5 +1,4 @@
 import UserSignupForm from "@/components/auth-components/UserSignupForm";
-import { Navbar } from "@/components/landing/Navbar";
 import Link from "next/link";
 
 export const metadata = {
@@ -10,7 +9,7 @@ export const metadata = {
 function page() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
+    
       
       {/* Background Effects */}
       <div className="fixed inset-0 bg-grid-small-black/[0.1] dark:bg-grid-small-white/[0.05] pointer-events-none -z-10" />

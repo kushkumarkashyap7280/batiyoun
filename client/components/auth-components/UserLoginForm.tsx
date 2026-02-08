@@ -6,9 +6,10 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Loader2, Mail, Lock, Shield, Zap } from 'lucide-react';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useUserStore } from '@/store/zustandUserStore';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -20,6 +21,16 @@ type LoginData = z.infer<typeof loginSchema>;
 function UserLoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setUser, isAuthenticated, user } = useUserStore();
+
+  useEffect(() => {
+    // Redirect to username page when authenticated
+    console.log('[UserLoginForm] useEffect triggered - isAuthenticated:', isAuthenticated, 'user:', user);
+    if (isAuthenticated && user?.username) {
+      console.log('[UserLoginForm] Redirecting to:', `/${user.username}`);
+      router.replace(`/${user.username}`);
+    }
+  }, [isAuthenticated, user, router]);
 
   const {
     register,
@@ -30,6 +41,7 @@ function UserLoginForm() {
   });
 
   const onSubmit = async (data: LoginData) => {
+    console.log('[UserLoginForm] Form submitted with:', data);
     setLoading(true);
     try {
       const response = await fetch('/api/auth/login', {
@@ -39,16 +51,33 @@ function UserLoginForm() {
         body: JSON.stringify(data),
       });
 
+      console.log('[UserLoginForm] API response status:', response.status);
       const result = await response.json();
+      console.log('[UserLoginForm] API response data:', result);
 
       if (response.ok && result.success) {
+        console.log('[UserLoginForm] Login successful, calling setUser with:', result.user);
         toast.success(result.message || 'Welcome back!');
-        // Redirect to user profile or dashboard
-        router.push('/'); // Update with actual redirect path
+        
+        // Save user data to zustand store with error handling
+        if (result.user) {
+          try {
+            console.log('[UserLoginForm] About to call setUser');
+            setUser(result.user);
+            console.log('[UserLoginForm] setUser called successfully');
+            // isAuthenticated is now true from store, useEffect will trigger redirect
+          } catch (error) {
+            console.error('[UserLoginForm] Failed to set user:', error);
+            toast.error('Failed to save user session. Please try again.');
+            setLoading(false);
+          }
+        }
       } else {
+        console.log('[UserLoginForm] Login failed:', result.message);
         toast.error(result.message || 'Invalid credentials');
       }
     } catch (err) {
+      console.error('[UserLoginForm] Network error:', err);
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);
@@ -56,25 +85,25 @@ function UserLoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto px-4 sm:px-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-card border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl w-full"
+        className="bg-card border border-border rounded-2xl p-5 sm:p-8 lg:p-10 shadow-2xl w-full min-w-0"
       >
         {/* Header */}
-        <div className="text-center space-y-3 mb-8">
+        <div className="text-center space-y-3 mb-6 sm:mb-8 px-2">
           <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl">
             Welcome Back
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base">
+          <p className="text-muted-foreground text-xs sm:text-sm md:text-base wrap-break-word leading-relaxed">
             Sign in to your account
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 sm:space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email address
@@ -85,7 +114,7 @@ function UserLoginForm() {
                 id="email"
                 type="email"
                 {...register('email')}
-                className="w-full pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+                className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
                 placeholder="you@example.com"
                 disabled={loading}
               />
@@ -111,7 +140,7 @@ function UserLoginForm() {
                 id="password"
                 type="password"
                 {...register('password')}
-                className="w-full pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+                className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
                 placeholder="••••••••"
                 disabled={loading}
               />
@@ -129,7 +158,7 @@ function UserLoginForm() {
 
           <Button
             type="submit"
-            className="w-full py-3 text-base bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all hover:shadow-lg"
+            className="w-full py-3.5 sm:py-3 text-base sm:text-lg bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-12"
             disabled={loading}
           >
             {loading ? (

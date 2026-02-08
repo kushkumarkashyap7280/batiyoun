@@ -9,6 +9,8 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useUserStore } from '@/store/zustandUserStore';
+import { useEffect } from 'react';
 
 interface CompleteStepProps {
   username: string;
@@ -17,6 +19,16 @@ interface CompleteStepProps {
 export function CompleteStep({ username }: CompleteStepProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setUser, isAuthenticated, user } = useUserStore();
+
+  useEffect(() => {
+    // Redirect to username page when authenticated
+    console.log('[CompleteStep] useEffect triggered - isAuthenticated:', isAuthenticated, 'user:', user);
+    if (isAuthenticated && user?.username) {
+      console.log('[CompleteStep] Redirecting to:', `/${user.username}`);
+      router.push(`/${user.username}`);
+    }
+  }, [isAuthenticated, user, router]);
 
   const {
     register,
@@ -34,6 +46,7 @@ export function CompleteStep({ username }: CompleteStepProps) {
   const password = watch('password');
 
   const onSubmit = async (data: CompleteSignupUserData) => {
+    console.log('[CompleteStep] Form submitted with:', data);
     setLoading(true);
     try {
       const response = await fetch('/api/auth/signup', {
@@ -43,15 +56,33 @@ export function CompleteStep({ username }: CompleteStepProps) {
         body: JSON.stringify(data),
       });
 
+      console.log('[CompleteStep] API response status:', response.status);
       const result = await response.json();
+      console.log('[CompleteStep] API response data:', result);
 
       if (response.ok && result.success) {
+        console.log('[CompleteStep] Signup successful, calling setUser with:', result.user);
         toast.success(result.message || 'Account created successfully!');
-        router.push(`/${username}`);
+        
+        // Save user data to zustand store with error handling
+        if (result.user) {
+          try {
+            console.log('[CompleteStep] About to call setUser');
+            setUser(result.user);
+            console.log('[CompleteStep] setUser called successfully');
+            // isAuthenticated is now true from store, useEffect will trigger redirect
+          } catch (error) {
+            console.error('[CompleteStep] Failed to set user:', error);
+            toast.error('Failed to save user session. Please try again.');
+            setLoading(false);
+          }
+        }
       } else {
+        console.log('[CompleteStep] Signup failed:', result.message);
         toast.error(result.message || 'Failed to create account');
       }
     } catch (err) {
+      console.error('[CompleteStep] Network error:', err);
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);
@@ -59,18 +90,18 @@ export function CompleteStep({ username }: CompleteStepProps) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center space-y-2 sm:space-y-3"
+        className="text-center space-y-3 px-2"
       >
         <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl">
           Complete Profile
         </h2>
-        <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto px-4">
+        <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-md mx-auto px-2 wrap-break-word leading-relaxed">
           Just a few more details
         </p>
       </motion.div>
@@ -81,7 +112,7 @@ export function CompleteStep({ username }: CompleteStepProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4"
+        className="space-y-5 sm:space-y-6"
       >
         <input type="hidden" {...register('username')} />
 
@@ -91,11 +122,11 @@ export function CompleteStep({ username }: CompleteStepProps) {
           </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-            <input
+              <input
               id="fullName"
               type="text"
               {...register('fullName')}
-              className="w-full pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+                className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
               placeholder="John Doe"
               disabled={loading}
             />
@@ -122,12 +153,12 @@ export function CompleteStep({ username }: CompleteStepProps) {
               {...register('bio')}
               maxLength={160}
               rows={3}
-              className="w-full pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all resize-none dark:bg-gray-900 dark:border-gray-700 text-base"
+              className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all resize-none dark:bg-gray-900 dark:border-gray-700 text-base"
               placeholder="Tell us about yourself..."
               disabled={loading}
             />
           </div>
-          <div className="flex justify-between items-center mt-2">
+          <div className="flex justify-between items-center mt-2 gap-2 flex-wrap">
             <p className="text-xs text-muted-foreground">160 characters max</p>
             <p className="text-xs font-medium text-muted-foreground">{bio.length}/160</p>
           </div>
@@ -148,11 +179,11 @@ export function CompleteStep({ username }: CompleteStepProps) {
           </label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-            <input
+              <input
               id="password"
               type="password"
               {...register('password')}
-              className="w-full pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+                className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
               placeholder="••••••••"
               disabled={loading}
             />
@@ -173,7 +204,7 @@ export function CompleteStep({ username }: CompleteStepProps) {
               className="mt-3 space-y-2"
             >
               <div className="text-xs font-medium text-muted-foreground mb-2">Password strength:</div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className={`flex items-center gap-2 text-xs ${
                   password.length >= 6 ? 'text-green-600 dark:text-green-400' : 'text-muted-foreground'
                 }`}>
@@ -211,7 +242,7 @@ export function CompleteStep({ username }: CompleteStepProps) {
 
         <Button
           type="submit"
-          className="w-full py-3 text-base bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all hover:shadow-lg"
+          className="w-full py-3.5 sm:py-3 text-base sm:text-lg bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-12"
           disabled={loading}
         >
           {loading ? (

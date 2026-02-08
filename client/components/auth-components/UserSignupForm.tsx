@@ -20,14 +20,14 @@ export function UserSignupForm() {
   ];
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-lg mx-auto px-4 sm:px-0">
       {/* Progress Steps */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-6 sm:mb-8"
       >
-        <div className="flex justify-between items-center relative">
+        <div className="flex justify-between items-center relative gap-2">
           {/* Progress Line */}
           <div className="absolute left-0 right-0 top-5 h-0.5 bg-border -z-10">
             <motion.div
@@ -39,7 +39,7 @@ export function UserSignupForm() {
           </div>
 
           {steps.map((s) => (
-            <div key={s.number} className="flex flex-col items-center gap-2">
+            <div key={s.number} className="flex flex-col items-center gap-2 min-w-0">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
                   step >= s.number
@@ -68,7 +68,7 @@ export function UserSignupForm() {
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -20 }}
         transition={{ duration: 0.3 }}
-        className="bg-card border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl w-full"
+        className="bg-card border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl w-full min-w-0"
       >
       {step === 1 && (
         <EmailStep

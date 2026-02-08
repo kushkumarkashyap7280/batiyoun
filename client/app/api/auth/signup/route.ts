@@ -117,7 +117,7 @@ export const POST = routeWrapper(async (request: Request) => {
             httpOnly: true,
             secure: env.NODE_ENV === "production",
             sameSite: "strict",
-            maxAge: 15 * 60, // 15 minutes
+            maxAge: 60 * 60, // 1 hour
             path: "/",
         });
     } catch (error) {

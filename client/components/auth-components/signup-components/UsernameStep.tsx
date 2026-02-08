@@ -75,18 +75,18 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center space-y-2 sm:space-y-3"
+        className="text-center space-y-3 px-2"
       >
         <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl">
           Choose Username
         </h2>
-        <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto px-4">
+        <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-md mx-auto px-2 wrap-break-word leading-relaxed">
           This will be your unique identifier
         </p>
       </motion.div>
@@ -97,7 +97,7 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4"
+        className="space-y-5 sm:space-y-6"
       >
         <div>
           <label htmlFor="username" className="block text-sm font-medium mb-2">
@@ -109,7 +109,7 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
               id="username"
               type="text"
               {...register('username')}
-              className="w-full pl-11 pr-12 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+              className="w-full min-w-0 pl-11 pr-12 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
               placeholder="username"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -160,7 +160,7 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
 
         <Button
           type="submit"
-          className="w-full py-3 text-base bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all hover:shadow-lg"
+          className="w-full py-3.5 sm:py-3 text-base sm:text-lg bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-12"
           disabled={!isAvailable}
         >
           Continue

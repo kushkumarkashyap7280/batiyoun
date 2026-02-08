@@ -2,7 +2,7 @@ import type { Metadata ,Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeInitializer } from "@/components/ThemeInitializer";
-import { AuthVerifier } from "@/components/AuthVerifier";
+
 import { Toaster } from "sonner";
 
 
@@ -21,7 +21,10 @@ export const metadata: Metadata = {
   description: "End-to-end encrypted messaging. Offline-first architecture. No compromises.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon",
+    icon: [
+      { url: "/icon", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
     apple: "/apple-icon",
   },
   appleWebApp: {
@@ -49,6 +52,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Explicit favicon links for better browser compatibility */}
+        <link rel="icon" type="image/svg+xml" href="/icon" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +82,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page dark:bg-slate-950 text-default dark:text-white transition-theme`}
       >
         <ThemeInitializer />
-        <AuthVerifier />
         <Toaster richColors position="top-center" />
         {children}
       </body>
