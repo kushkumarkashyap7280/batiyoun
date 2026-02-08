@@ -20,16 +20,16 @@ export function UserSignupForm() {
   ];
 
   return (
-    <div className="w-full max-w-lg mx-auto px-4 sm:px-0">
+    <div className="w-full max-w-lg mx-auto px-3 sm:px-4">
       {/* Progress Steps */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6 sm:mb-8"
+        className="mb-4 sm:mb-6"
       >
-        <div className="flex justify-between items-center relative gap-2">
+        <div className="flex justify-between items-center relative gap-1 sm:gap-2">
           {/* Progress Line */}
-          <div className="absolute left-0 right-0 top-5 h-0.5 bg-border -z-10">
+          <div className="absolute left-0 right-0 top-4 h-0.5 bg-border -z-10">
             <motion.div
               className="h-full bg-green-600"
               initial={{ width: '0%' }}
@@ -39,9 +39,9 @@ export function UserSignupForm() {
           </div>
 
           {steps.map((s) => (
-            <div key={s.number} className="flex flex-col items-center gap-2 min-w-0">
+            <div key={s.number} className="flex flex-col items-center gap-1.5 min-w-0">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm transition-all ${
                   step >= s.number
                     ? 'bg-green-600 text-white shadow-lg shadow-green-600/30'
                     : 'bg-card border-2 border-border text-muted-foreground'
@@ -50,7 +50,7 @@ export function UserSignupForm() {
                 {s.number}
               </div>
               <span
-                className={`text-xs font-medium hidden sm:block ${
+                className={`text-[10px] sm:text-xs font-medium ${
                   step >= s.number ? 'text-foreground' : 'text-muted-foreground'
                 }`}
               >
@@ -68,7 +68,7 @@ export function UserSignupForm() {
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -20 }}
         transition={{ duration: 0.3 }}
-        className="bg-card border border-border rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl w-full min-w-0"
+        className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl w-full min-w-0"
       >
       {step === 1 && (
         <EmailStep

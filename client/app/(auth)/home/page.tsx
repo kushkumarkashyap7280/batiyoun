@@ -1,5 +1,6 @@
 import { TechStackTicker } from '@/components/marketing/home/TechStackTicker';
 import { HeroSection, FeaturesSection, CTASection } from '@/components/marketing/home';
+import { Footer } from '@/components/landing/Footer';
 
 export default function HomePage() {
   return (
@@ -8,6 +9,7 @@ export default function HomePage() {
       <TechStackTicker />
       <FeaturesSection />
       <CTASection />
+      <Footer />
     </main>
   );
 }

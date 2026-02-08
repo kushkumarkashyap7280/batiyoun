@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/zustandUserStore';
 import { Navbar } from '@/components/landing/Navbar';
-import { Footer } from '@/components/landing/Footer';
+
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -38,6 +38,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   return <>
   <Navbar />
   {children}
-  <Footer />
+ 
   </>;
 }

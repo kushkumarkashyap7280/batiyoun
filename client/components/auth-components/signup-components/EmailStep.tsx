@@ -50,18 +50,18 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center space-y-3 px-2"
+        className="text-center space-y-2"
       >
-        <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl">
+        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
           Create Account
         </h2>
-        <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-md mx-auto px-2 wrap-break-word leading-relaxed">
+        <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           Enter your email to get started
         </p>
       </motion.div>
@@ -72,19 +72,19 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5 sm:space-y-6"
+        className="space-y-4 sm:space-y-5"
       >
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
+          <label htmlFor="email" className="block text-xs sm:text-sm font-medium mb-1.5">
             Email address
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            <Mail className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground pointer-events-none" />
             <input
               id="email"
               type="email"
               {...register('email')}
-              className="w-full min-w-0 pl-11 pr-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-base"
+              className="w-full min-w-0 pl-9 sm:pl-11 pr-3 sm:pr-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 text-sm sm:text-base"
               placeholder="you@example.com"
               disabled={loading}
             />
@@ -93,7 +93,7 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
             <motion.p
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-2 text-sm text-red-600 dark:text-red-400"
+              className="mt-1.5 text-xs sm:text-sm text-red-600 dark:text-red-400"
             >
               {errors.email.message}
             </motion.p>
@@ -102,12 +102,12 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
 
         <Button
           type="submit"
-          className="w-full py-3.5 sm:py-3 text-base sm:text-lg bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-12"
+          className="w-full py-2.5 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg sm:rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-11"
           disabled={loading}
         >
           {loading ? (
             <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
               Sending...
             </>
           ) : (

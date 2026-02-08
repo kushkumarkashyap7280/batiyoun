@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
     '/',
     '/home',
     '/login',
+    '/channels',
     '/signup',
     '/api/auth/login',
     '/api/auth/logout',

@@ -160,18 +160,18 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center space-y-3 px-2"
+        className="text-center space-y-2"
       >
-        <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl">
+        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
           Verify Email
         </h2>
-        <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-md mx-auto px-2 leading-relaxed">
+        <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           Enter the 6-digit code sent to{' '}
           <span className="font-semibold text-foreground block sm:inline mt-1 sm:mt-0 break-all">{email}</span>
         </p>
@@ -183,9 +183,9 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6"
+        className="space-y-4 sm:space-y-6"
       >
-        <div className="w-full flex justify-between items-center gap-1.5 sm:gap-2 md:gap-3 px-1 sm:px-2">
+        <div className="w-full flex justify-center items-center gap-1.5 sm:gap-2 md:gap-3">
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -197,7 +197,7 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
               onChange={(e) => handleOtpChange(index, e.target.value)}
               onKeyDown={(e) => handleOtpKeyDown(index, e)}
               onPaste={index === 0 ? handleOtpPaste : undefined}
-              className="flex-1 aspect-square max-w-13 sm:max-w-15 md:max-w-17.5 text-center text-lg sm:text-xl md:text-2xl font-bold border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 touch-manipulation"
+              className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-center text-base sm:text-lg md:text-xl font-bold border-2 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all dark:bg-gray-900 dark:border-gray-700 touch-manipulation"
               disabled={loading}
             />
           ))}
@@ -213,7 +213,7 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
         )}
 
         {/* Timer & Attempts Info */}
-        <div className="flex flex-col items-center gap-3 px-2">
+        <div className="flex flex-col items-center gap-2 sm:gap-3">
           <div className="text-xs sm:text-sm text-muted-foreground text-center">
             {resendTimer > 0 ? (
               <span>Code expires in <span className="font-semibold text-green-600 dark:text-green-400">{formatTime(resendTimer)}</span></span>
@@ -225,9 +225,9 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-400 text-xs sm:text-sm font-medium w-full max-w-sm justify-center"
+              className="flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-400 text-xs font-medium w-full max-w-sm justify-center"
             >
-              <AlertCircle className="w-4 h-4 shrink-0" />
+              <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="text-center">
                 {attemptsLeft} {attemptsLeft === 1 ? 'attempt' : 'attempts'} left
                 {nextAttemptTime && <span className="block sm:inline sm:before:content-['_•_']">Next: {nextAttemptTime}</span>}
@@ -238,31 +238,31 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
 
         <Button
           type="submit"
-          className="w-full py-3.5 sm:py-3 text-base sm:text-lg bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-12"
+          className="w-full py-2.5 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg sm:rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-11"
           disabled={loading}
         >
           {loading ? (
             <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
               Verifying...
             </>
           ) : (
             <>
-              <Shield className="mr-2 h-5 w-5" />
+              <Shield className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               Verify OTP
             </>
           )}
         </Button>
 
         {/* Footer */}
-        <div className="flex justify-between items-center gap-4 pt-2 px-2">
+        <div className="flex justify-between items-center gap-2 sm:gap-4 pt-1">
           <button
             type="button"
             onClick={onBack}
-            className="flex items-center justify-center gap-2 text-sm sm:text-base text-muted-foreground hover:text-foreground active:text-foreground transition-colors min-h-11 touch-manipulation"
+            className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-muted-foreground hover:text-foreground active:text-foreground transition-colors min-h-11 touch-manipulation"
             disabled={loading}
           >
-            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Change email</span>
           </button>
           
@@ -270,10 +270,10 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
             <button
               type="button"
               onClick={handleResend}
-              className="flex items-center justify-center gap-2 text-sm sm:text-base text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 active:text-green-800 dark:active:text-green-500 font-medium transition-colors min-h-11 touch-manipulation"
+              className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 active:text-green-800 dark:active:text-green-500 font-medium transition-colors min-h-11 touch-manipulation"
               disabled={loading}
             >
-              <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5" />
+              <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Resend Code</span>
             </button>
           ) : (
