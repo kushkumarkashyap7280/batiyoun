@@ -84,3 +84,16 @@ export const ZustandUserSchema = z.object({
 });
 
 export type ZustandUser = z.infer<typeof ZustandUserSchema>;
+
+export const LoginSchema = z
+  .object({
+    email: EmailSchema.shape.email.optional(),
+    username: UsernameSchema.shape.username.optional(),
+    password: PasswordSchema.shape.password,
+  })
+  .refine((data) => data.email || data.username, {
+    message: "Please provide either Email or Username",
+    path: ["username"],
+  });
+
+export type LoginData = z.infer<typeof LoginSchema>;

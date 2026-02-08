@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeInitializer } from "@/components/ThemeInitializer";
 
 import { Toaster } from "sonner";
+import ServiceWorkerRegister from "@/components/landing/ServiceWorkerRegister";
 
 
 const geistSans = Geist({
@@ -61,27 +62,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Batiyoun" />
         <link rel="apple-touch-icon" href="/apple-icon" />
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            if ('serviceWorker' in navigator) {
-              window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(
-                  function(registration) {
-                    console.log('ServiceWorker registration successful');
-                  },
-                  function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                  }
-                );
-              });
-            }
-          `
-        }} />
+      
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page dark:bg-slate-950 text-default dark:text-white transition-theme`}
       >
         <ThemeInitializer />
+        <ServiceWorkerRegister /> 
         <Toaster richColors position="top-center" />
         {children}
       </body>

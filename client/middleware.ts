@@ -9,7 +9,16 @@ import { type TokenPayload , tokenPayloadSchema } from "@batiyoun/common";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
- 
+ if (
+    pathname.startsWith("/_next") || 
+    pathname.startsWith("/api/auth") || 
+    pathname.match(/\.(png|jpg|jpeg|gif|webp|svg|ico|css|js|json|woff2)$/) ||
+    pathname === "/manifest.json" ||   // 👈 Allow Manifest
+    pathname === "/sw.js" ||           // 👈 CRITICAL: Allow Service Worker
+    pathname.startsWith("/workbox-")   // 👈 Allow Workbox chunks
+  ) {
+    return NextResponse.next();
+  }
   const requestHeaders = new Headers(request.headers)
 
   const publicRoutes = [

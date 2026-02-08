@@ -13,19 +13,8 @@ import {
 import { generateAccessToken, generateRefreshToken } from "@/utils/tokens";
 import { comparePasswords } from "@/utils/hashPassword";
 import { cookies } from "next/headers";
+import { LoginSchema } from "@batiyoun/common";
 
-export const LoginSchema = z
-  .object({
-    email: EmailSchema.shape.email.optional(),
-    username: UsernameSchema.shape.username.optional(),
-    password: PasswordSchema.shape.password,
-  })
-  .refine((data) => data.email || data.username, {
-    message: "Please provide either Email or Username",
-    path: ["username"],
-  });
-
-export type LoginData = z.infer<typeof LoginSchema>;
 
 export const POST = routeWrapper(async (request: Request) => {
   const { username, email, password } = LoginSchema.parse(await request.json());
