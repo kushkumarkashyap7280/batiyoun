@@ -8,6 +8,8 @@ import { type TokenPayload , tokenPayloadSchema } from "@batiyoun/common";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+ 
   const requestHeaders = new Headers(request.headers)
 
   const publicRoutes = [
