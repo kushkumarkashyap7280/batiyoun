@@ -146,29 +146,30 @@ export async function GET(req: Request) {
 
     cookieStore.delete("pkce_verifier");
 
-    cookieStore.set({
+    const redirectUrl = new URL(`/${user.username}`, req.url);
+    const response = NextResponse.redirect(redirectUrl);
+
+    response.cookies.set({
       name: "refresh_token",
       value: refreshToken,
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60,
       path: "/",
     });
 
-    cookieStore.set({
+    response.cookies.set({
       name: "access_token",
       value: accessToken,
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 15 * 60,
       path: "/",
     });
 
-    return NextResponse.redirect(
-      `${originUrl}/${user.username}`
-    );
+    return response;
   } catch (error) {
     console.error("Google OAuth callback error:", error);
     return NextResponse.redirect(
