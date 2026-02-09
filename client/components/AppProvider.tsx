@@ -1,9 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { useUserStore } from '@/store/zustandUserStore';
 
-// Theme Interface
 interface AppContextType {
   isDark: boolean;
   toggleTheme: () => void;
@@ -18,28 +18,47 @@ export const useApp = () => {
 };
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  // 1. Theme State
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
   
-  // 2. Zustand Actions and State
   const setUser = useUserStore((state) => state.setUser);
   const logout = useUserStore((state) => state.logout);
 
-  // 3. THE MASTER LOGIC (Your Plan) 🧠
   useEffect(() => {
-    const checkAuth = async () => {
-      // 1. 🛑 WAIT: Force Zustand to finish reading LocalStorage first
-      // This ensures we know who the "Cached User" is before we ask the server
-      await useUserStore.persist.rehydrate(); 
-
-      // A. Check Network Status
-      if (!navigator.onLine) {
-        return; // EXIT: Let Zustand handle the cached user
+    const initApp = async () => {
+      // 1. Theme Initialization (Default: Dark)
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'light') {
+        setIsDark(false);
+        document.documentElement.classList.remove('dark');
+      } else {
+        setIsDark(true);
+        document.documentElement.classList.add('dark');
+        if (!storedTheme) localStorage.setItem('theme', 'dark');
       }
 
+      // 2. Auth Check
+      await useUserStore.persist.rehydrate();
+      const cachedUser = useUserStore.getState().user;
+
+      const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+      const isPublicPage = pathname === '/' || pathname === '/about' || pathname === '/home';
+      
+      if (cachedUser) {
+        if (isAuthPage) {
+          router.replace('/chat');
+        }
+      } else {
+        if (!isAuthPage && !isPublicPage) {
+          router.replace('/login');
+          if (!navigator.onLine) return;
+        }
+      }
+
+      if (!navigator.onLine) return;
+
       try {
-        // B. Online: Verify with Server
-        // Now we verify the user we JUST loaded
         const res = await fetch('/api/auth/verify-me', {
           method: 'GET',
           credentials: 'include',
@@ -47,34 +66,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         
         if (res.ok) {
           const data = await res.json();
-          // C. Success: Update Zustand (Fixes Google Login & Refreshes Data)
-          setUser(data.user); 
+          setUser(data.user);
+          if (isAuthPage) router.replace('/chat');
         } else if (res.status === 401) {
-          // D. Failed: Server says "Who are you?" -> Clear Zustand
-          // This is now safe because hydration is already done
           logout();
+          if (!isAuthPage && !isPublicPage) router.replace('/login');
         }
       } catch (error) {
-        // Network Error (server down?) -> Treat as Offline -> Do nothing
+        console.error(error);
       }
     };
 
-    checkAuth();
-    
-    // Initialize Theme
-    const stored = localStorage.getItem('theme');
-    if (stored === 'dark') {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, [setUser, logout]);
+    initApp();
+  }, [setUser, logout, router, pathname]);
 
-  // Theme Toggle
   const toggleTheme = () => {
     const newMode = !isDark;
     setIsDark(newMode);
-    document.documentElement.classList.toggle('dark', newMode);
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   return (
