@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const pwaConfig = withPWA({
   dest: "public",
-  disable: false,
+ disable: process.env.NODE_ENV === "development",
   register: true,
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
