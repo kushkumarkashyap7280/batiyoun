@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/zustandUserStore';
 
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
+  const logout = useUserStore((state) => state.logout);
 
   useEffect(() => {
     const verify = async () => {
@@ -22,16 +24,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           const data = await res.json();
           setUser(data.user);
           router.replace('/chat');
-        } else {
-          router.replace('/home');
-        }
+        } 
       } catch {
+        logout();
         router.replace('/home');
       }
     };
 
     verify();
-  }, [setUser, router]);
+  }, [setUser]);
 
   return <>{children}</>;
 }
