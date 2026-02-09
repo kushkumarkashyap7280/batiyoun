@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Navbar } from '@/components/landing/Navbar';
 import { useUserStore } from '@/store/zustandUserStore';
 
+
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
@@ -15,9 +16,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
   useEffect(() => {
     if (user) {
-      router.push('/chat');
+     
+      router.replace('/chat');
     }
-  }, [user, router]);
+  }, [user]);
 
   return (
     <>

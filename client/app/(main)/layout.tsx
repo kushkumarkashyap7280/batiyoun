@@ -14,9 +14,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+     
+      router.replace('/home');
     }
-  }, [user, router]);
+  }, [user]);
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-(--bg-primary) dark:bg-(--bg-primary-dark)">

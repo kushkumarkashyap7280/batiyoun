@@ -59,31 +59,28 @@ function UserLoginForm() {
 
       console.log('[UserLoginForm] API response status:', response.status);
       const result = await response.json();
-      console.log('[UserLoginForm] API response data:', result);
+      
 
       if (response.ok && result.success) {
-        console.log('[UserLoginForm] Login successful, calling setUser with:', result.user);
+      
         toast.success(result.message || 'Welcome back!');
         
         // Save user data to zustand store and redirect
         if (result.user) {
           try {
-            console.log('[UserLoginForm] About to call setUser');
             setUser(result.user);
-            console.log('[UserLoginForm] setUser called successfully');
             // Redirect to user's profile page
-            router.push(`/${result.user.username}`);
+            router.replace('/chat');
           } catch (error) {
-            console.error('[UserLoginForm] Failed to set user:', error);
+           
             toast.error('Failed to save user session. Please try again.');
           }
         }
       } else {
-        console.log('[UserLoginForm] Login failed:', result.message);
+        
         toast.error(result.message || 'Invalid credentials');
       }
     } catch (err) {
-      console.error('[UserLoginForm] Network error:', err);
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);

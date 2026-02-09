@@ -62,7 +62,7 @@ export function CompleteStep({ username }: CompleteStepProps) {
             setUser(result.user);
             console.log('[CompleteStep] setUser called successfully');
             // Redirect to user's profile page
-            router.push(`/${result.user.username}`);
+            router.replace('/chat');
           } catch (error) {
             console.error('[CompleteStep] Failed to set user:', error);
             toast.error('Failed to save user session. Please try again.');

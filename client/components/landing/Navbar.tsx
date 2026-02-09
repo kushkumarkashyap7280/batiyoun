@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
-import { useApp } from '@/components/AppProvider';
+import { useUserStore } from '@/store/zustandUserStore';
 import { Button } from '@/components/ui/button';
 
 export function Navbar() {
-  const { isDark, toggleTheme } = useApp();
+  const { isDark, toggleTheme } = useUserStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
