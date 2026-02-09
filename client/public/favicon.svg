@@ -1,41 +1,22 @@
-<svg width="32" height="32" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#16a34a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="1"/>
     </linearGradient>
-    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#f0fdf4" stop-opacity="1"/>
     </linearGradient>
   </defs>
   
-  <!-- Dark background -->
-  <rect width="192" height="192" rx="45" fill="#09090b"/>
+  <!-- Modern rounded speech bubble -->
+  <path d="M 8 6 Q 4 6 4 10 L 4 18 Q 4 22 8 22 L 16 22 L 24 28 L 18 22 Q 24 22 28 22 Q 28 18 28 14 L 28 10 Q 28 6 24 6 Z" fill="url(#mainGradient)" stroke="none"/>
   
-  <!-- Blue chat bubble (left/incoming) -->
-  <g>
-    <path d="M 40 55 Q 40 40 55 40 L 95 40 Q 110 40 110 55 L 110 85 Q 110 100 95 100 L 60 100 L 45 115 L 55 100 Q 40 100 40 85 Z" 
-          fill="url(#blueGrad)"/>
-    <!-- Message lines -->
-    <line x1="52" y1="60" x2="98" y2="60" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-    <line x1="52" y1="70" x2="90" y2="70" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-    <line x1="52" y1="80" x2="85" y2="80" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-  </g>
+  <!-- Bold "B" letterform -->
+  <path d="M 10 12 L 10 20 L 14 20 Q 16 20 17 19 Q 18 18 18 16.5 Q 18 15 17 14.5 Q 18 14 18 12.5 Q 18 11 17 10.5 Q 16 10 14 10 L 10 10 Z M 12 12 L 14 12 Q 15 12 15 12.5 Q 15 13 14 13 L 12 13 Z M 12 15 L 14 15 Q 15.5 15 15.5 16 Q 15.5 17 14 17 L 12 17 Z" fill="url(#shieldGradient)"/>
   
-  <!-- Green chat bubble (right/outgoing) -->
-  <g>
-    <path d="M 82 95 Q 82 80 97 80 L 137 80 Q 152 80 152 95 L 152 125 Q 152 140 137 140 L 102 140 L 87 155 L 97 140 Q 82 140 82 125 Z" 
-          fill="url(#greenGrad)"/>
-    <!-- Message lines -->
-    <line x1="94" y1="100" x2="140" y2="100" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-    <line x1="94" y1="110" x2="132" y2="110" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-    <line x1="94" y1="120" x2="127" y2="120" stroke="#ffffff" stroke-width="2.5" opacity="0.8" stroke-linecap="round"/>
-  </g>
-  
-  <!-- Lock/security indicator -->
-  <g transform="translate(150, 45)">
-    <circle cx="0" cy="0" r="10" fill="#10b981"/>
-    <path d="M -2 -2 L 0 1 L 3 -3" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  </g>
+  <!-- Security accent dot -->
+  <circle cx="24" cy="8" r="3" fill="#fbbf24" stroke="#ffffff" stroke-width="0.5"/>
 </svg>

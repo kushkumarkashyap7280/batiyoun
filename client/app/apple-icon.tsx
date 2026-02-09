@@ -27,55 +27,70 @@ export default function AppleIcon() {
         <svg
           width="180"
           height="180"
-          viewBox="0 0 192 192"
+          viewBox="0 0 180 180"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="blueGradApple" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="1" />
-              <stop offset="100%" stopColor="#1d4ed8" stopOpacity="1" />
-            </linearGradient>
-            <linearGradient id="greenGradApple" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="mainBubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#10b981" stopOpacity="1" />
-              <stop offset="100%" stopColor="#059669" stopOpacity="1" />
+              <stop offset="30%" stopColor="#16a34a" stopOpacity="1" />
+              <stop offset="70%" stopColor="#22c55e" stopOpacity="1" />
+              <stop offset="100%" stopColor="#34d399" stopOpacity="1" />
             </linearGradient>
+            <linearGradient id="letterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="100%" stopColor="#f0fdf4" stopOpacity="0.95" />
+            </linearGradient>
+            <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#fbbf24" stopOpacity="1" />
+              <stop offset="100%" stopColor="#f59e0b" stopOpacity="1" />
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="4" stdDeviation="8" floodColor="#000000" floodOpacity="0.15"/>
+            </filter>
           </defs>
           
-          {/* Blue chat bubble (left/incoming) */}
+          {/* Main speech bubble with modern rounded design */}
+          <path 
+            d="M 30 45 Q 20 45 20 55 L 20 105 Q 20 115 30 115 L 90 115 L 120 140 L 100 115 L 130 115 Q 140 115 145 110 Q 150 105 150 95 L 150 55 Q 150 45 140 45 Z" 
+            fill="url(#mainBubbleGrad)"
+            filter="url(#shadow)"
+          />
+          
+          {/* Bold "B" letterform - perfectly sized and positioned */}
           <g>
             <path 
-              d="M 40 55 Q 40 40 55 40 L 95 40 Q 110 40 110 55 L 110 85 Q 110 100 95 100 L 60 100 L 45 115 L 55 100 Q 40 100 40 85 Z" 
-              fill="url(#blueGradApple)"
+              d="M 55 65 L 55 95 L 75 95 Q 85 95 90 90 Q 95 85 95 77.5 Q 95 70 90 67.5 Q 95 65 95 57.5 Q 95 50 90 47.5 Q 85 45 75 45 L 55 45 Z M 65 55 L 75 55 Q 80 55 80 57.5 Q 80 60 75 60 L 65 60 Z M 65 75 L 75 75 Q 82 75 82 80 Q 82 85 75 85 L 65 85 Z" 
+              fill="url(#letterGrad)"
             />
-            <line x1="52" y1="60" x2="98" y2="60" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
-            <line x1="52" y1="70" x2="90" y2="70" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
-            <line x1="52" y1="80" x2="85" y2="80" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
+            
+            {/* Letter highlight for depth */}
+            <path 
+              d="M 65 55 L 75 55 Q 78 55 78 57 L 78 58 Q 76 60 75 60 L 65 60 Z" 
+              fill="#ffffff" 
+              opacity="0.4"
+            />
           </g>
           
-          {/* Green chat bubble (right/outgoing) */}
-          <g>
-            <path 
-              d="M 82 95 Q 82 80 97 80 L 137 80 Q 152 80 152 95 L 152 125 Q 152 140 137 140 L 102 140 L 87 155 L 97 140 Q 82 140 82 125 Z" 
-              fill="url(#greenGradApple)"
-            />
-            <line x1="94" y1="100" x2="140" y2="100" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
-            <line x1="94" y1="110" x2="132" y2="110" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
-            <line x1="94" y1="120" x2="127" y2="120" stroke="#ffffff" strokeWidth="2.5" opacity="0.8" strokeLinecap="round"/>
-          </g>
+          {/* Security/online indicator */}
+          <circle 
+            cx="135" 
+            cy="35" 
+            r="12" 
+            fill="url(#accentGrad)" 
+            stroke="#ffffff" 
+            strokeWidth="2"
+          />
           
-          {/* Lock/security indicator */}
-          <g transform="translate(150, 45)">
-            <circle cx="0" cy="0" r="10" fill="#10b981"/>
-            <path 
-              d="M -2 -2 L 0 1 L 3 -3" 
-              stroke="#09090b" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              fill="none"
-            />
-          </g>
+          {/* Inner indicator dot */}
+          <circle 
+            cx="135" 
+            cy="35" 
+            r="6" 
+            fill="#ffffff" 
+            opacity="0.9"
+          />
         </svg>
       </div>
     ),
