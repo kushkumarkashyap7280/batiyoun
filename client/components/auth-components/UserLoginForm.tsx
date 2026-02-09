@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useUserStore } from '@/store/zustandUserStore';
 
+import { GoogleAuthButton } from './GoogleAuthButton';
+
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(1, 'Password is required'),
@@ -102,6 +104,24 @@ function UserLoginForm() {
           </p>
         </div>
 
+        {/* Google OAuth Button */}
+        <div className="mb-4 sm:mb-6">
+          <GoogleAuthButton 
+            text="Continue with Google" 
+            disabled={loading}
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="relative mb-4 sm:mb-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border"></div>
+          </div>
+          <div className="relative flex justify-center text-xs sm:text-sm">
+            <span className="px-3 sm:px-4 bg-card text-muted-foreground">or continue with email</span>
+          </div>
+        </div>
+
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
           <div>
@@ -158,7 +178,7 @@ function UserLoginForm() {
 
           <Button
             type="submit"
-            className="w-full py-2.5 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg sm:rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-[44px]"
+            className="w-full py-2.5 sm:py-3 text-sm sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg sm:rounded-xl font-medium transition-all hover:shadow-lg touch-manipulation min-h-11"
             disabled={loading}
           >
             {loading ? (

@@ -167,7 +167,7 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.redirect(
-      `${originUrl}/`
+      `${originUrl}/${user.username}`
     );
   } catch (error) {
     console.error("Google OAuth callback error:", error);

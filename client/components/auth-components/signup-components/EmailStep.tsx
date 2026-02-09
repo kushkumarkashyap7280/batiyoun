@@ -8,6 +8,7 @@ import { Loader2, Shield, Lock, Zap, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { GoogleAuthButton } from '../GoogleAuthButton';
 
 interface EmailStepProps {
   onSuccess: (email: string) => void;
@@ -64,6 +65,33 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
         <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           Enter your email to get started
         </p>
+      </motion.div>
+
+      {/* Google OAuth Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
+        <GoogleAuthButton 
+          text="Sign up with Google" 
+          disabled={loading}
+        />
+      </motion.div>
+
+      {/* Divider */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+        className="relative"
+      >
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-border"></div>
+        </div>
+        <div className="relative flex justify-center text-xs sm:text-sm">
+          <span className="px-3 sm:px-4 bg-card text-muted-foreground">or continue with email</span>
+        </div>
       </motion.div>
 
       {/* Form */}
