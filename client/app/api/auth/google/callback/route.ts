@@ -146,7 +146,7 @@ export async function GET(req: Request) {
 
     cookieStore.delete("pkce_verifier");
 
-    const redirectUrl = new URL(`/${user.username}`, req.url);
+    const redirectUrl = new URL(`/`, req.url);
     const response = NextResponse.redirect(redirectUrl);
 
     response.cookies.set({

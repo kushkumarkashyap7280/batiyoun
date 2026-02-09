@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Mail, Lock, Shield, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useUserStore } from '@/store/zustandUserStore';
 
@@ -23,17 +23,21 @@ type LoginData = z.infer<typeof loginSchema>;
 function UserLoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { setUser, isAuthenticated, user } = useUserStore();
+  const searchParams = useSearchParams();
+  const setUser = useUserStore((state) => state.setUser);
 
+  // Check for OAuth error on component mount
   useEffect(() => {
-    // Redirect to username page when authenticated
-    console.log('[UserLoginForm] useEffect triggered - isAuthenticated:', isAuthenticated, 'user:', user);
-    if (isAuthenticated && user?.username) {
-      console.log('[UserLoginForm] Redirecting to:', `/${user.username}`);
-      router.replace(`/${user.username}`);
+    const error = searchParams.get('error');
+    if (error === 'oauth_failed') {
+      toast.error('Google login failed. Please try again or use email login.');
+      // Clean up the URL by removing the error parameter
+      router.replace('/login');
     }
-  }, [isAuthenticated, user, router]);
+  }, [searchParams, router]);
+ 
 
+ 
   const {
     register,
     handleSubmit,
@@ -61,17 +65,17 @@ function UserLoginForm() {
         console.log('[UserLoginForm] Login successful, calling setUser with:', result.user);
         toast.success(result.message || 'Welcome back!');
         
-        // Save user data to zustand store with error handling
+        // Save user data to zustand store and redirect
         if (result.user) {
           try {
             console.log('[UserLoginForm] About to call setUser');
             setUser(result.user);
             console.log('[UserLoginForm] setUser called successfully');
-            // isAuthenticated is now true from store, useEffect will trigger redirect
+            // Redirect to user's profile page
+            router.push(`/${result.user.username}`);
           } catch (error) {
             console.error('[UserLoginForm] Failed to set user:', error);
             toast.error('Failed to save user session. Please try again.');
-            setLoading(false);
           }
         }
       } else {

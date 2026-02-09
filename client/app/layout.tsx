@@ -1,7 +1,7 @@
 import type { Metadata ,Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeInitializer } from "@/components/ThemeInitializer";
+import { AppProvider } from "@/components/AppProvider";
 
 import { Toaster } from "sonner";
 import ServiceWorkerRegister from "@/components/landing/ServiceWorkerRegister";
@@ -67,10 +67,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page dark:bg-slate-950 text-default dark:text-white transition-theme`}
       >
-        <ThemeInitializer />
-        <ServiceWorkerRegister /> 
-        <Toaster richColors position="top-center" />
-        {children}
+        <AppProvider>
+            <ServiceWorkerRegister /> 
+            <Toaster richColors position="top-center" />
+            {children}
+        </AppProvider>
       </body>
     </html>
   );

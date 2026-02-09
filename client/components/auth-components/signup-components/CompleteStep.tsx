@@ -19,16 +19,7 @@ interface CompleteStepProps {
 export function CompleteStep({ username }: CompleteStepProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { setUser, isAuthenticated, user } = useUserStore();
-
-  useEffect(() => {
-    // Redirect to username page when authenticated
-    console.log('[CompleteStep] useEffect triggered - isAuthenticated:', isAuthenticated, 'user:', user);
-    if (isAuthenticated && user?.username) {
-      console.log('[CompleteStep] Redirecting to:', `/${user.username}`);
-      router.push(`/${user.username}`);
-    }
-  }, [isAuthenticated, user, router]);
+  const setUser = useUserStore((state) => state.setUser);
 
   const {
     register,
@@ -64,17 +55,17 @@ export function CompleteStep({ username }: CompleteStepProps) {
         console.log('[CompleteStep] Signup successful, calling setUser with:', result.user);
         toast.success(result.message || 'Account created successfully!');
         
-        // Save user data to zustand store with error handling
+        // Save user data to zustand store and redirect
         if (result.user) {
           try {
             console.log('[CompleteStep] About to call setUser');
             setUser(result.user);
             console.log('[CompleteStep] setUser called successfully');
-            // isAuthenticated is now true from store, useEffect will trigger redirect
+            // Redirect to user's profile page
+            router.push(`/${result.user.username}`);
           } catch (error) {
             console.error('[CompleteStep] Failed to set user:', error);
             toast.error('Failed to save user session. Please try again.');
-            setLoading(false);
           }
         }
       } else {

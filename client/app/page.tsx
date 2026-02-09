@@ -2,12 +2,10 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import CustomLoader from '@/components/ui/CustomLoader';
-import { useUserStore } from '@/store/zustandUserStore';
 
 export default function RootPage() {
   const router = useRouter();
-  const isLoading = useUserStore((state) => state.isLoading);
+
 
   useEffect(() => {
       
@@ -15,9 +13,7 @@ export default function RootPage() {
 
   }, [router]);
 
-  if (isLoading) {
-    return <CustomLoader isVisible={true} />;
-  }
+ 
 
   // Fallback content after loader
   return (
