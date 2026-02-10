@@ -1,17 +1,16 @@
+// AppProvider.tsx - Just sync state, let layouts handle routing
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/zustandUserStore';
 
-
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const logout = useUserStore((state) => state.logout);
 
   useEffect(() => {
     const verify = async () => {
+      // Skip verification if offline
       if (!navigator.onLine) return;
 
       try {
@@ -23,16 +22,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (res.ok) {
           const data = await res.json();
           setUser(data.user);
-          router.replace('/chat');
-        } 
-      } catch {
-        logout();
-        router.replace('/home');
+          // Auth layout will handle redirect to /chat
+        } else {
+          // Token expired or invalid - clear state
+          logout();
+        }
+      } catch (error) {
+        // Network error - don't logout, might be offline
+        console.error('Verification failed:', error);
       }
     };
 
     verify();
-  }, [setUser]);
+  }, [setUser, logout]);
 
   return <>{children}</>;
 }
