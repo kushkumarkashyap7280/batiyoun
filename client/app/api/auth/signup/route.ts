@@ -60,7 +60,6 @@ export const POST = routeWrapper(async (request: Request) => {
                 fullName,
                 bio,
                 passwordHash: hashedPassword,
-                isVerified: true,
             }
         })
     } catch (error) {

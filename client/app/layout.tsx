@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { Toaster } from "sonner";
 import ServiceWorkerRegister from "@/components/landing/ServiceWorkerRegister";
-import { AppProvider } from "@/components/AppProvider";
+import { AppProvider } from "@/components/providers/AppProvider";
 
 
 const geistSans = Geist({

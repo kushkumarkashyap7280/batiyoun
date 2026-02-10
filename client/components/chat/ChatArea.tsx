@@ -116,7 +116,7 @@ export function ChatArea({ selectedChatId, onBack }: ChatAreaProps) {
 
           {/* Contact Info */}
           <div className="relative">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center font-semibold text-sm text-white">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-emerald-500 to-cyan-600 flex items-center justify-center font-semibold text-sm text-white">
               {mockContact.avatar}
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#313338] rounded-full" />

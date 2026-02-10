@@ -1,7 +1,8 @@
 'use client';
 
-import { User, Mail, Calendar, Shield, Edit, Key } from 'lucide-react';
+import { User, Mail, Calendar, Shield, Edit, Key, CheckCircle, Camera } from 'lucide-react';
 import { useState } from 'react';
+import { AvatarUpload } from './AvatarUpload';
 
 interface ProfileViewProps {
   user: {
@@ -11,14 +12,17 @@ interface ProfileViewProps {
     username: string;
     avatar: string | null;
     bio: string | null;
-    isVerified: boolean;
     createdAt: Date;
     publicKey: string | null;
+    isPro: boolean;
+    isAdmin: boolean;
+    googleId: string | null;
   };
 }
 
 export function ProfileView({ user }: ProfileViewProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [showAvatarUpload, setShowAvatarUpload] = useState(false);
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {
@@ -35,7 +39,7 @@ export function ProfileView({ user }: ProfileViewProps) {
         <div className="bg-[#2b2d31] rounded-lg border border-[#1e1f22] p-8">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Avatar */}
-            <div className="relative">
+            <div className="relative group">
               {user.avatar ? (
                 <img
                   src={user.avatar}
@@ -47,11 +51,15 @@ export function ProfileView({ user }: ProfileViewProps) {
                   {user.fullName.charAt(0).toUpperCase()}
                 </div>
               )}
-              {user.isVerified && (
-                <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center border-2 border-[#2b2d31]">
-                  <Shield className="w-5 h-5 text-white" />
-                </div>
-              )}
+              
+              {/* Edit Avatar Button */}
+              <button
+                onClick={() => setShowAvatarUpload(true)}
+                className="absolute bottom-0 right-0 w-8 h-8 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center shadow-lg transition-colors group-hover:scale-110 transform duration-200"
+                title="Change Avatar"
+              >
+                <Camera className="w-4 h-4 text-white" />
+              </button>
             </div>
 
             {/* User Info */}
@@ -60,10 +68,11 @@ export function ProfileView({ user }: ProfileViewProps) {
                 <h1 className="text-3xl font-bold text-white">
                   {user.fullName}
                 </h1>
-                {user.isVerified && (
-                  <span className="px-3 py-1 bg-green-500/20 text-green-500 text-xs font-semibold rounded">
-                    Verified
-                  </span>
+                {user.isPro && (
+                  <div className="flex items-center gap-1 px-2 py-1 bg-green-500/20 rounded-full" title="Pro Member">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span className="text-xs font-semibold text-green-500">PRO</span>
+                  </div>
                 )}
               </div>
               <p className="text-[#b5bac1] text-lg">
@@ -178,6 +187,11 @@ export function ProfileView({ user }: ProfileViewProps) {
           </div>
         )}
       </div>
+
+      {/* Avatar Upload Modal */}
+      {showAvatarUpload && (
+        <AvatarUpload onClose={() => setShowAvatarUpload(false)} />
+      )}
     </div>
   );
 }

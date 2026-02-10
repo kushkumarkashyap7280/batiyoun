@@ -24,7 +24,7 @@ export function ContactListItem({ contact, isSelected, onClick }: ContactListIte
     >
       {/* Avatar with Status */}
       <div className="relative shrink-0">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-semibold text-sm text-white">
+        <div className="w-8 h-8 rounded-full bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center font-semibold text-sm text-white">
           {contact.avatar}
         </div>
         <div

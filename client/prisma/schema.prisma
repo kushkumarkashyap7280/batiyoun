@@ -28,6 +28,7 @@ model User {
   
   // --- Profile ---
   avatar        String?
+  cloudinaryId   String?    @map("cloudinary_id")
   bio           String?
   
   // --- E2E Security ---
@@ -39,13 +40,16 @@ model User {
   keyBackup     String?   @map("key_backup")
 
   // --- Metadata ---
-  isVerified    Boolean   @default(false) @map("is_verified")
+  isPro         Boolean   @default(false) @map("is_pro")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
 
-  // --- Relationships (Future Proofing) ---
-  // messagesSent     Message[]  @relation("sender")
-  // conversations    ConversationMember[]
 
   @@map("users") // Table name should be plural lowercase
 }
+
+
+// for migrations, we can use a separate file or inline the migration SQL in the migration steps. For now, we'll keep it simple and just use the Prisma schema for migrations.
+//terminal command to generate migration: npx prisma migrate dev --name init
+//
+// then create gerated client: npx prisma generate

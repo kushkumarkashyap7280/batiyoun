@@ -116,7 +116,6 @@ export async function GET(req: Request) {
             username: username,
             fullName: googleUser.name,
             avatar: googleUser.picture,
-            isVerified: googleUser.verified_email,
           },
         });
       }
