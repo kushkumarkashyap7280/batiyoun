@@ -36,9 +36,9 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   // System messages (centered, gray pill)
   if (message.type === 'system') {
     return (
-      <div className="flex justify-center my-6">
-        <div className="px-4 py-2 bg-(--bg-tertiary) dark:bg-(--bg-tertiary-dark) border border-(--border-color) dark:border-(--border-color-dark) rounded-full">
-          <p className="text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark) text-center">
+      <div className="flex justify-center my-4">
+        <div className="px-3 py-1.5 bg-[#2e3035] border border-[#1e1f22] rounded">
+          <p className="text-xs text-[#949ba4] text-center">
             {message.content}
           </p>
         </div>
@@ -46,36 +46,40 @@ export function MessageBubble({ message }: MessageBubbleProps) {
     );
   }
 
-  // Sent messages (right aligned, green)
+  // Sent messages (Discord style - not bubble, just highlighted on hover)
   if (message.type === 'sent') {
     return (
-      <div className="flex justify-end">
-        <div className="flex flex-col items-end max-w-[75%] md:max-w-[60%]">
-          <div className="px-4 py-2.5 bg-green-600 text-white rounded-l-2xl rounded-tr-2xl shadow-sm">
-            <p className="text-sm leading-relaxed wrap-break-word whitespace-pre-wrap">
-              {message.content}
-            </p>
+      <div className="flex gap-3 hover:bg-[#2e3035] -mx-4 px-4 py-1 rounded group">
+        <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center shrink-0">
+          <span className="text-white text-sm font-semibold">U</span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-baseline gap-2">
+            <span className="font-semibold text-white text-sm">You</span>
+            <span className="text-xs text-[#949ba4]">{formatTime(message.timestamp)}</span>
           </div>
-          <span className="text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark) mt-1 px-1">
-            {formatTime(message.timestamp)}
-          </span>
+          <p className="text-[#dbdee1] text-sm mt-0.5 wrap-break-word whitespace-pre-wrap">
+            {message.content}
+          </p>
         </div>
       </div>
     );
   }
 
-  // Received messages (left aligned, dark gray)
+  // Received messages (Discord style)
   return (
-    <div className="flex justify-start">
-      <div className="flex flex-col items-start max-w-[75%] md:max-w-[60%]">
-        <div className="px-4 py-2.5 bg-(--bg-tertiary) dark:bg-(--bg-tertiary-dark) text-(--text-primary) dark:text-(--text-primary-dark) rounded-r-2xl rounded-tl-2xl shadow-sm border border-(--border-color) dark:border-(--border-color-dark)">
-          <p className="text-sm leading-relaxed wrap-break-word whitespace-pre-wrap">
-            {message.content}
-          </p>
+    <div className="flex gap-3 hover:bg-[#2e3035] -mx-4 px-4 py-1 rounded group">
+      <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
+        <span className="text-white text-sm font-semibold">AC</span>
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline gap-2">
+          <span className="font-semibold text-white text-sm">Alex Chen</span>
+          <span className="text-xs text-[#949ba4]">{formatTime(message.timestamp)}</span>
         </div>
-        <span className="text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark) mt-1 px-1">
-          {formatTime(message.timestamp)}
-        </span>
+        <p className="text-[#dbdee1] text-sm mt-0.5 wrap-break-word whitespace-pre-wrap">
+          {message.content}
+        </p>
       </div>
     </div>
   );

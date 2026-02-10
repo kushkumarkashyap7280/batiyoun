@@ -59,62 +59,52 @@ const mockContacts = [
 
 export function ChatSidebar({ selectedChatId, onSelectChat }: ChatSidebarProps) {
   return (
-    <div className="flex flex-col h-full bg-white/80 dark:bg-(--bg-secondary-dark)/80 backdrop-blur-md">
+    <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-(--border-color) dark:border-(--border-color-dark)">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white font-semibold text-sm">
-              ME
-            </div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-(--bg-secondary-dark) rounded-full" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-(--text-primary) dark:text-(--text-primary-dark)">
-              My Workspace
-            </span>
-            <span className="text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark)">Online</span>
-          </div>
-        </div>
+      <div className="h-12 px-4 flex items-center justify-between border-b border-black/20 shadow-sm">
+        <h2 className="font-semibold text-white text-sm">Messages</h2>
         <button
-          className="p-2 rounded-lg hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) transition-colors"
+          className="p-1.5 hover:bg-[#404249] rounded transition-colors"
           aria-label="Settings"
         >
-          <Settings className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+          <Settings className="w-4 h-4 text-[#b5bac1]" />
         </button>
       </div>
 
       {/* Search Bar */}
-      <div className="p-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-(--text-tertiary) dark:text-(--text-tertiary-dark)" />
-          <input
-            type="text"
-            placeholder="Search conversations..."
-            className="w-full pl-10 pr-4 py-2.5 bg-(--bg-secondary) dark:bg-(--bg-primary-dark) border border-(--border-color) dark:border-(--border-color-dark) rounded-lg text-sm text-(--text-primary) dark:text-(--text-primary-dark) placeholder:text-(--text-tertiary) dark:placeholder:text-(--text-tertiary-dark) focus:outline-none focus:ring-2 focus:ring-green-600/50 transition-all"
-          />
-        </div>
+      <div className="p-2">
+        <button className="w-full h-7 px-2 bg-[#1e1f22] hover:bg-[#404249] rounded text-xs text-[#949ba4] flex items-center gap-2 transition-colors">
+          <Search className="w-3.5 h-3.5" />
+          <span>Find or start a conversation</span>
+        </button>
       </div>
 
       {/* Contact List */}
-      <div className="flex-1 overflow-y-auto px-2">
-        <div className="space-y-1">
-          {mockContacts.map((contact) => (
-            <ContactListItem
-              key={contact.id}
-              contact={contact}
-              isSelected={selectedChatId === contact.id}
-              onClick={() => onSelectChat(contact.id)}
-            />
-          ))}
-        </div>
+      <div className="flex-1 overflow-y-auto px-2 space-y-0.5">
+        {mockContacts.map((contact) => (
+          <ContactListItem
+            key={contact.id}
+            contact={contact}
+            isSelected={selectedChatId === contact.id}
+            onClick={() => onSelectChat(contact.id)}
+          />
+        ))}
       </div>
 
-      {/* Footer - Optional status */}
-      <div className="p-3 border-t border-(--border-color) dark:border-(--border-color-dark)">
-        <div className="flex items-center gap-2 text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark)">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-          <span>End-to-End Encrypted</span>
+      {/* Footer - User Status */}
+      <div className="h-14 px-2 bg-[#232428] flex items-center gap-2">
+        <div className="relative">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+            <span className="text-white text-sm font-semibold">U</span>
+          </div>
+          <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#232428]" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-semibold text-white truncate">username</div>
+          <div className="flex items-center gap-1.5 text-xs text-[#b5bac1]">
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+            <span>Online • Encrypted</span>
+          </div>
         </div>
       </div>
     </div>

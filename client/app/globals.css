@@ -15,27 +15,27 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Light Mode Colors - More colorful */
-  --bg-primary: #fafbff;
-  --bg-secondary: #f0f9ff;
-  --bg-tertiary: #e0f2fe;
-  --text-primary: #0c4a6e;
-  --text-secondary: #0369a1;
-  --text-tertiary: #0284c7;
-  --border-color: #bae6fd;
-  --hover-bg: #e0f2fe;
+  /* Light Mode Colors - Clean & Modern */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f3f5;
+  --bg-tertiary: #e3e5e8;
+  --text-primary: #060607;
+  --text-secondary: #4e5058;
+  --text-tertiary: #80848e;
+  --border-color: #e3e5e8;
+  --hover-bg: #f2f3f5;
 
-  /* Dark Mode Colors */
-  --bg-primary-dark: #0a0f1f;
-  --bg-secondary-dark: #0f172a;
-  --bg-tertiary-dark: #1e293b;
-  --text-primary-dark: #ffffff;
-  --text-secondary-dark: #cbd5e1;
-  --text-tertiary-dark: #94a3b8;
-  --border-color-dark: #334155;
-  --hover-bg-dark: #1e293b;
+  /* Dark Mode Colors - Discord-inspired */
+  --bg-primary-dark: #313338;
+  --bg-secondary-dark: #2b2d31;
+  --bg-tertiary-dark: #1e1f22;
+  --text-primary-dark: #f2f3f5;
+  --text-secondary-dark: #b5bac1;
+  --text-tertiary-dark: #949ba4;
+  --border-color-dark: #1e1f22;
+  --hover-bg-dark: #404249;
 
-  /* Accent Colors (Green - same for both modes) */
+  /* Accent Colors - Brand Green */
   --accent-primary: #16a34a;
   --accent-hover: #15803d;
   --accent-light: #86efac;

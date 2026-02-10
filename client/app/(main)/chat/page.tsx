@@ -20,11 +20,11 @@ export default function ChatPage() {
 
   return (
     <div className="h-full flex overflow-hidden">
-      {/* Chat List Sidebar - 28% on desktop, full screen on mobile */}
+      {/* Conversations List - Discord middle column */}
       <div
         className={`${
           isMobileChatOpen ? 'hidden' : 'flex'
-        } md:flex flex-col w-full md:w-[28%] md:min-w-70 md:max-w-95 border-r border-(--border-color) dark:border-(--border-color-dark)`}
+        } md:flex flex-col w-full md:w-60 lg:w-72 bg-[#2b2d31] border-r border-black/20`}
       >
         <ChatSidebar
           selectedChatId={selectedChatId}
@@ -32,11 +32,11 @@ export default function ChatPage() {
         />
       </div>
 
-      {/* Chat Area - Takes remaining space */}
+      {/* Chat Area - Main content */}
       <div
         className={`${
           isMobileChatOpen ? 'flex' : 'hidden'
-        } md:flex flex-col flex-1 min-w-0`}
+        } md:flex flex-col flex-1 min-w-0 bg-[#313338]`}
       >
         <ChatArea
           selectedChatId={selectedChatId}

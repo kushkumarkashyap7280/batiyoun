@@ -82,16 +82,16 @@ export function ChatArea({ selectedChatId, onBack }: ChatAreaProps) {
 
   if (!selectedChatId) {
     return (
-      <div className="h-full flex items-center justify-center bg-(--bg-primary) dark:bg-(--bg-primary-dark)">
+      <div className="h-full flex items-center justify-center">
         <div className="text-center space-y-4 px-4">
-          <div className="w-20 h-20 mx-auto rounded-full bg-linear-to-br from-green-600/20 to-emerald-600/20 border border-green-600/30 flex items-center justify-center">
-            <Shield className="w-10 h-10 text-green-500" />
+          <div className="w-16 h-16 mx-auto rounded-full bg-linear-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center">
+            <Shield className="w-8 h-8 text-green-500" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-(--text-primary) dark:text-(--text-primary-dark)">
+            <h3 className="text-xl font-semibold text-white">
               Secure Messaging
             </h3>
-            <p className="text-sm text-(--text-secondary) dark:text-(--text-secondary-dark) max-w-md">
+            <p className="text-sm text-[#b5bac1] max-w-md">
               Select a conversation to start chatting. All messages are end-to-end encrypted.
             </p>
           </div>
@@ -101,32 +101,32 @@ export function ChatArea({ selectedChatId, onBack }: ChatAreaProps) {
   }
 
   return (
-    <div className="h-full flex flex-col bg-(--bg-primary) dark:bg-(--bg-primary-dark)">
+    <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-(--border-color) dark:border-(--border-color-dark) bg-white/80 dark:bg-(--bg-secondary-dark)/80 backdrop-blur-md">
+      <div className="h-12 px-4 flex items-center justify-between border-b border-black/20 shadow-sm">
         <div className="flex items-center gap-3">
           {/* Back button - Mobile only */}
           <button
             onClick={onBack}
-            className="md:hidden p-2 -ml-2 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors"
+            className="md:hidden p-2 -ml-2 hover:bg-[#404249] rounded-lg transition-colors"
             aria-label="Back to conversations"
           >
-            <ArrowLeft className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+            <ArrowLeft className="w-5 h-5 text-[#b5bac1]" />
           </button>
 
           {/* Contact Info */}
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-600/20 to-emerald-600/20 border border-green-600/30 flex items-center justify-center text-green-400 dark:text-green-500 font-semibold text-sm">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center font-semibold text-sm text-white">
               {mockContact.avatar}
             </div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-(--bg-secondary-dark) rounded-full" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#313338] rounded-full" />
           </div>
           
           <div className="flex flex-col">
-            <h2 className="font-semibold text-(--text-primary) dark:text-(--text-primary-dark)">
+            <h2 className="font-semibold text-white text-sm">
               {mockContact.name}
             </h2>
-            <span className="text-xs text-green-500">
+            <span className="text-xs text-[#b5bac1]">
               {isTyping ? 'typing...' : mockContact.status}
             </span>
           </div>
@@ -135,54 +135,53 @@ export function ChatArea({ selectedChatId, onBack }: ChatAreaProps) {
         {/* Actions */}
         <div className="flex items-center gap-1">
           <button
-            className="p-2 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors"
+            className="p-2 hover:bg-[#404249] rounded transition-colors"
             aria-label="Voice call"
           >
-            <Phone className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+            <Phone className="w-5 h-5 text-[#b5bac1]" />
           </button>
           <button
-            className="p-2 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors"
+            className="p-2 hover:bg-[#404249] rounded transition-colors"
             aria-label="Video call"
           >
-            <Video className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+            <Video className="w-5 h-5 text-[#b5bac1]" />
           </button>
           <button
-            className="p-2 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors"
+            className="p-2 hover:bg-[#404249] rounded transition-colors"
             aria-label="More options"
           >
-            <MoreVertical className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+            <MoreVertical className="w-5 h-5 text-[#b5bac1]" />
           </button>
         </div>
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {mockMessages.map((msg) => (
           <MessageBubble key={msg.id} message={msg} />
         ))}
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-(--border-color) dark:border-(--border-color-dark) bg-white/80 dark:bg-(--bg-secondary-dark)/80 backdrop-blur-md">
-        <div className="flex items-end gap-3">
+      <div className="p-4">
+        <div className="flex items-end gap-2">
           {/* Attachment Button */}
           <button
-            className="p-2.5 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors shrink-0"
+            className="p-2 hover:bg-[#404249] rounded transition-colors shrink-0"
             aria-label="Attach file"
           >
-            <Paperclip className="w-5 h-5 text-(--text-secondary) dark:text-(--text-secondary-dark)" />
+            <Paperclip className="w-5 h-5 text-[#b5bac1]" />
           </button>
 
           {/* Input Field */}
-          <div className="flex-1 relative">
-            <textarea
+          <div className="flex-1">
+            <input
+              type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Message (encrypted)..."
-              rows={1}
-              className="w-full px-4 py-2.5 bg-(--bg-secondary) dark:bg-(--bg-primary-dark) border border-(--border-color) dark:border-(--border-color-dark) rounded-lg text-sm text-(--text-primary) dark:text-(--text-primary-dark) placeholder:text-(--text-tertiary) dark:placeholder:text-(--text-tertiary-dark) focus:outline-none focus:ring-2 focus:ring-green-600/50 transition-all resize-none"
-              style={{ minHeight: '42px', maxHeight: '120px' }}
+              placeholder="Message @Alex Chen"
+              className="w-full px-4 py-2.5 bg-[#383a40] border-none rounded-lg text-sm text-[#dbdee1] placeholder-[#6d6f78] focus:outline-none"
             />
           </div>
 
@@ -190,7 +189,7 @@ export function ChatArea({ selectedChatId, onBack }: ChatAreaProps) {
           <button
             onClick={handleSendMessage}
             disabled={!message.trim()}
-            className="p-2.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg transition-colors shrink-0"
+            className="p-2.5 bg-green-600 hover:bg-green-700 disabled:bg-[#404249] disabled:cursor-not-allowed rounded transition-colors shrink-0"
             aria-label="Send message"
           >
             <Send className="w-5 h-5 text-white" />
