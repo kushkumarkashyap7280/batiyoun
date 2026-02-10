@@ -27,28 +27,32 @@ export default function PrivacyPage() {
               title: 'End-to-End Encryption',
               description: 'All messages are encrypted on your device and can only be read by you and the recipient.',
               status: 'Active',
-              color: 'green',
+              bgColor: 'bg-green-500/20',
+              textColor: 'text-green-500',
             },
             {
               icon: Key,
               title: 'Encryption Keys',
               description: 'Your encryption keys are stored securely on your device and never sent to our servers.',
               status: 'Secured',
-              color: 'blue',
+              bgColor: 'bg-emerald-500/20',
+              textColor: 'text-emerald-500',
             },
             {
               icon: Eye,
               title: 'Privacy Mode',
               description: 'Control who can see your online status and last seen information.',
               status: 'Customizable',
-              color: 'purple',
+              bgColor: 'bg-cyan-500/20',
+              textColor: 'text-cyan-500',
             },
             {
               icon: FileKey,
               title: 'Data Retention',
               description: 'Messages are stored locally and automatically deleted based on your preferences.',
               status: 'Configurable',
-              color: 'orange',
+              bgColor: 'bg-gray-500/20',
+              textColor: 'text-gray-400',
             },
           ].map((feature) => {
             const Icon = feature.icon;
@@ -58,8 +62,8 @@ export default function PrivacyPage() {
                 className="p-6 bg-[#2b2d31] rounded-lg border border-[#1e1f22] hover:border-[#404249] transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <div className={`w-10 h-10 rounded-lg bg-linear-to-br from-${feature.color}-500/20 to-${feature.color}-600/20 flex items-center justify-center shrink-0`}>
-                    <Icon className={`w-5 h-5 text-${feature.color}-500`} />
+                  <div className={`w-10 h-10 rounded-lg ${feature.bgColor} flex items-center justify-center shrink-0`}>
+                    <Icon className={`w-5 h-5 ${feature.textColor}`} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">

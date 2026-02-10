@@ -107,8 +107,8 @@ export function ProfileView({ user }: ProfileViewProps) {
           {/* Account Created Card */}
           <div className="bg-[#2b2d31] rounded-lg border border-[#1e1f22] p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-blue-500" />
+              <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-emerald-500" />
               </div>
               <h3 className="font-semibold text-white">
                 Member Since
@@ -122,8 +122,8 @@ export function ProfileView({ user }: ProfileViewProps) {
           {/* User ID Card */}
           <div className="bg-[#2b2d31] rounded-lg border border-[#1e1f22] p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <User className="w-5 h-5 text-purple-500" />
+              <div className="w-10 h-10 bg-gray-500/20 rounded-lg flex items-center justify-center">
+                <User className="w-5 h-5 text-gray-400" />
               </div>
               <h3 className="font-semibold text-white">
                 User ID
@@ -137,8 +137,8 @@ export function ProfileView({ user }: ProfileViewProps) {
           {/* Encryption Status Card */}
           <div className="bg-[#2b2d31] rounded-lg border border-[#1e1f22] p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                <Key className="w-5 h-5 text-orange-500" />
+              <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                <Key className="w-5 h-5 text-cyan-500" />
               </div>
               <h3 className="font-semibold text-white">
                 Encryption Status

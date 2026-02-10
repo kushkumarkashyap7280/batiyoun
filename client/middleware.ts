@@ -33,6 +33,7 @@ export async function middleware(request: NextRequest) {
   ]
 
   const access_token = request.cookies.get('access_token')
+  const refresh_token = request.cookies.get('refresh_token')
   let decoded: TokenPayload | null = null
 
   if (access_token) {
@@ -47,6 +48,11 @@ export async function middleware(request: NextRequest) {
     } catch {
       decoded = null
     }
+  }else if(pathname === '/api/auth/verify-me' && refresh_token){ 
+
+    // 
+     return NextResponse.next();
+
   }
 
   // ⚠️ ONLY PROTECT API ROUTES - Let client-side layouts handle page protection

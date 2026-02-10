@@ -6,13 +6,18 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/zustandUserStore';
 
 const navItems = [
-  { icon: MessageSquare, label: 'Chat', href: '/chat', color: 'from-green-500 to-emerald-600' },
-  { icon: User, label: 'Profile', href: '/profile', color: 'from-blue-500 to-cyan-600' },
-  { icon: Settings, label: 'Settings', href: '/settings', color: 'from-purple-500 to-pink-600' },
-  { icon: Lock, label: 'Privacy', href: '/privacy', color: 'from-orange-500 to-red-600' },
+  { icon: MessageSquare, label: 'Chat', href: '/chat' },
+  { icon: User, label: 'Profile', href: '/profile' },
+  { icon: Settings, label: 'Settings', href: '/settings' },
+  { icon: Lock, label: 'Privacy', href: '/privacy' },
 ];
 
-export function MainNavigation() {
+interface MainNavigationProps {
+  isOpen: boolean;
+  onToggleSubSidebar: () => void;
+}
+
+export function MainNavigation({ isOpen, onToggleSubSidebar }: MainNavigationProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout, isDark, toggleTheme } = useUserStore();
@@ -27,8 +32,10 @@ export function MainNavigation() {
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <nav className="w-18 bg-[#1e1f22] flex flex-col items-center py-3 gap-2 border-r border-black/20">
+    <nav className="w-18 bg-[#1e1f22] flex flex-col items-center py-3 gap-2 border-r border-black/20 transition-all duration-300">
       {/* Home/Logo Button */}
       <Link
         href="/chat"
@@ -48,12 +55,15 @@ export function MainNavigation() {
       {/* Navigation Items */}
       {navItems.map((item) => {
         const Icon = item.icon;
-        const isActive = pathname === item.href;
+        const isActive = pathname.startsWith(item.href);
 
         return (
-          <Link
+          <button
             key={item.href}
-            href={item.href}
+            onClick={() => {
+              router.push(item.href);
+              onToggleSubSidebar();
+            }}
             className="relative group"
           >
             {/* Active indicator */}
@@ -64,8 +74,8 @@ export function MainNavigation() {
             <div
               className={`w-12 h-12 flex items-center justify-center transition-all duration-200 ${
                 isActive
-                  ? `rounded-xl bg-linear-to-br ${item.color}`
-                  : 'rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:' + item.color
+                  ? 'rounded-xl bg-linear-to-br from-green-500 to-emerald-600'
+                  : 'rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:from-green-500/80 hover:to-emerald-600/80'
               }`}
             >
               <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#b5bac1]'}`} />
@@ -75,7 +85,7 @@ export function MainNavigation() {
             <div className="absolute left-full ml-4 px-3 py-2 bg-black text-white text-sm font-medium rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
               {item.label}
             </div>
-          </Link>
+          </button>
         );
       })}
 
@@ -85,7 +95,7 @@ export function MainNavigation() {
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
-        className="w-12 h-12 rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:from-yellow-400 hover:to-orange-500 transition-all duration-200 flex items-center justify-center group relative"
+        className="w-12 h-12 rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:from-gray-600 hover:to-gray-700 transition-all duration-200 flex items-center justify-center group relative"
       >
         {isDark ? (
           <Sun className="w-5 h-5 text-[#b5bac1]" />
@@ -117,7 +127,7 @@ export function MainNavigation() {
       {/* Logout Button */}
       <button
         onClick={handleLogout}
-        className="w-12 h-12 rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:from-red-500 hover:to-red-700 transition-all duration-200 flex items-center justify-center group relative"
+        className="w-12 h-12 rounded-2xl bg-[#313338] hover:rounded-xl hover:bg-linear-to-br hover:from-gray-600 hover:to-gray-800 transition-all duration-200 flex items-center justify-center group relative"
       >
         <LogOut className="w-5 h-5 text-[#b5bac1]" />
         

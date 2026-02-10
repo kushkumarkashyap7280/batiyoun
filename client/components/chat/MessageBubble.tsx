@@ -69,7 +69,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   // Received messages (Discord style)
   return (
     <div className="flex gap-3 hover:bg-[#2e3035] -mx-4 px-4 py-1 rounded group">
-      <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0">
+      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center shrink-0">
         <span className="text-white text-sm font-semibold">AC</span>
       </div>
       <div className="flex-1 min-w-0">
