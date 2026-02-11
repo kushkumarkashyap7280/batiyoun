@@ -10,10 +10,7 @@ export default defineConfig({
     
   },
   datasource: {
-    // for prisma migration commands, it uses DATABASE_URL from .env
-    // url: env("DATABASE_URL"),
-    // shadowDatabaseUrl: env("DIRECT_URL"), // Used for testing and development to create a temporary database for migrations
-    
+
     url: env("DIRECT_URL"), // Use DIRECT_URL for runtime to connect to the database
   },
 }); 
