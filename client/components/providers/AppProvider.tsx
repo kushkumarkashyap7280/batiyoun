@@ -3,6 +3,7 @@
 
 import { useEffect } from 'react';
 import { useUserStore } from '@/store/zustandUserStore';
+import { toast } from 'sonner';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const setUser = useUserStore((state) => state.setUser);
@@ -11,7 +12,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const verify = async () => {
       // Skip verification if offline
-      if (!navigator.onLine) return;
+      if (!navigator.onLine){
+
+        toast.error("You are offline. Verification skipped.");
+        return;
+      }
 
       try {
         const res = await fetch('/api/auth/verify-me', {
