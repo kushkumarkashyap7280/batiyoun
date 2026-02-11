@@ -97,3 +97,61 @@ export const LoginSchema = z
   });
 
 export type LoginData = z.infer<typeof LoginSchema>;
+
+
+// this is settings only PWA can have
+
+// user settings
+/* setting  : {
+  
+  'privacy': {
+      'profileVisibility': 'public' | 'friends' | 'private',
+      'lastSeen': 'everyone' | 'friends' | 'nobody',
+  },
+  'system': {
+      'cameraAccess': boolean,
+      'microphoneAccess': boolean,
+      'notifications': boolean,
+  },
+  'backup': {
+      'autoBackup': boolean,
+      'backupFrequency': 'daily' | 'weekly' | 'monthly',
+      'backupMethod': 'cloud' | 'local',  
+  },
+  'appearance': {
+      'theme': 'light' | 'dark' | 'system',
+      'customAccentColor': string, // hex color code 
+      'fontSize': 'small' | 'medium' | 'large',
+      'fontStyle': 'sans-serif' | 'serif' | 'monospace',
+  }
+  
+
+}
+*/
+
+
+export const UserSettingsSchema = z.object({
+  privacy: z.object({
+    profileVisibility: z.enum(["public", "friends", "private"]),
+    lastSeen: z.enum(["everyone", "friends", "nobody"]),
+  }),
+  system: z.object({
+    cameraAccess: z.boolean(),
+    microphoneAccess: z.boolean(),
+    notifications: z.boolean(),
+  }),
+  backup: z.object({
+    autoBackup: z.boolean(),
+    backupFrequency: z.enum(["daily", "weekly", "monthly"]),
+    backupMethod: z.enum(["cloud", "local"]),
+  }),
+  appearance: z.object({
+    theme: z.enum(["light", "dark", "system"]),
+    customAccentColor: z.string(), // hex color code
+    fontSize: z.enum(["small", "medium", "large"]),
+    fontStyle: z.enum(["sans-serif", "serif", "monospace"]),
+  }),
+});
+
+
+export type UserSettings = z.infer<typeof UserSettingsSchema>;

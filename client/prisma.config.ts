@@ -15,7 +15,7 @@ export default defineConfig({
     // url: env("DATABASE_URL"),
 
 
-    // for production , uncomment the below line and comment the above line, and make sure to set DIRECT_URL in .env to the direct connection string without pgbouncer
+    // // for production , uncomment the below line and comment the above line, and make sure to set DIRECT_URL in .env to the direct connection string without pgbouncer
     url: env("DATABASE_URL"),
     shadowDatabaseUrl: env("DIRECT_URL"), // Used for testing and development to create a temporary database for migrations
   

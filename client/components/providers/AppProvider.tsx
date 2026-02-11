@@ -3,7 +3,7 @@
 
 import { useEffect } from 'react';
 import { useUserStore } from '@/store/zustandUserStore';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const setUser = useUserStore((state) => state.setUser);
@@ -41,5 +41,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     verify();
   }, [setUser, logout]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Toaster position="top-right" richColors />
+    </>
+  );
 }
