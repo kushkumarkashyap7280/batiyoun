@@ -1,6 +1,7 @@
 'use client';
 
-import { Menu, Shield } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface TopBarProps {
   onToggleSidebar: () => void;
@@ -8,41 +9,25 @@ interface TopBarProps {
 
 export function TopBar({ onToggleSidebar }: TopBarProps) {
   return (
-    <header className="h-16 w-full border-b border-(--border-color) dark:border-(--border-color-dark) backdrop-blur-md bg-white/70 dark:bg-(--bg-secondary-dark)/70 sticky top-0 z-50">
-      <div className="h-full px-4 flex items-center justify-between">
-        {/* Left: Toggle + Logo */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={onToggleSidebar}
-            className="p-2 hover:bg-(--hover-bg) dark:hover:bg-(--hover-bg-dark) rounded-lg transition-colors"
-            aria-label="Toggle sidebar"
-          >
-            <Menu className="w-5 h-5 text-(--text-primary) dark:text-(--text-primary-dark)" />
-          </button>
-          
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-semibold text-lg text-(--text-primary) dark:text-(--text-primary-dark) hidden sm:block">
-              Batiyoun
-            </span>
-          </div>
-        </div>
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div className="max-w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-2">
+        {/* Left: Toggle Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 sm:h-10 sm:w-10"
+          onClick={onToggleSidebar}
+          title="Toggle sidebar"
+        >
+          <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
+        </Button>
 
-        {/* Right: User info placeholder */}
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex flex-col items-end">
-            <span className="text-sm font-medium text-(--text-primary) dark:text-(--text-primary-dark)">
-              User Name
-            </span>
-            <span className="text-xs text-(--text-tertiary) dark:text-(--text-tertiary-dark)">
-              Online
-            </span>
-          </div>
-          <div className="w-9 h-9 rounded-full bg-linear-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white font-semibold text-sm">
-            U
-          </div>
+        {/* Right: Batiyoun Logo with Pulsing Dot */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="font-heading font-bold text-lg sm:text-2xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            Batiyoun
+          </span>
+          <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" title="System Online" />
         </div>
       </div>
     </header>

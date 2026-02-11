@@ -1,35 +1,27 @@
-import { cookies } from 'next/headers';
-import { jwtVerify } from 'jose';
+
 import prisma from '@/lib/prisma';
 import { ProfileView } from '@/components/profile/ProfileView';
-import { env } from '@/config/env';
-import { type TokenPayload, tokenPayloadSchema } from '@batiyoun/common';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
 export default async function ProfilePage() {
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get('access_token');
 
-  if (!access_token) {
+   // get userId from header x-user-id set by middleware
+  const headersList = headers();
+  
+  const userId = (await headersList).get('x-user-id');
+
+  if (!userId) {
     redirect('/home');
   }
-
-  // Verify JWT and get user ID
-  let decoded: TokenPayload;
-  try {
-    const secret = new TextEncoder().encode(env.ACCESS_TOKEN_SECRET);
-    const { payload } = await jwtVerify(access_token.value, secret);
-    decoded = tokenPayloadSchema.parse(payload);
-  } catch (error) {
-    console.error('Invalid token:', error);
-    redirect('/home');
-  }
+ 
 
   // Fetch full user data (except password)
   const user = await prisma.user.findUnique({
-    where: { id: decoded.id },
+    where: { id: userId },
     select: {
       id: true,
+      currentMood: true,
       fullName: true,
       email: true,
       username: true,

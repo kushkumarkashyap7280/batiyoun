@@ -4,7 +4,14 @@ import { ApiError, ZustandUserSchema } from "@batiyoun/common";
 import { cookies } from "next/headers";
 import { env } from "@/config/env";
 import { tokenPayloadSchema } from "@batiyoun/common";
-import { verifyTokenSecret, generateAccessToken } from "@/utils/tokens";
+import { verifyTokenSecret, generateAccessToken, generateRefreshToken } from "@/utils/tokens";
+
+
+// steps 
+// 1. Check access token - if valid, return user
+// 2. If access token invalid, check refresh token 
+// 3. check if user from db have same refresh token, if not, reject delete all tokens and ask to login again
+// 4. If refresh token valid, generate new access token and refresh token, update db and cookies, return user
 
 export const GET = routeWrapper(async (request: Request) => {
   const cookieStore = await cookies();
@@ -63,11 +70,20 @@ export const GET = routeWrapper(async (request: Request) => {
       } 
     });
 
-    if (!user || user.refreshToken !== refreshToken) {
+    if (!user || !user.refreshToken || user.refreshToken !== refreshToken) {
+      cookieStore.delete("refresh_token");
+      cookieStore.delete("access_token");
+
+      if(user){
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { refreshToken: null },
+        });
+      }
       throw new ApiError("Session invalid", 401);
     }
 
-    const newRefreshToken = await generateAccessToken({
+    const newRefreshToken = await generateRefreshToken({
       id: user.id,
       email: user.email,
       username: user.username,
@@ -110,6 +126,8 @@ export const GET = routeWrapper(async (request: Request) => {
     };
 
   } catch (error) {
+    cookieStore.delete("refresh_token");
+      cookieStore.delete("access_token");
     throw new ApiError("Session expired. Please log in again.", 401);
   }
 });

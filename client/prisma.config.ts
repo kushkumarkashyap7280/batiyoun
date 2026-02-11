@@ -7,17 +7,10 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
+    
   },
   datasource: {
-  
-    
-    // for prisma migration commands, it uses DATABASE_URL from .env
-    // url: env("DATABASE_URL"),
 
-
-    // for production , uncomment the below line and comment the above line, and make sure to set DIRECT_URL in .env to the direct connection string without pgbouncer
-    url: env("DATABASE_URL"),
-    shadowDatabaseUrl: env("DIRECT_URL"), // Used for testing and development to create a temporary database for migrations
-  
+    url: env("DIRECT_URL"), // Use DIRECT_URL for runtime to connect to the database
   },
-});
+}); 

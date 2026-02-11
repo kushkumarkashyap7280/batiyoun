@@ -30,6 +30,8 @@ model User {
   avatar        String?
   cloudinaryId   String?    @map("cloudinary_id")
   bio           String?
+  currentMood     String?    @map("current_mood")
+  socialLinks     Json?     @map("social_links") 
   
   // --- E2E Security ---
   // The Public Key is mandatory. A user cannot exist without an encryption identity.
@@ -38,6 +40,9 @@ model User {
   
   // Optional encrypted backup of their private key
   keyBackup     String?   @map("key_backup")
+
+  // settings
+  settings      Json?     @map("settings") 
 
   // --- Metadata ---
   isPro         Boolean   @default(false) @map("is_pro")
