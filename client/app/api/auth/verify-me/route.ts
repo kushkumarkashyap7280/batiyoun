@@ -67,11 +67,32 @@ export const GET = routeWrapper(async (request: Request) => {
       throw new ApiError("Session invalid", 401);
     }
 
+    const newRefreshToken = await generateAccessToken({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      isAdmin: user.isAdmin,
+    });
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { refreshToken: newRefreshToken },
+    });
+
     const newAccessToken = await generateAccessToken({
       id: user.id,
       email: user.email,
       username: user.username,
       isAdmin: user.isAdmin,
+    });
+
+
+    cookieStore.set("refresh_token", newRefreshToken, {
+      httpOnly: true,
+      secure: env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,  // 7 days
     });
 
     cookieStore.set("access_token", newAccessToken, {
