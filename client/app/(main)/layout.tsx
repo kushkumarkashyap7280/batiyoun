@@ -65,9 +65,27 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isMobile) return;
 
+    let isSwiping = false;
+
     const handleTouchStart = (e: TouchEvent) => {
       touchStartX.current = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
+      isSwiping = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!touchStartX.current) return;
+
+      const touchCurrentX = e.touches[0].clientX;
+      const touchCurrentY = e.touches[0].clientY;
+      const diffX = touchCurrentX - touchStartX.current;
+      const diffY = touchCurrentY - touchStartY.current;
+
+      // Only handle horizontal swipes from left edge
+      if (Math.abs(diffX) > Math.abs(diffY) && touchStartX.current < 30 && diffX > 10) {
+        isSwiping = true;
+        e.preventDefault(); // Prevent browser back gesture
+      }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
@@ -77,9 +95,12 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       const diffY = touchEndY - touchStartY.current;
 
       // Only consider horizontal swipe if vertical movement is minimal
-      if (Math.abs(diffY) > Math.abs(diffX)) return;
+      if (Math.abs(diffY) > Math.abs(diffX)) {
+        isSwiping = false;
+        return;
+      }
 
-      // Right swipe (left to right) to open sidebar
+      // Right swipe (left to right) from edge to open sidebar
       if (diffX > 50 && touchStartX.current < 30) {
         e.preventDefault();
         setIsSidebarOpen(true);
@@ -89,15 +110,19 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         e.preventDefault();
         setIsSidebarOpen(false);
       }
+
+      isSwiping = false;
     };
 
     const mainElement = document.querySelector('main');
     if (mainElement) {
-      mainElement.addEventListener('touchstart', handleTouchStart, false);
-      mainElement.addEventListener('touchend', handleTouchEnd, false);
+      mainElement.addEventListener('touchstart', handleTouchStart, { passive: false });
+      mainElement.addEventListener('touchmove', handleTouchMove, { passive: false });
+      mainElement.addEventListener('touchend', handleTouchEnd, { passive: false });
 
       return () => {
         mainElement.removeEventListener('touchstart', handleTouchStart);
+        mainElement.removeEventListener('touchmove', handleTouchMove);
         mainElement.removeEventListener('touchend', handleTouchEnd);
       };
     }
@@ -123,10 +148,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
+      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
         <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        <main className="flex-1 overflow-auto pb-20">
+        <main className="flex-1 overflow-auto pb-20 overscroll-none touch-pan-y" style={{ overscrollBehaviorX: 'none' }}>
           {children}
         </main>
 
