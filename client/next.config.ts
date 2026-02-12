@@ -10,6 +10,8 @@ const pwaConfig = withPWA({
   reloadOnOnline: true,
   workboxOptions: {
     disableDevLogs: true,
+    skipWaiting: false, 
+    clientsClaim: false,
   },
 });
 

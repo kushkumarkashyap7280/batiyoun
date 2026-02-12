@@ -24,7 +24,7 @@ export default function MeetingsTab() {
 
         {/* Start New Meeting */}
         <div className="mt-4">
-          <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-6 sm:p-8">
+          <div className="bg-linear-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-6 sm:p-8">
             <VideoIcon className="w-10 h-10 text-green-500 mb-3" />
             <h3 className="text-lg font-semibold text-default mb-2">Start a New Meeting</h3>
             <p className="text-sm text-muted mb-4">Instantly start a video call or create a meeting link to share</p>

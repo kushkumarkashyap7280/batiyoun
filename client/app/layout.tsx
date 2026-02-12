@@ -6,6 +6,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import ServiceWorkerRegister from "@/components/landing/ServiceWorkerRegister";
 import { AppProvider } from "@/components/providers/AppProvider";
+import { UpdatePrompt } from "@/components/pwa/UpdatePrompt";
 
 
 const geistSans = Geist({
@@ -71,6 +72,7 @@ export default function RootLayout({
             <AppProvider>
               <ServiceWorkerRegister /> 
               <Toaster richColors position="top-center" />
+              <UpdatePrompt />
               {children}
             </AppProvider>
             
