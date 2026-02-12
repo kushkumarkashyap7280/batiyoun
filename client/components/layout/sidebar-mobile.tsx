@@ -56,7 +56,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           fixed inset-y-0 left-0 z-50 w-64 bg-surface border-r border-line rounded-r-3xl
           transition-transform duration-300 ease-in-out
-          flex flex-col shadow-2xl
+          flex flex-col shadow-2xl overflow-hidden
         `}
       >
         {/* User Avatar Section */}

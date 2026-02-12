@@ -6,7 +6,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import { DesktopTopbar } from '@/components/layout/desktop-topbar';
 import { SidebarDesktop } from '@/components/layout/sidebar-desktop';
 import { SidebarMobile } from '@/components/layout/sidebar-mobile';
-import { MobileTabbar } from '@/components/layout/mobile-tabbar';
 import { useUserStore } from '@/store/zustandUserStore';
 import CustomLoader from '@/components/ui/CustomLoader';
 
@@ -146,40 +145,17 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     return <CustomLoader />;
   }
 
-  const isOnChatPage = pathname?.startsWith('/chat');
-
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
         <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        {/* Mobile Header - shows on all pages */}
-        <header className="sticky top-0 z-30 border-b border-line bg-surface px-4 py-3 flex items-center justify-between">
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-hover-surface transition-colors"
-          >
-            <svg className="w-6 h-6 text-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          
-          <div className="flex items-center gap-1.5">
-            <span className="font-heading font-bold text-lg bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Batiyoun
-            </span>
-            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
-          </div>
-        </header>
-
         <main 
-          className={`flex-1 overflow-auto overscroll-none touch-pan-y ${isOnChatPage ? 'pb-20' : 'pb-0'}`} 
+          className="flex-1 overflow-auto overscroll-none touch-pan-y" 
           style={{ overscrollBehaviorX: 'none' }}
         >
           {children}
         </main>
-
-        {isOnChatPage && <MobileTabbar />}
       </div>
     );
   }
@@ -188,7 +164,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
       <DesktopTopbar onToggleSidebar={toggleSidebar} />
 
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-1 overflow-hidden relative w-full">
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -199,14 +175,14 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         <aside
           className={`
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-            fixed md:relative z-50 h-full
+            fixed md:absolute top-0 left-0 z-50 h-full
             transition-transform duration-300 ease-in-out
           `}
         >
           <SidebarDesktop onMobileClose={() => setIsSidebarOpen(false)} />
         </aside>
 
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto w-full">
           {children}
         </main>
       </div>
