@@ -1,50 +1,87 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { MessageSquare, Settings, User } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { MessageSquare, Upload, Video } from 'lucide-react';
 
 export function MobileTabbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeTab = searchParams.get('tab') || 'chats';
+
+  const handleTabChange = (tab: string) => {
+    if (tab === 'chats') {
+      router.push('/chat');
+    } else {
+      router.push(`/chat?tab=${tab}`);
+    }
+  };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-line">
-      <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-around">
-        <Link
-          href="/chat"
-          className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors ${
-            pathname?.startsWith('/chat')
-              ? 'bg-hover-surface text-default'
-              : 'text-muted hover:bg-hover-surface hover:text-default'
-          }`}
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-surface border-t border-line rounded-t-3xl shadow-2xl">
+      <div className="mx-auto px-4 py-4 flex items-center justify-around gap-3">
+        {/* Chats Tab */}
+        <button
+          onClick={() => handleTabChange('chats')}
+          className="flex flex-col items-center gap-2 py-2 px-4 transition-all duration-200 flex-1 group"
         >
-          <MessageSquare className="w-6 h-6" />
-          <span className="text-xs font-medium">Chat</span>
-        </Link>
+          <MessageSquare
+            className={`w-6 h-6 transition-all duration-200 ${
+              activeTab === 'chats'
+                ? 'text-green-500 drop-shadow-lg drop-shadow-green-500/50'
+                : 'text-muted group-hover:text-green-500/70'
+            }`}
+          />
+          <span
+            className={`text-xs font-semibold transition-colors duration-200 ${
+              activeTab === 'chats' ? 'text-green-500' : 'text-muted group-hover:text-default'
+            }`}
+          >
+            Chats
+          </span>
+        </button>
 
-        <Link
-          href="/profile"
-          className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors ${
-            pathname?.startsWith('/profile')
-              ? 'bg-hover-surface text-default'
-              : 'text-muted hover:bg-hover-surface hover:text-default'
-          }`}
+        {/* Upload Tab */}
+        <button
+          onClick={() => handleTabChange('upload')}
+          className="flex flex-col items-center gap-2 py-2 px-4 transition-all duration-200 flex-1 group"
         >
-          <User className="w-6 h-6" />
-          <span className="text-xs font-medium">Profile</span>
-        </Link>
+          <Upload
+            className={`w-6 h-6 transition-all duration-200 ${
+              activeTab === 'upload'
+                ? 'text-green-500 drop-shadow-lg drop-shadow-green-500/50'
+                : 'text-muted group-hover:text-green-500/70'
+            }`}
+          />
+          <span
+            className={`text-xs font-semibold transition-colors duration-200 ${
+              activeTab === 'upload' ? 'text-green-500' : 'text-muted group-hover:text-default'
+            }`}
+          >
+            Upload
+          </span>
+        </button>
 
-        <Link
-          href="/settings"
-          className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors ${
-            pathname?.startsWith('/settings')
-              ? 'bg-hover-surface text-default'
-              : 'text-muted hover:bg-hover-surface hover:text-default'
-          }`}
+        {/* Meetings Tab */}
+        <button
+          onClick={() => handleTabChange('meetings')}
+          className="flex flex-col items-center gap-2 py-2 px-4 transition-all duration-200 flex-1 group"
         >
-          <Settings className="w-6 h-6" />
-          <span className="text-xs font-medium">Settings</span>
-        </Link>
+          <Video
+            className={`w-6 h-6 transition-all duration-200 ${
+              activeTab === 'meetings'
+                ? 'text-green-500 drop-shadow-lg drop-shadow-green-500/50'
+                : 'text-muted group-hover:text-green-500/70'
+            }`}
+          />
+          <span
+            className={`text-xs font-semibold transition-colors duration-200 ${
+              activeTab === 'meetings' ? 'text-green-500' : 'text-muted group-hover:text-default'
+            }`}
+          >
+            Meetings
+          </span>
+        </button>
       </div>
     </nav>
   );

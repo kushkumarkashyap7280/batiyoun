@@ -54,13 +54,13 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
       <aside
         className={`
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          fixed inset-y-0 left-0 z-50 w-64 bg-surface border-r border-line
+          fixed inset-y-0 left-0 z-50 w-64 bg-surface border-r border-line rounded-r-3xl
           transition-transform duration-300 ease-in-out
-          flex flex-col
+          flex flex-col shadow-2xl
         `}
       >
         {/* User Avatar Section */}
-        <div className="p-4 border-b border-line">
+        <div className="p-4 border-b border-line rounded-b-2xl bg-gradient-to-b from-surface via-surface to-transparent">
           <button
             onClick={() => handleNavigation('/profile')}
             className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity"
@@ -88,9 +88,9 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           {/* Chat */}
           <button
             onClick={() => handleNavigation('/chat')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 ${
               pathname?.startsWith('/chat')
-                ? 'bg-linear-to-br from-green-500 to-emerald-600 text-white font-medium'
+                ? 'bg-linear-to-br from-green-500 to-emerald-600 text-white font-semibold shadow-lg shadow-green-500/20'
                 : 'text-muted hover:bg-hover-surface hover:text-default'
             }`}
           >
@@ -101,9 +101,9 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           {/* Settings */}
           <button
             onClick={() => handleNavigation('/settings')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 ${
               pathname?.startsWith('/settings')
-                ? 'bg-linear-to-br from-green-500 to-emerald-600 text-white font-medium'
+                ? 'bg-linear-to-br from-green-500 to-emerald-600 text-white font-semibold shadow-lg shadow-green-500/20'
                 : 'text-muted hover:bg-hover-surface hover:text-default'
             }`}
           >
@@ -117,7 +117,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-muted hover:bg-hover-surface hover:text-default transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-muted hover:bg-hover-surface hover:text-default transition-all duration-200"
           >
             {isDark ? (
               <Sun className="w-5 h-5 shrink-0" />
@@ -130,7 +130,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200"
           >
             <LogOut className="w-5 h-5 shrink-0" />
             <span>Logout</span>

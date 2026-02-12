@@ -40,7 +40,7 @@ export function SidebarDesktop({ onMobileClose }: SidebarDesktopProps) {
   };
 
   return (
-    <nav className="w-20 md:w-16 bg-surface flex flex-col items-center py-3 md:py-3 gap-2 md:gap-2 border-r border-line h-full overflow-y-auto overflow-x-hidden">
+    <nav className="w-20 md:w-16 bg-surface flex flex-col items-center py-3 md:py-3 gap-2 md:gap-2 border-r border-line rounded-r-3xl h-full overflow-y-auto overflow-x-hidden shadow-xl">
       {/* User Avatar */}
       <button
         onClick={() => handleNavigation('/profile')}
@@ -50,10 +50,10 @@ export function SidebarDesktop({ onMobileClose }: SidebarDesktopProps) {
           <img
             src={user.avatar}
             alt={user.fullName || 'User'}
-            className="w-12 h-12 md:w-12 md:h-12 rounded-full object-cover hover:rounded-xl transition-all duration-200"
+            className="w-12 h-12 md:w-12 md:h-12 rounded-2xl object-cover hover:rounded-xl transition-all duration-200 ring-2 ring-transparent hover:ring-green-500/30"
           />
         ) : (
-          <div className="w-12 h-12 md:w-12 md:h-12 rounded-full bg-linear-to-br from-green-500 to-emerald-600 hover:rounded-xl transition-all duration-200 flex items-center justify-center">
+          <div className="w-12 h-12 md:w-12 md:h-12 rounded-2xl bg-linear-to-br from-green-500 to-emerald-600 hover:rounded-xl transition-all duration-200 flex items-center justify-center ring-2 ring-transparent hover:ring-green-500/50">
             <User className="w-6 h-6 md:w-6 md:h-6 text-white" />
           </div>
         )}
@@ -68,20 +68,17 @@ export function SidebarDesktop({ onMobileClose }: SidebarDesktopProps) {
       {/* Chat Button */}
       <button
         onClick={() => handleNavigation('/chat')}
-        className="relative group shrink-0"
+        className="relative group shrink-0 transition-all duration-200"
       >
-        {pathname?.startsWith('/chat') && (
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-7 md:h-8 bg-white rounded-r-full -ml-2 md:-ml-3" />
-        )}
         <div
-          className={`w-12 h-12 md:w-12 md:h-12 flex items-center justify-center transition-all duration-200 ${
+          className={`w-12 h-12 md:w-12 md:h-12 flex items-center justify-center transition-all duration-200 rounded-2xl ${
             pathname?.startsWith('/chat')
-              ? 'rounded-xl bg-linear-to-br from-green-500 to-emerald-600'
-              : 'rounded-2xl bg-muted/50 hover:rounded-xl hover:bg-linear-to-br hover:from-green-500/80 hover:to-emerald-600/80'
+              ? 'bg-linear-to-br from-green-500 to-emerald-600 shadow-lg shadow-green-500/40'
+              : 'bg-muted/50 hover:bg-linear-to-br hover:from-green-500/80 hover:to-emerald-600/80 hover:rounded-xl'
           }`}
         >
           <MessageSquare
-            className={`w-6 h-6 md:w-5 md:h-5 ${pathname?.startsWith('/chat') ? 'text-white' : 'text-muted-foreground'}`}
+            className={`w-6 h-6 md:w-5 md:h-5 transition-colors ${pathname?.startsWith('/chat') ? 'text-white' : 'text-muted-foreground'}`}
           />
         </div>
         <div className="absolute left-full ml-4 px-3 py-2 bg-black text-white text-sm font-medium rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
@@ -92,20 +89,17 @@ export function SidebarDesktop({ onMobileClose }: SidebarDesktopProps) {
       {/* Settings Button */}
       <button
         onClick={() => handleNavigation('/settings')}
-        className="relative group shrink-0"
+        className="relative group shrink-0 transition-all duration-200"
       >
-        {pathname?.startsWith('/settings') && (
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-7 md:h-8 bg-white rounded-r-full -ml-2 md:-ml-3" />
-        )}
         <div
-          className={`w-12 h-12 md:w-12 md:h-12 flex items-center justify-center transition-all duration-200 ${
+          className={`w-12 h-12 md:w-12 md:h-12 flex items-center justify-center transition-all duration-200 rounded-2xl ${
             pathname?.startsWith('/settings')
-              ? 'rounded-xl bg-linear-to-br from-green-500 to-emerald-600'
-              : 'rounded-2xl bg-muted/50 hover:rounded-xl hover:bg-linear-to-br hover:from-green-500/80 hover:to-emerald-600/80'
+              ? 'bg-linear-to-br from-green-500 to-emerald-600 shadow-lg shadow-green-500/40'
+              : 'bg-muted/50 hover:bg-linear-to-br hover:from-green-500/80 hover:to-emerald-600/80 hover:rounded-xl'
           }`}
         >
           <Settings
-            className={`w-6 h-6 md:w-5 md:h-5 ${pathname?.startsWith('/settings') ? 'text-white' : 'text-muted-foreground'}`}
+            className={`w-6 h-6 md:w-5 md:h-5 transition-colors ${pathname?.startsWith('/settings') ? 'text-white' : 'text-muted-foreground'}`}
           />
         </div>
         <div className="absolute left-full ml-4 px-3 py-2 bg-black text-white text-sm font-medium rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">

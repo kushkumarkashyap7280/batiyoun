@@ -1,8 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { DesktopTopbar } from '@/components/layout/desktop-topbar';
 import { SidebarDesktop } from '@/components/layout/sidebar-desktop';
 import { SidebarMobile } from '@/components/layout/sidebar-mobile';
@@ -16,6 +16,14 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isViewportReady, setIsViewportReady] = useState(false);
+  const [pathname, setPathname] = useState('');
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const currentPathname = usePathname();
+
+  useEffect(() => {
+    setPathname(currentPathname);
+  }, [currentPathname]);
 
   useEffect(() => {
     const init = async () => {
@@ -53,6 +61,48 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Handle swipe gesture for mobile sidebar toggle
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX.current;
+      const diffY = touchEndY - touchStartY.current;
+
+      // Only consider horizontal swipe if vertical movement is minimal
+      if (Math.abs(diffY) > Math.abs(diffX)) return;
+
+      // Right swipe (left to right) to open sidebar
+      if (diffX > 50 && touchStartX.current < 30) {
+        e.preventDefault();
+        setIsSidebarOpen(true);
+      }
+      // Left swipe (right to left) to close sidebar
+      else if (diffX < -50 && isSidebarOpen) {
+        e.preventDefault();
+        setIsSidebarOpen(false);
+      }
+    };
+
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.addEventListener('touchstart', handleTouchStart, false);
+      mainElement.addEventListener('touchend', handleTouchEnd, false);
+
+      return () => {
+        mainElement.removeEventListener('touchstart', handleTouchStart);
+        mainElement.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [isMobile, isSidebarOpen]);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)');
 
@@ -80,7 +130,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
 
-        <MobileTabbar />
+        {pathname?.startsWith('/chat') && <MobileTabbar />}
       </div>
     );
   }
