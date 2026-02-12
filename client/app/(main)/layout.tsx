@@ -148,6 +148,8 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
+        <DesktopTopbar onToggleSidebar={toggleSidebar} />
+        
         <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
         <main 
