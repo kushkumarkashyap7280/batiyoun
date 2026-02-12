@@ -1,8 +1,10 @@
 'use client';
+import React from 'react'
 
-import { redirect } from 'next/navigation';
-
-export default function SettingsPage() {
- 
-  redirect('/settings/privacy');
+function page() {
+  return (
+    <div>Settings page</div>
+  )
 }
+
+export default page
