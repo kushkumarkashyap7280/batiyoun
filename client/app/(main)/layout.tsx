@@ -146,16 +146,40 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     return <CustomLoader />;
   }
 
+  const isOnChatPage = pathname?.startsWith('/chat');
+
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
         <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        <main className="flex-1 overflow-auto pb-20 overscroll-none touch-pan-y" style={{ overscrollBehaviorX: 'none' }}>
+        {/* Mobile Header - shows on all pages */}
+        <header className="sticky top-0 z-30 border-b border-line bg-surface px-4 py-3 flex items-center justify-between">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-hover-surface transition-colors"
+          >
+            <svg className="w-6 h-6 text-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          
+          <div className="flex items-center gap-1.5">
+            <span className="font-heading font-bold text-lg bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              Batiyoun
+            </span>
+            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
+          </div>
+        </header>
+
+        <main 
+          className={`flex-1 overflow-auto overscroll-none touch-pan-y ${isOnChatPage ? 'pb-20' : 'pb-0'}`} 
+          style={{ overscrollBehaviorX: 'none' }}
+        >
           {children}
         </main>
 
-        {pathname?.startsWith('/chat') && <MobileTabbar />}
+        {isOnChatPage && <MobileTabbar />}
       </div>
     );
   }

@@ -60,7 +60,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
         `}
       >
         {/* User Avatar Section */}
-        <div className="p-4 border-b border-line rounded-b-2xl bg-gradient-to-b from-surface via-surface to-transparent">
+        <div className="p-4 border-b border-line rounded-b-2xl bg-linear-to-b from-surface via-surface to-transparent">
           <button
             onClick={() => handleNavigation('/profile')}
             className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity"
