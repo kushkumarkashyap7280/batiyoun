@@ -47,7 +47,7 @@ function UserLoginForm() {
   });
 
   const onSubmit = async (data: LoginData) => {
-    console.log('[UserLoginForm] Form submitted with:', data);
+    
     setLoading(true);
     try {
       const response = await fetch('/api/auth/login', {
@@ -57,7 +57,7 @@ function UserLoginForm() {
         body: JSON.stringify(data),
       });
 
-      console.log('[UserLoginForm] API response status:', response.status);
+     
       const result = await response.json();
       
 

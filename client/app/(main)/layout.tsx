@@ -2,17 +2,20 @@
 
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { MainNavigation } from '@/components/layout/MainNavigation';
-import { TopBar } from '@/components/layout/TopBar';
+import { useRouter } from 'next/navigation';
+import { DesktopTopbar } from '@/components/layout/desktop-topbar';
+import { SidebarDesktop } from '@/components/layout/sidebar-desktop';
+import { SidebarMobile } from '@/components/layout/sidebar-mobile';
+import { MobileTabbar } from '@/components/layout/mobile-tabbar';
 import { useUserStore } from '@/store/zustandUserStore';
 import CustomLoader from '@/components/ui/CustomLoader';
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [isHydrated, setIsHydrated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isViewportReady, setIsViewportReady] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -50,18 +53,43 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  if (!isHydrated) {
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const handleChange = () => {
+      setIsMobile(mediaQuery.matches);
+      setIsViewportReady(true);
+    };
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  if (!isHydrated || !isViewportReady) {
     return <CustomLoader />;
+  }
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
+        <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+
+        <main className="flex-1 overflow-auto pb-20">
+          {children}
+        </main>
+
+        <MobileTabbar />
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
-      {/* TopBar - Full Width at Top */}
-      <TopBar onToggleSidebar={toggleSidebar} />
+      <DesktopTopbar onToggleSidebar={toggleSidebar} />
 
-      {/* Main Content Area - Below TopBar */}
       <div className="flex flex-1 overflow-hidden relative">
-        {/* Mobile Overlay */}
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -69,7 +97,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
           />
         )}
 
-        {/* Sidebar - Takes full remaining height */}
         <aside
           className={`
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -77,10 +104,9 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             transition-transform duration-300 ease-in-out
           `}
         >
-          <MainNavigation onMobileClose={() => setIsSidebarOpen(false)} />
+          <SidebarDesktop onMobileClose={() => setIsSidebarOpen(false)} />
         </aside>
 
-        {/* Main Content - Takes remaining space */}
         <main className="flex-1 overflow-auto">
           {children}
         </main>

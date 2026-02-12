@@ -14,7 +14,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       // Skip verification if offline
       if (!navigator.onLine){
 
-        toast.error("You are offline. Verification skipped.");
+        toast.error("You are offline");
         return;
       }
 
