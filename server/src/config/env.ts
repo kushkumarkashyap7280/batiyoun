@@ -7,6 +7,8 @@ const envSchema = z.object({
   MONGODB_URI: z.string().url("MONGODB_URI must be a valid MongoDB connection string"),
   REDIS_URI: z.string().url("REDIS_URI must be a valid Redis connection string"),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  PORT: z.string().default("4000").transform((val) => parseInt(val, 10)),
+  CLIENT_URL: z.string().url("CLIENT_URL must be a valid URL").default("http://localhost:3000"),
 });
 
 const envVars = envSchema.safeParse(process.env);
