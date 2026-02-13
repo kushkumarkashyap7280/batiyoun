@@ -45,7 +45,7 @@ This Code of Conduct applies within all community spaces, including:
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers at:
 
-**Email:** kushkumarkashyap7280@gmail.com
+**Email:** kushkumar.officialsoftwaredev@gmail.com
 
 All complaints will be reviewed and investigated promptly and fairly. All project maintainers are obligated to respect the privacy and security of the reporter of any incident.
 
@@ -86,7 +86,7 @@ Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcem
 ## Questions?
 
 If you have questions about this Code of Conduct, please reach out:
-- Email: kushkumarkashyap7280@gmail.com
+- Email: kushkumar.officialsoftwaredev@gmail.com
 - GitHub Discussions: https://github.com/kushkumarkashyap7280/batiyoun/discussions
 
 ---
