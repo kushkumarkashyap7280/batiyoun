@@ -300,8 +300,8 @@ Building Batiyoun takes time, effort, and infrastructure costs. Your support hel
 
 ### Sponsor Options
 
-- ☕ **[Buy me a coffee](https://www.buymeacoffee.com/kushkumar)**
-- 💳 **[GitHub Sponsors](https://github.com/sponsors/kushkumarkashyap7280)** (coming soon)
+- 💳 **[Razorpay](https://razorpay.me/@kushkumar7889)** - UPI, Cards, NetBanking (India & International)
+- 💰 **[GitHub Sponsors](https://github.com/sponsors/kushkumarkashyap7280)** (coming soon)
 - 🏆 **[Open Collective](https://opencollective.com/batiyoun)** (coming soon)
 
 ### Current Sponsors
