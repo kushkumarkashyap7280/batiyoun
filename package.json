@@ -33,12 +33,14 @@
     "dev:server": "npm run dev -w server",
     "build": "npm run build -w client && npm run build -w server",
     "build:client": "npm run build -w client",
-    "build:server": "npm run build -w server"
+    "build:server": "npm run build -w server",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json,css,md}\""
   },
   "devDependencies": {
     "@types/node": "^25.2.0",
     "concurrently": "^9.1.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.8.1",
     "tsx": "^4.21.0"
   },
   "engines": {
