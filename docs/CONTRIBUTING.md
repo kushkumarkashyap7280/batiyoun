@@ -427,7 +427,7 @@ common/
 
 - 💬 **GitHub Discussions:** Ask questions, share ideas
 - 🐛 **GitHub Issues:** Report bugs, request features
-- 📧 **Email:** kushkumarkashyap7280@gmail.com
+- 📧 **Email:** kushkumar.officialsoftwaredev@gmail.com
 
 ---
 

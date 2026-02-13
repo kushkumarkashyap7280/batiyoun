@@ -2,7 +2,7 @@
   <img src="./client/public/icons/icon-192x192.png" alt="Batiyoun Logo" width="120" height="120">
   
   # 💬 Batiyoun
-  ### *बातियौं* - The Future of Private Conversations
+  ### *बतियौं* - The Future of Private Conversations
   
   **Own Your Data. Control Your Privacy. Chat Everywhere.**
 

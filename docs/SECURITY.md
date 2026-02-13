@@ -13,7 +13,7 @@ We take security vulnerabilities seriously. If you discover a security issue, pl
 ### How to Report
 
 **DO:**
-- ✅ Email security reports to: **kushkumarkashyap7280@gmail.com**
+- ✅ Email security reports to: **kushkumar.officialsoftwaredev@gmail.com**
 - ✅ Include detailed steps to reproduce the vulnerability
 - ✅ Provide your assessment of the impact and severity
 - ✅ Give us reasonable time to fix the issue before public disclosure
@@ -269,7 +269,7 @@ In case of a security breach:
 
 ## 📞 Contact
 
-- 🔒 **Security Issues:** kushkumarkashyap7280@gmail.com
+- 🔒 **Security Issues:** kushkumar.officialsoftwaredev@gmail.com
 - 🐛 **Bug Reports:** [GitHub Issues](https://github.com/kushkumarkashyap7280/batiyoun/issues)
 - 💬 **General Questions:** [GitHub Discussions](https://github.com/kushkumarkashyap7280/batiyoun/discussions)
 
