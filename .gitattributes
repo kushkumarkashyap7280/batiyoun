@@ -1,0 +1,102 @@
+# .gitattributes
+
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Config files
+.env* text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.prettierrc text eol=lf
+.eslintrc* text eol=lf
+tsconfig.json text eol=lf
+package.json text eol=lf
+package-lock.json text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+*.fish text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Documentation
+*.txt text eol=lf
+LICENSE text eol=lf
+AUTHORS text eol=lf
+CHANGELOG* text eol=lf
+CONTRIBUTING* text eol=lf
+README* text eol=lf
+
+# Graphics
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.webp binary
+
+# Fonts
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.7z binary
+*.rar binary
+
+# Video
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.webm binary
+
+# Audio
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.m4a binary
+
+# Compiled
+*.wasm binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# Database
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Linguist overrides (for GitHub language statistics)
+*.sql linguist-detectable=true
+*.prisma linguist-language=Prisma
+public/sw.js linguist-generated=true
+public/workbox-*.js linguist-generated=true
+app/generated/** linguist-generated=true
+**/dist/** linguist-generated=true
+**/.next/** linguist-generated=true
+**/node_modules/** linguist-vendored=true

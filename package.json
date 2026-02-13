@@ -1,17 +1,60 @@
 {
-  "name": "batiyoun-root",
+  "name": "batiyoun-monorepo",
+  "version": "0.2.0",
   "private": true,
+  "description": "End-to-end encrypted Progressive Web App for private messaging",
+  "author": "Kush Kumar <kushkumarkashyap7280@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kushkumarkashyap7280/batiyoun.git"
+  },
+  "homepage": "https://batiyoun.vercel.app",
+  "bugs": {
+    "url": "https://github.com/kushkumarkashyap7280/batiyoun/issues"
+  },
+  "keywords": [
+    "chat",
+    "messaging",
+    "pwa",
+    "end-to-end-encryption",
+    "privacy",
+    "nextjs",
+    "websocket",
+    "real-time"
+  ],
   "workspaces": [
     "client",
     "server",
     "common"
   ],
   "scripts": {
-    "dev": "echo \"Run client and server separately\"",
-    "setup": "npm install && npm run build -w @batiyoun/common"
+    "dev": "concurrently \"npm run dev -w client\" \"npm run dev -w server\" --names \"CLIENT,SERVER\" --prefix-colors \"cyan,magenta\"",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "build": "npm run build -w common && npm run build -w client && npm run build -w server",
+    "build:client": "npm run build -w client",
+    "build:server": "npm run build -w server",
+    "build:common": "npm run build -w common",
+    "setup": "npm install && npm run build:common",
+    "clean": "rm -rf node_modules client/node_modules server/node_modules common/node_modules client/.next server/dist common/dist",
+    "lint": "npm run lint -w client && npm run lint -w server",
+    "lint:fix": "npm run lint:fix -w client",
+    "type-check": "npm run type-check -w client && npm run type-check -w server",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prisma:studio": "npm run prisma:studio -w client",
+    "prisma:generate": "npm run prisma:generate -w client",
+    "prisma:migrate": "npm run prisma:migrate -w client",
+    "postinstall": "npm run build:common"
   },
   "devDependencies": {
     "@types/node": "^25.2.0",
+    "concurrently": "^9.1.0",
+    "prettier": "^3.4.2",
     "tsx": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   }
 }
