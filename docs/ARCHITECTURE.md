@@ -63,7 +63,7 @@ Use the right database for the right job:
 All services communicate through well-defined APIs:
 - **REST API** for CRUD operations (Next.js API Routes)
 - **WebSocket** for real-time bidirectional communication
-- **Shared Types** via `@batiyoun/common` package
+- **Shared Types** via TypeScript (client/types and client/utils)
 
 ### 4. Progressive Enhancement
 
@@ -273,14 +273,14 @@ socket.on('user_online', (userId) => {})
 socket.on('message_read', (messageId) => {})
 ```
 
-### Shared Package (@batiyoun/common)
+### Shared Types (client/types & client/utils)
 
 **Purpose:** Type-safe contracts between services
 
 **Contents:**
-- `types.ts` - Shared TypeScript interfaces
-- `errors.ts` - Custom error classes
-- Zod schemas for validation
+- `client/types/types.ts` - Shared TypeScript interfaces
+- `client/utils/errors.ts` - Custom error classes
+- Validation schemas
 
 **Example:**
 ```typescript

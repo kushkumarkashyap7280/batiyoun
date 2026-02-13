@@ -153,8 +153,7 @@ Batiyoun uses **npm workspaces** for monorepo management:
 ```
 batiyoun/
 ├── client/      # Next.js PWA
-├── server/      # Node.js WebSocket Server
-└── common/      # Shared types & validation
+└── server/      # Node.js WebSocket Server
 ```
 
 ### Useful Commands

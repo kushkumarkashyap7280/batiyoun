@@ -265,7 +265,7 @@ If you find any errors, missing information, or have suggestions for improving t
 
 - 🐛 **Open an Issue:** [GitHub Issues](https://github.com/kushkumarkashyap7280/batiyoun/issues)
 - 💬 **Start a Discussion:** [GitHub Discussions](https://github.com/kushkumarkashyap7280/batiyoun/discussions)
-- 📧 **Email:** kushkumarkashyap7280@gmail.com
+- 📧 **Email:** kushkumar.officialsoftwaredev@gmail.com
 
 ---
 

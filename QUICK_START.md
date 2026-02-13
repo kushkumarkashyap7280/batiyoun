@@ -57,7 +57,6 @@ npx prisma format        # Format schema file
 # Run command in specific workspace
 npm run dev -w client
 npm run build -w server
-npm run lint -w common
 
 # Install dependency in workspace
 npm install package-name -w client
@@ -70,7 +69,6 @@ npm install -D dev-package -w server
 batiyoun/
 ├── client/              Next.js PWA (port 3000)
 ├── server/              WebSocket server (port 4000)
-├── common/              Shared types & validation
 ├── docs/                Documentation
 └── .github/             GitHub templates & workflows
 ```
@@ -84,7 +82,8 @@ batiyoun/
 | `client/prisma/schema.prisma` | Database schema |
 | `client/app/layout.tsx` | Root layout |
 | `server/src/index.ts` | WebSocket server entry |
-| `common/types.ts` | Shared TypeScript types |
+| `client/types/types.ts` | Shared TypeScript types |
+| `client/utils/errors.ts` | Error handling utilities |
 
 ## 🌐 URLs
 
@@ -122,7 +121,6 @@ NODE_ENV="development"
 |-------|----------|
 | Port 3000 in use | `lsof -ti:3000 \| xargs kill -9` |
 | Prisma not generated | `npx prisma generate` in client/ |
-| Common package not found | `npm run build -w common` |
 | Database connection failed | Check DATABASE_URL in .env |
 | Module not found | `rm -rf node_modules && npm install` |
 
@@ -169,7 +167,7 @@ NODE_ENV="development"
 
 - 💬 GitHub Discussions
 - 🐛 GitHub Issues
-- 📧 kushkumarkashyap7280@gmail.com
+- 📧 kushkumar.officialsoftwaredev@gmail.com
 
 ---
 

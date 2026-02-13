@@ -138,7 +138,7 @@ graph TB
 | **Realtime Server** | Node.js, Express, Socket.io | WebSocket management, Message routing |
 | **Chat Database** | MongoDB | High-write throughput for messages |
 | **Cache Layer** | Redis | Session storage, Pub/Sub, Rate limiting |
-| **Shared Types** | `@batiyoun/common` (Zod + TypeScript) | Type-safe contracts between services |
+| **Shared Types** | TypeScript (client/types & client/utils) | Type-safe contracts between services |
 | **File Storage** | Cloudinary | Avatar uploads |
 | **Deployment** | Vercel (Client + Auth), Railway (Server) | Serverless + Container hosting |
 
@@ -229,7 +229,8 @@ batiyoun/
 │   ├── prisma/           # Database schema & migrations
 │   ├── public/           # Static assets, PWA icons, Service Worker
 │   ├── store/            # Zustand state management
-│   └── utils/            # Helper functions
+│   ├── types/            # TypeScript type definitions
+│   └── utils/            # Helper functions (includes errors.ts)
 │
 ├── server/                # Node.js WebSocket Server
 │   └── src/
@@ -240,10 +241,6 @@ batiyoun/
 │       ├── services/     # Business logic
 │       ├── middlewares/  # Auth, validation, error handling
 │       └── utils/        # Server utilities
-│
-├── common/                # Shared TypeScript Package
-│   ├── types.ts          # Shared type definitions
-│   └── errors.ts         # Common error classes
 │
 └── docs/                  # Documentation
     ├── ARCHITECTURE.md
@@ -297,6 +294,8 @@ Building Batiyoun takes time, effort, and infrastructure costs. Your support hel
 - 📚 **Improve documentation**
 - 🔬 **Conduct security audits**
 - 🎨 **Enhance user experience**
+
+### Sponsor Options
 
 ### Sponsor Options
 
@@ -390,8 +389,7 @@ Just include the original license and copyright notice.
 
 - 🐛 **Issues:** [GitHub Issues](https://github.com/kushkumarkashyap7280/batiyoun/issues)
 - 💬 **Discussions:** [GitHub Discussions](https://github.com/kushkumarkashyap7280/batiyoun/discussions)
-- 📧 **Email:** kushkumarkashyap7280@gmail.com
-- 🐦 **Twitter:** [@kushkumar](https://twitter.com/kushkumar) (coming soon)
+- 📧 **Email:** kushkumar.officialsoftwaredev@gmail.com
 
 ---
 

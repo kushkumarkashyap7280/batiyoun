@@ -103,7 +103,6 @@ This installs packages for:
 - Root workspace
 - `client/` (Next.js app)
 - `server/` (Node.js WebSocket server)
-- `common/` (Shared types package)
 
 ### Step 3: Set Up PostgreSQL
 
@@ -303,15 +302,7 @@ This will:
 - Generate Prisma Client
 - Sync your schema
 
-### Step 10: Build Common Package
-
-```bash
-cd common
-npm run build
-cd ..
-```
-
-### Step 11: Start Development Servers
+### Step 10: Start Development Servers
 
 From the root directory:
 
@@ -329,17 +320,7 @@ This starts:
 
 ### Common Issues
 
-#### 1. "Cannot find module '@batiyoun/common'"
-
-**Solution:**
-```bash
-cd common
-npm run build
-cd ..
-npm install
-```
-
-#### 2. "Prisma Client is not generated"
+#### 1. "Prisma Client is not generated"
 
 **Solution:**
 ```bash
@@ -348,7 +329,7 @@ npx prisma generate
 cd ..
 ```
 
-#### 3. "Database connection failed"
+#### 2. "Database connection failed"
 
 **Checklist:**
 - ✅ Is your `DATABASE_URL` correct?
@@ -356,7 +337,7 @@ cd ..
 - ✅ Can you connect with `psql`?
 - ✅ Did you whitelist your IP (for cloud databases)?
 
-#### 4. "Port 3000 already in use"
+#### 3. "Port 3000 already in use"
 
 **Solution:**
 ```bash
@@ -367,7 +348,7 @@ lsof -ti:3000 | xargs kill -9
 PORT=3001 npm run dev
 ```
 
-#### 5. "Redis connection failed"
+#### 4. "Redis connection failed"
 
 **Solution:** Redis is optional for development. Comment out Redis-related code or:
 ```bash
@@ -379,11 +360,11 @@ sudo service redis-server start  # Linux
 brew services start redis         # macOS
 ```
 
-#### 6. "CORS error when connecting to WebSocket"
+#### 5. "CORS error when connecting to WebSocket"
 
 **Solution:** Make sure `CLIENT_URL` in `server/.env` matches your client URL exactly.
 
-#### 7. Google OAuth not working
+#### 6. Google OAuth not working
 
 **Checklist:**
 - ✅ Redirect URI matches exactly: `http://localhost:3000/api/auth/google/callback`
@@ -406,9 +387,6 @@ batiyoun/
 │   └── app/generated/prisma/   # ✅ Prisma Client
 ├── server/
 │   ├── .env                    # ✅ Created
-│   └── node_modules/           # ✅ Installed
-├── common/
-│   ├── dist/                   # ✅ Built
 │   └── node_modules/           # ✅ Installed
 └── node_modules/               # ✅ Root dependencies
 ```
