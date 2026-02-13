@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EmailSchema, type EmailData } from '@batiyoun/common';
+import { EmailSchema, type EmailData } from '@/types/types';
 import { Button } from '@/components/ui/button';
 import { Loader2, Shield, Lock, Zap, Mail } from 'lucide-react';
 import { toast } from 'sonner';

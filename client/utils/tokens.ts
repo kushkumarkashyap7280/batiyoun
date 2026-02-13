@@ -1,5 +1,6 @@
 import * as jose from 'jose'
-import { ApiError, otpTypeSchema, type TokenPayload ,tokenPayloadSchema } from '@batiyoun/common'
+import { otpTypeSchema, type TokenPayload ,tokenPayloadSchema } from "@/types/types"
+import { ApiError } from './errors';
 import { env } from '@/config/env';
 
 import{z} from 'zod'

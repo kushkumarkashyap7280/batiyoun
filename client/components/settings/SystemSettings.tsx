@@ -5,7 +5,7 @@ import { Settings, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { type UserSettings } from '@batiyoun/common';
+import { UserSettings } from '@/types/types';
 
 interface SystemSettingsProps {
   userId: string;

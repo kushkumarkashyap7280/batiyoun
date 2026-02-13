@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@batiyoun/common": "^1.0.0",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-pg": "^7.3.0",

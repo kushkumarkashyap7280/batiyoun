@@ -1,7 +1,8 @@
 import { routeWrapper } from "@/lib/api";
 import { setOtpWithRateLimit } from "@/lib/redis";
 import { generateOtp } from "@/utils/otp";
-import { SendOtpData ,sendOtpSchema, ApiError} from "@batiyoun/common";
+import { SendOtpData ,sendOtpSchema} from "@/types/types";
+import { ApiError } from "@/utils/errors";
 import { sendOtpEmail } from "@/lib/resend";
 import prisma from "@/lib/prisma";
 

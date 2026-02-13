@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { PasswordSchema } from "@batiyoun/common";
+import { PasswordSchema } from "@/types/types";
 
 
 export const hashPassword = async (password: string): Promise<string> => {

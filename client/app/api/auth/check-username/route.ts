@@ -1,9 +1,9 @@
-import { CompleteSignupUserData ,completeSignupUserSchema } from "@batiyoun/common";
+
 import { routeWrapper } from "@/lib/api";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { ApiError } from "@batiyoun/common";
-import { UsernameData,UsernameSchema } from "@batiyoun/common";
+import { ApiError } from "@/utils/errors";
+import { UsernameData,UsernameSchema } from "@/types/types";
 
 export const POST = routeWrapper(async (request: Request) => {
    

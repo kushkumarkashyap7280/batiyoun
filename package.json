@@ -25,8 +25,7 @@
   ],
   "workspaces": [
     "client",
-    "server",
-    "common"
+    "server"
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev -w client\" \"npm run dev -w server\" --names \"CLIENT,SERVER\" --prefix-colors \"cyan,magenta\"",

@@ -1,5 +1,5 @@
 import { Redis } from "@upstash/redis";
-import {  ApiError } from "@batiyoun/common";
+import { ApiError } from "@/utils/errors";
 import { env } from "@/config/env";
 
 const redis = new Redis({

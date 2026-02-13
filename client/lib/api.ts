@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { processError, ApiError } from "@batiyoun/common";
+import { processError } from "@/utils/errors";
 
 type Handler = (req: Request) => Promise<NextResponse | any>;
 

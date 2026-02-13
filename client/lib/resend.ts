@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { env } from "@/config/env";
-import { OtpType } from "@batiyoun/common";
+import { OtpType } from "@/types/types";
 
 
 

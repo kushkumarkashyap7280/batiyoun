@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { ZustandUser } from '@batiyoun/common';
+import { ZustandUser } from '@/types/types';
 
 interface UserState {
   user: ZustandUser | null;

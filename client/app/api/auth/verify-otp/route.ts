@@ -1,7 +1,7 @@
 import { routeWrapper } from "@/lib/api";
 import {  verifyOtp } from "@/lib/redis";
-import { verifyOtpSchema, VerifyOtpData} from "@batiyoun/common";
-import { ApiError } from "@batiyoun/common";
+import { verifyOtpSchema, VerifyOtpData} from "@/types/types";
+import { ApiError } from "@/utils/errors";
 import { cookies } from "next/headers";
 import { env } from "@/config/env";
 import { generateVerifyToken } from "@/utils/tokens";

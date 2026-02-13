@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { verifyOtpSchema, type VerifyOtpData } from '@batiyoun/common';
+import { verifyOtpSchema, type VerifyOtpData } from '@/types/types';
 import { Button } from '@/components/ui/button';
 import { Loader2, Shield, KeyRound, ArrowLeft, RefreshCw, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';

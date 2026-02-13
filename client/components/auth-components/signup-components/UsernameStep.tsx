@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UsernameSchema, type UsernameData } from '@batiyoun/common';
+import { UsernameSchema, type UsernameData } from '@/types/types';
 import { Button } from '@/components/ui/button';
 import { Loader2, Check, X, AtSign, Sparkles, Users } from 'lucide-react';
 import { toast } from 'sonner';
