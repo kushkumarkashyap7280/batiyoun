@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose"; 
 import { env } from "@/config/env";
-import { type TokenPayload , tokenPayloadSchema } from "@batiyoun/common";
+import { type TokenPayload , tokenPayloadSchema } from "@/types/types";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
