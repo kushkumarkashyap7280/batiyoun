@@ -1,38 +1,35 @@
-import { routeWrapper } from "@/lib/api";
-import {  verifyOtp } from "@/lib/redis";
-import { verifyOtpSchema, VerifyOtpData} from "@/types/types";
-import { ApiError } from "@/utils/errors";
-import { cookies } from "next/headers";
-import { env } from "@/config/env";
-import { generateVerifyToken } from "@/utils/tokens";
-
+import { routeWrapper } from '@/lib/api';
+import { verifyOtp } from '@/lib/redis';
+import { verifyOtpSchema, VerifyOtpData } from '@/types/types';
+import { ApiError } from '@/utils/errors';
+import { cookies } from 'next/headers';
+import { env } from '@/config/env';
+import { generateVerifyToken } from '@/utils/tokens';
 
 export const POST = routeWrapper(async (request: Request) => {
-    const {email, otp, type} = verifyOtpSchema.parse(await request.json()) as VerifyOtpData
+  const { email, otp, type } = verifyOtpSchema.parse(await request.json()) as VerifyOtpData;
 
-    const isOtpValid = await verifyOtp(email, otp);
-   
-        if (!isOtpValid) {
-            throw new ApiError("Invalid OTP code.", 400);
-        }
+  const isOtpValid = await verifyOtp(email, otp);
 
-    
-    const token = await generateVerifyToken({email, type});
-    const cookieStore = await cookies();
+  if (!isOtpValid) {
+    throw new ApiError('Invalid OTP code.', 400);
+  }
 
-    cookieStore.set({
-      name: "verify_token",
-      value: token,
-      httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 900,
-      path: "/",
-    });
+  const token = await generateVerifyToken({ email, type });
+  const cookieStore = await cookies();
 
-    return {
-        success: true,
-        message: "OTP verified successfully",
-    }
+  cookieStore.set({
+    name: 'verify_token',
+    value: token,
+    httpOnly: true,
+    secure: env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 900,
+    path: '/',
+  });
 
+  return {
+    success: true,
+    message: 'OTP verified successfully',
+  };
 });

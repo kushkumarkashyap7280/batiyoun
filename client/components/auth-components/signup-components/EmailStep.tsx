@@ -59,9 +59,7 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
         transition={{ duration: 0.5 }}
         className="text-center space-y-2"
       >
-        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
-          Create Account
-        </h2>
+        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">Create Account</h2>
         <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           Enter your email to get started
         </p>
@@ -73,10 +71,7 @@ export function EmailStep({ onSuccess }: EmailStepProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
       >
-        <GoogleAuthButton 
-          text="Sign up with Google" 
-          disabled={loading}
-        />
+        <GoogleAuthButton text="Sign up with Google" disabled={loading} />
       </motion.div>
 
       {/* Divider */}

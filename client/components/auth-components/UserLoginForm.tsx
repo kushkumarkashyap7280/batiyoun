@@ -35,9 +35,7 @@ function UserLoginForm() {
       router.replace('/login');
     }
   }, [searchParams, router]);
- 
 
- 
   const {
     register,
     handleSubmit,
@@ -47,7 +45,6 @@ function UserLoginForm() {
   });
 
   const onSubmit = async (data: LoginData) => {
-    
     setLoading(true);
     try {
       const response = await fetch('/api/auth/login', {
@@ -57,14 +54,11 @@ function UserLoginForm() {
         body: JSON.stringify(data),
       });
 
-     
       const result = await response.json();
-      
 
       if (response.ok && result.success) {
-      
         toast.success(result.message || 'Welcome back!');
-        
+
         // Save user data to zustand store and redirect
         if (result.user) {
           try {
@@ -72,12 +66,10 @@ function UserLoginForm() {
             // Redirect to user's profile page
             router.replace('/chat');
           } catch (error) {
-           
             toast.error('Failed to save user session. Please try again.');
           }
         }
       } else {
-        
         toast.error(result.message || 'Invalid credentials');
       }
     } catch (err) {
@@ -97,9 +89,7 @@ function UserLoginForm() {
       >
         {/* Header */}
         <div className="text-center space-y-2 mb-4 sm:mb-6">
-          <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
-            Welcome Back
-          </h2>
+          <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">Welcome Back</h2>
           <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
             Sign in to your account
           </p>
@@ -107,10 +97,7 @@ function UserLoginForm() {
 
         {/* Google OAuth Button */}
         <div className="mb-4 sm:mb-6">
-          <GoogleAuthButton 
-            text="Continue with Google" 
-            disabled={loading}
-          />
+          <GoogleAuthButton text="Continue with Google" disabled={loading} />
         </div>
 
         {/* Divider */}
@@ -119,7 +106,9 @@ function UserLoginForm() {
             <div className="w-full border-t border-border"></div>
           </div>
           <div className="relative flex justify-center text-xs sm:text-sm">
-            <span className="px-3 sm:px-4 bg-card text-muted-foreground">or continue with email</span>
+            <span className="px-3 sm:px-4 bg-card text-muted-foreground">
+              or continue with email
+            </span>
           </div>
         </div>
 

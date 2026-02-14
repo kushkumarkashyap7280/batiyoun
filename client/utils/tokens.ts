@@ -1,10 +1,9 @@
-import * as jose from 'jose'
-import { otpTypeSchema, type TokenPayload ,tokenPayloadSchema } from "@/types/types"
+import * as jose from 'jose';
+import { otpTypeSchema, type TokenPayload, tokenPayloadSchema } from '@/types/types';
 import { ApiError } from './errors';
 import { env } from '@/config/env';
 
-import{z} from 'zod'
-
+import { z } from 'zod';
 
 export const generateAccessToken = async (user: TokenPayload) => {
   const payload = tokenPayloadSchema.parse({
@@ -12,13 +11,13 @@ export const generateAccessToken = async (user: TokenPayload) => {
     email: user.email,
     username: user.username,
     isAdmin: user.isAdmin,
-  })
-  const secret = new TextEncoder().encode(env.ACCESS_TOKEN_SECRET)
+  });
+  const secret = new TextEncoder().encode(env.ACCESS_TOKEN_SECRET);
   return new jose.SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
-    .setExpirationTime('15m') 
-    .sign(secret)
-}
+    .setExpirationTime('15m')
+    .sign(secret);
+};
 
 export const generateRefreshToken = async (user: TokenPayload) => {
   const payload = tokenPayloadSchema.parse({
@@ -26,51 +25,49 @@ export const generateRefreshToken = async (user: TokenPayload) => {
     email: user.email,
     username: user.username,
     isAdmin: user.isAdmin,
-  })
-  const secret = new TextEncoder().encode(env.REFRESH_TOKEN_SECRET)
+  });
+  const secret = new TextEncoder().encode(env.REFRESH_TOKEN_SECRET);
   return new jose.SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('7d')
-    .sign(secret)
-}   
-
+    .sign(secret);
+};
 
 export const verifyToken = z.object({
   email: z.string(),
-  type: otpTypeSchema
+  type: otpTypeSchema,
 });
 
 export type VerifyTokenData = z.infer<typeof verifyToken>;
 
-
-export const generateVerifyToken = async ({email,type}: VerifyTokenData) => {
+export const generateVerifyToken = async ({ email, type }: VerifyTokenData) => {
   const payload = verifyToken.parse({
-    email : email,
+    email: email,
     type: type,
-  })
-  const secret = new TextEncoder().encode(env.VERIFY_TOKEN_SECRET)
+  });
+  const secret = new TextEncoder().encode(env.VERIFY_TOKEN_SECRET);
   return new jose.SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
-    .setExpirationTime('15m') 
-    .sign(secret)
-}
+    .setExpirationTime('15m')
+    .sign(secret);
+};
 
-export const verifyTokenSecret = async (token : string , secretKey: string) => {
+export const verifyTokenSecret = async (token: string, secretKey: string) => {
   try {
-    const secret = new TextEncoder().encode(secretKey)
-    const { payload } = await jose.jwtVerify(token, secret)
-    return tokenPayloadSchema.parse(payload)
+    const secret = new TextEncoder().encode(secretKey);
+    const { payload } = await jose.jwtVerify(token, secret);
+    return tokenPayloadSchema.parse(payload);
   } catch (error) {
-    throw new ApiError("Invalid or expired token", 401) 
+    throw new ApiError('Invalid or expired token', 401);
   }
-}
+};
 
-export const verifyVerifyToken = async (token: string ) => {
+export const verifyVerifyToken = async (token: string) => {
   try {
-    const secret = new TextEncoder().encode(env.VERIFY_TOKEN_SECRET)
-    const { payload } = await jose.jwtVerify(token, secret)
-    return verifyToken.parse(payload)
+    const secret = new TextEncoder().encode(env.VERIFY_TOKEN_SECRET);
+    const { payload } = await jose.jwtVerify(token, secret);
+    return verifyToken.parse(payload);
   } catch (error) {
-    throw new ApiError("Invalid or expired token", 401) 
+    throw new ApiError('Invalid or expired token', 401);
   }
-}
+};

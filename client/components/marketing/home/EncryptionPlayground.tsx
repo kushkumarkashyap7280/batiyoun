@@ -1,9 +1,17 @@
-
 'use client';
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, ArrowRight, Copy, Github, KeyRound, Package, ShieldCheck, TerminalSquare } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowRight,
+  Copy,
+  Github,
+  KeyRound,
+  Package,
+  ShieldCheck,
+  TerminalSquare,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function EncryptionPlayground() {
@@ -34,12 +42,15 @@ export function EncryptionPlayground() {
           </div>
           <div>
             <h3 className="font-heading font-bold text-xl">kush-e2e</h3>
-            <p className="text-sm text-muted-foreground">End-to-end encryption toolkit for modern apps</p>
+            <p className="text-sm text-muted-foreground">
+              End-to-end encryption toolkit for modern apps
+            </p>
           </div>
         </div>
 
         <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm text-muted-foreground wrap-break-word">
-          Use kush-e2e to generate identities, derive shared session keys, and encrypt messages directly in the browser.
+          Use kush-e2e to generate identities, derive shared session keys, and encrypt messages
+          directly in the browser.
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -51,7 +62,13 @@ export function EncryptionPlayground() {
             <div className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground wrap-break-word whitespace-pre-wrap">
               npm install kush-e2e
             </div>
-            <Button type="button" variant="outline" size="sm" className="w-fit" onClick={handleCopy}>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-fit"
+              onClick={handleCopy}
+            >
               <Copy className="mr-2 h-4 w-4" />
               {copied ? 'Copied' : 'Copy command'}
             </Button>
@@ -63,7 +80,8 @@ export function EncryptionPlayground() {
             </div>
             <div className="rounded-md bg-muted px-3 py-2 text-xs font-mono text-muted-foreground wrap-break-word whitespace-pre-wrap leading-relaxed">
               const identity = await KushE2E.createIdentity();
-              {'\n'}const sessionKey = await KushE2E.deriveSessionKey(identity.privateKey, peerPublicKey);
+              {'\n'}const sessionKey = await KushE2E.deriveSessionKey(identity.privateKey,
+              peerPublicKey);
               {'\n'}const encrypted = await KushE2E.encrypt('Hello', sessionKey);
             </div>
           </div>
@@ -81,11 +99,14 @@ export function EncryptionPlayground() {
               <li>Each user mixes their private key with the other’s public key.</li>
               <li>That creates the same session key on both devices.</li>
               <li>Private keys never leave the browser. No server involved.</li>
-              <li>Messages are encrypted with the session key, and only the intended user can read them.</li>
+              <li>
+                Messages are encrypted with the session key, and only the intended user can read
+                them.
+              </li>
               <li>Network observers can see who is sending data, but not the content.</li>
             </ol>
           </div>
-          
+
           <div className="flex items-center justify-center">
             <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
             <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
@@ -100,7 +121,7 @@ export function EncryptionPlayground() {
               Create secure public/private key pairs on-device.
             </p>
           </div>
-          
+
           <div className="flex items-center justify-center">
             <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
             <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
@@ -115,7 +136,7 @@ export function EncryptionPlayground() {
               Perform authenticated key exchange between peers.
             </p>
           </div>
-          
+
           <div className="flex items-center justify-center">
             <ArrowDown className="h-6 w-6 text-muted-foreground lg:hidden" />
             <ArrowRight className="h-6 w-6 text-muted-foreground hidden lg:block" />
@@ -134,13 +155,21 @@ export function EncryptionPlayground() {
 
         <div className="flex flex-wrap gap-3">
           <Button asChild className="bg-green-600 hover:bg-green-700">
-            <a href="https://www.npmjs.com/package/kush-e2e" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.npmjs.com/package/kush-e2e"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Package className="mr-2 h-4 w-4" />
               npm package
             </a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="https://github.com/kushkumarkashyap7280/kush-e2e" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/kushkumarkashyap7280/kush-e2e"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Github className="mr-2 h-4 w-4" />
               GitHub repo
             </a>

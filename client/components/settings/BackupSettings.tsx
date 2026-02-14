@@ -5,7 +5,13 @@ import { Database, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { UserSettings } from '@/types/types';
 
 interface BackupSettingsProps {
@@ -85,14 +91,18 @@ export function BackupSettings({ userId, initialSettings }: BackupSettingsProps)
               </div>
               <div>
                 <CardTitle className="text-default">Backup Settings</CardTitle>
-                <CardDescription className="text-muted">Configure automatic backups</CardDescription>
+                <CardDescription className="text-muted">
+                  Configure automatic backups
+                </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 p-3 sm:p-4 bg-page rounded-lg">
               <div className="flex-1">
-                <Label htmlFor="auto-backup" className="text-default font-medium">Auto Backup</Label>
+                <Label htmlFor="auto-backup" className="text-default font-medium">
+                  Auto Backup
+                </Label>
                 <p className="text-sm text-muted mt-1">Automatically backup your data</p>
               </div>
               <Switch
@@ -103,7 +113,9 @@ export function BackupSettings({ userId, initialSettings }: BackupSettingsProps)
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="backup-frequency" className="text-default font-medium">Backup Frequency</Label>
+              <Label htmlFor="backup-frequency" className="text-default font-medium">
+                Backup Frequency
+              </Label>
               <p className="text-sm text-muted mb-2">How often to backup your data</p>
               <Select
                 value={settings.backupFrequency}
@@ -112,33 +124,49 @@ export function BackupSettings({ userId, initialSettings }: BackupSettingsProps)
                 }
                 disabled={!settings.autoBackup}
               >
-                <SelectTrigger id="backup-frequency" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="backup-frequency"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="daily" className="text-default">Daily</SelectItem>
-                  <SelectItem value="weekly" className="text-default">Weekly</SelectItem>
-                  <SelectItem value="monthly" className="text-default">Monthly</SelectItem>
+                  <SelectItem value="daily" className="text-default">
+                    Daily
+                  </SelectItem>
+                  <SelectItem value="weekly" className="text-default">
+                    Weekly
+                  </SelectItem>
+                  <SelectItem value="monthly" className="text-default">
+                    Monthly
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="backup-method" className="text-default font-medium">Backup Method</Label>
+              <Label htmlFor="backup-method" className="text-default font-medium">
+                Backup Method
+              </Label>
               <p className="text-sm text-muted mb-2">Where to store your backups</p>
               <Select
                 value={settings.backupMethod}
-                onValueChange={(value: 'cloud' | 'local') =>
-                  handleUpdate({ backupMethod: value })
-                }
+                onValueChange={(value: 'cloud' | 'local') => handleUpdate({ backupMethod: value })}
                 disabled={!settings.autoBackup}
               >
-                <SelectTrigger id="backup-method" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="backup-method"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="cloud" className="text-default">Cloud Storage</SelectItem>
-                  <SelectItem value="local" className="text-default">Local Storage</SelectItem>
+                  <SelectItem value="cloud" className="text-default">
+                    Cloud Storage
+                  </SelectItem>
+                  <SelectItem value="local" className="text-default">
+                    Local Storage
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -4,7 +4,13 @@ import { useState, useEffect } from 'react';
 import { Shield, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { UserSettings } from '@/types/types';
 
 interface PrivacySettingsProps {
@@ -71,9 +77,7 @@ export function PrivacySettings({ userId, initialSettings }: PrivacySettingsProp
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-default mb-2">Privacy</h1>
-              <p className="text-muted text-sm sm:text-base">
-                Control your privacy settings
-              </p>
+              <p className="text-muted text-sm sm:text-base">Control your privacy settings</p>
             </div>
             {isSaving && (
               <div className="flex items-center gap-2 text-sm text-muted">
@@ -93,13 +97,17 @@ export function PrivacySettings({ userId, initialSettings }: PrivacySettingsProp
               </div>
               <div>
                 <CardTitle className="text-default">Privacy Settings</CardTitle>
-                <CardDescription className="text-muted">Manage who can see your information</CardDescription>
+                <CardDescription className="text-muted">
+                  Manage who can see your information
+                </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="profile-visibility" className="text-default font-medium">Profile Visibility</Label>
+              <Label htmlFor="profile-visibility" className="text-default font-medium">
+                Profile Visibility
+              </Label>
               <p className="text-sm text-muted mb-2">Who can see your profile</p>
               <Select
                 value={settings.profileVisibility}
@@ -107,19 +115,30 @@ export function PrivacySettings({ userId, initialSettings }: PrivacySettingsProp
                   handleUpdate({ profileVisibility: value })
                 }
               >
-                <SelectTrigger id="profile-visibility" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="profile-visibility"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="public" className="text-default">Everyone</SelectItem>
-                  <SelectItem value="friends" className="text-default">Friends Only</SelectItem>
-                  <SelectItem value="private" className="text-default">Only Me</SelectItem>
+                  <SelectItem value="public" className="text-default">
+                    Everyone
+                  </SelectItem>
+                  <SelectItem value="friends" className="text-default">
+                    Friends Only
+                  </SelectItem>
+                  <SelectItem value="private" className="text-default">
+                    Only Me
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="last-seen" className="text-default font-medium">Last Seen</Label>
+              <Label htmlFor="last-seen" className="text-default font-medium">
+                Last Seen
+              </Label>
               <p className="text-sm text-muted mb-2">Who can see when you were last online</p>
               <Select
                 value={settings.lastSeen}
@@ -127,13 +146,22 @@ export function PrivacySettings({ userId, initialSettings }: PrivacySettingsProp
                   handleUpdate({ lastSeen: value })
                 }
               >
-                <SelectTrigger id="last-seen" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="last-seen"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="everyone" className="text-default">Everyone</SelectItem>
-                  <SelectItem value="friends" className="text-default">Friends Only</SelectItem>
-                  <SelectItem value="nobody" className="text-default">Nobody</SelectItem>
+                  <SelectItem value="everyone" className="text-default">
+                    Everyone
+                  </SelectItem>
+                  <SelectItem value="friends" className="text-default">
+                    Friends Only
+                  </SelectItem>
+                  <SelectItem value="nobody" className="text-default">
+                    Nobody
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

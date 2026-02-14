@@ -51,7 +51,7 @@ export function ProfileView({ user }: ProfileViewProps) {
                   {user.fullName.charAt(0).toUpperCase()}
                 </div>
               )}
-              
+
               {/* Edit Avatar Button */}
               <button
                 onClick={() => setShowAvatarUpload(true)}
@@ -65,24 +65,19 @@ export function ProfileView({ user }: ProfileViewProps) {
             {/* User Info */}
             <div className="flex-1 space-y-2">
               <div className="flex items-center gap-3">
-                <h1 className="text-3xl font-bold text-white">
-                  {user.fullName}
-                </h1>
+                <h1 className="text-3xl font-bold text-white">{user.fullName}</h1>
                 {user.isPro && (
-                  <div className="flex items-center gap-1 px-2 py-1 bg-green-500/20 rounded-full" title="Pro Member">
+                  <div
+                    className="flex items-center gap-1 px-2 py-1 bg-green-500/20 rounded-full"
+                    title="Pro Member"
+                  >
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <span className="text-xs font-semibold text-green-500">PRO</span>
                   </div>
                 )}
               </div>
-              <p className="text-[#b5bac1] text-lg">
-                @{user.username}
-              </p>
-              {user.bio && (
-                <p className="text-[#dbdee1] mt-3 max-w-2xl">
-                  {user.bio}
-                </p>
-              )}
+              <p className="text-[#b5bac1] text-lg">@{user.username}</p>
+              {user.bio && <p className="text-[#dbdee1] mt-3 max-w-2xl">{user.bio}</p>}
             </div>
 
             {/* Edit Button */}
@@ -104,13 +99,9 @@ export function ProfileView({ user }: ProfileViewProps) {
               <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
                 <Mail className="w-5 h-5 text-green-500" />
               </div>
-              <h3 className="font-semibold text-white">
-                Email Address
-              </h3>
+              <h3 className="font-semibold text-white">Email Address</h3>
             </div>
-            <p className="text-[#b5bac1]">
-              {user.email}
-            </p>
+            <p className="text-[#b5bac1]">{user.email}</p>
           </div>
 
           {/* Account Created Card */}
@@ -119,13 +110,9 @@ export function ProfileView({ user }: ProfileViewProps) {
               <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
                 <Calendar className="w-5 h-5 text-emerald-500" />
               </div>
-              <h3 className="font-semibold text-white">
-                Member Since
-              </h3>
+              <h3 className="font-semibold text-white">Member Since</h3>
             </div>
-            <p className="text-[#b5bac1]">
-              {formatDate(user.createdAt)}
-            </p>
+            <p className="text-[#b5bac1]">{formatDate(user.createdAt)}</p>
           </div>
 
           {/* User ID Card */}
@@ -134,13 +121,9 @@ export function ProfileView({ user }: ProfileViewProps) {
               <div className="w-10 h-10 bg-gray-500/20 rounded-lg flex items-center justify-center">
                 <User className="w-5 h-5 text-gray-400" />
               </div>
-              <h3 className="font-semibold text-white">
-                User ID
-              </h3>
+              <h3 className="font-semibold text-white">User ID</h3>
             </div>
-            <p className="text-[#b5bac1] text-sm font-mono break-all">
-              {user.id}
-            </p>
+            <p className="text-[#b5bac1] text-sm font-mono break-all">{user.id}</p>
           </div>
 
           {/* Encryption Status Card */}
@@ -149,9 +132,7 @@ export function ProfileView({ user }: ProfileViewProps) {
               <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
                 <Key className="w-5 h-5 text-cyan-500" />
               </div>
-              <h3 className="font-semibold text-white">
-                Encryption Status
-              </h3>
+              <h3 className="font-semibold text-white">Encryption Status</h3>
             </div>
             <p className="text-[#b5bac1]">
               {user.publicKey ? (
@@ -160,9 +141,7 @@ export function ProfileView({ user }: ProfileViewProps) {
                   Keys Generated
                 </span>
               ) : (
-                <span className="text-orange-500">
-                  No encryption keys
-                </span>
+                <span className="text-orange-500">No encryption keys</span>
               )}
             </p>
           </div>
@@ -175,23 +154,17 @@ export function ProfileView({ user }: ProfileViewProps) {
               <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
                 <Shield className="w-5 h-5 text-green-500" />
               </div>
-              <h3 className="font-semibold text-white">
-                Public Encryption Key
-              </h3>
+              <h3 className="font-semibold text-white">Public Encryption Key</h3>
             </div>
             <div className="bg-[#1e1f22] rounded-lg p-4 overflow-x-auto">
-              <code className="text-xs text-[#b5bac1] font-mono break-all">
-                {user.publicKey}
-              </code>
+              <code className="text-xs text-[#b5bac1] font-mono break-all">{user.publicKey}</code>
             </div>
           </div>
         )}
       </div>
 
       {/* Avatar Upload Modal */}
-      {showAvatarUpload && (
-        <AvatarUpload onClose={() => setShowAvatarUpload(false)} />
-      )}
+      {showAvatarUpload && <AvatarUpload onClose={() => setShowAvatarUpload(false)} />}
     </div>
   );
 }

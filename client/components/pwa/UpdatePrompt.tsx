@@ -9,10 +9,7 @@ export function UpdatePrompt() {
   const [workbox, setWorkbox] = useState<Workbox | null>(null);
 
   useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      'serviceWorker' in navigator
-    ) {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       const wb = new Workbox('/sw.js');
 
       // Show update toast when a new service worker is waiting
@@ -42,7 +39,7 @@ export function UpdatePrompt() {
           {
             duration: Infinity,
             position: 'top-center',
-          }
+          },
         );
       });
 

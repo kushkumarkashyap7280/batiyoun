@@ -49,6 +49,7 @@ GOOGLE_CLIENT_SECRET="GOCSPX-xxxxxxxxxxxxxxxxxxxxx"
 ```
 
 **Setup Steps:**
+
 1. Go to Google Cloud Console
 2. Create project → Enable Google+ API
 3. Create OAuth 2.0 credentials
@@ -69,6 +70,7 @@ CLOUDINARY_API_SECRET="abcdefghijklmnopqrstuvwxyz"
 ```
 
 **Setup Steps:**
+
 1. Sign up at Cloudinary
 2. Go to Settings → Upload
 3. Create unsigned upload preset
@@ -409,6 +411,7 @@ npm run dev
 ### "Invalid DATABASE_URL"
 
 **Solution:** Check format. Should be:
+
 ```
 postgresql://USER:PASSWORD@HOST:PORT/DATABASE
 ```
@@ -418,6 +421,7 @@ No spaces, correct encoding for special characters.
 ### Production deployment issues
 
 **Solution:** Set environment variables in your hosting platform:
+
 - **Vercel:** Settings → Environment Variables
 - **Railway:** Variables tab
 

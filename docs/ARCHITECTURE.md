@@ -40,6 +40,7 @@ Batiyoun employs a **hybrid microservices architecture** that combines:
 ### 1. Separation of Concerns
 
 Different services handle different responsibilities:
+
 - **Next.js (Client + Auth):** UI rendering, authentication, user management
 - **Node.js Server:** Real-time communication, message routing
 - **PostgreSQL:** User data, relationships (ACID compliance needed)
@@ -50,17 +51,18 @@ Different services handle different responsibilities:
 
 Use the right database for the right job:
 
-| Data Type | Database | Reason |
-|-----------|----------|--------|
-| Users, Auth | PostgreSQL | ACID compliance, relational integrity |
-| Messages | MongoDB | High write speed, flexible schema |
-| Sessions | Redis | Fast read/write, TTL support |
-| Files | Cloudinary | CDN, image optimization |
-| Client Cache | IndexedDB | Offline storage, large blobs |
+| Data Type    | Database   | Reason                                |
+| ------------ | ---------- | ------------------------------------- |
+| Users, Auth  | PostgreSQL | ACID compliance, relational integrity |
+| Messages     | MongoDB    | High write speed, flexible schema     |
+| Sessions     | Redis      | Fast read/write, TTL support          |
+| Files        | Cloudinary | CDN, image optimization               |
+| Client Cache | IndexedDB  | Offline storage, large blobs          |
 
 ### 3. API-First Design
 
 All services communicate through well-defined APIs:
+
 - **REST API** for CRUD operations (Next.js API Routes)
 - **WebSocket** for real-time bidirectional communication
 - **Shared Types** via TypeScript (client/types and client/utils)
@@ -108,7 +110,7 @@ graph TB
 
     NextAPI --> AuthService
     WSServer --> ChatService
-    
+
     AuthService --> PostgreSQL
     AuthService --> Redis
     ChatService --> MongoDB
@@ -197,6 +199,7 @@ sequenceDiagram
 ### Client (Next.js PWA)
 
 **Technology Stack:**
+
 - Next.js 15 (App Router)
 - React 19
 - TypeScript
@@ -205,6 +208,7 @@ sequenceDiagram
 - Workbox (PWA/Service Worker)
 
 **Responsibilities:**
+
 - UI rendering (Server + Client Components)
 - Authentication UI
 - Real-time message display
@@ -213,6 +217,7 @@ sequenceDiagram
 - Local data management (IndexedDB)
 
 **Key Files:**
+
 - `app/layout.tsx` - Root layout with providers
 - `app/(auth)/` - Authentication pages
 - `app/(main)/` - Main app pages
@@ -224,6 +229,7 @@ sequenceDiagram
 ### Authentication Service (Next.js API Routes)
 
 **Responsibilities:**
+
 - User registration and login
 - Google OAuth integration
 - Email OTP verification
@@ -232,6 +238,7 @@ sequenceDiagram
 - JWT token generation
 
 **Endpoints:**
+
 - `POST /api/auth/signup` - User registration
 - `POST /api/auth/login` - User login
 - `POST /api/auth/request-otp` - Send OTP email
@@ -244,6 +251,7 @@ sequenceDiagram
 ### WebSocket Server (Node.js)
 
 **Technology Stack:**
+
 - Node.js
 - Express
 - Socket.io
@@ -251,6 +259,7 @@ sequenceDiagram
 - TypeScript
 
 **Responsibilities:**
+
 - WebSocket connection management
 - Real-time message routing
 - Presence tracking (online/offline)
@@ -259,18 +268,19 @@ sequenceDiagram
 - Pub/Sub via Redis
 
 **Socket Events:**
+
 ```typescript
 // Client → Server
-socket.emit('join_chat', { chatId })
-socket.emit('send_message', { chatId, content, encrypted })
-socket.emit('typing', { chatId })
-socket.emit('read_receipt', { messageId })
+socket.emit('join_chat', { chatId });
+socket.emit('send_message', { chatId, content, encrypted });
+socket.emit('typing', { chatId });
+socket.emit('read_receipt', { messageId });
 
 // Server → Client
-socket.on('new_message', (message) => {})
-socket.on('user_typing', (userId) => {})
-socket.on('user_online', (userId) => {})
-socket.on('message_read', (messageId) => {})
+socket.on('new_message', (message) => {});
+socket.on('user_typing', (userId) => {});
+socket.on('user_online', (userId) => {});
+socket.on('message_read', (messageId) => {});
 ```
 
 ### Shared Types (client/types & client/utils)
@@ -278,11 +288,13 @@ socket.on('message_read', (messageId) => {})
 **Purpose:** Type-safe contracts between services
 
 **Contents:**
+
 - `client/types/types.ts` - Shared TypeScript interfaces
 - `client/utils/errors.ts` - Custom error classes
 - Validation schemas
 
 **Example:**
+
 ```typescript
 // types.ts
 export interface Message {
@@ -298,7 +310,7 @@ export interface Message {
 export const messageSchema = z.object({
   chatId: z.string().uuid(),
   content: z.string().min(1).max(5000),
-  encrypted: z.boolean()
+  encrypted: z.boolean(),
 });
 ```
 
@@ -321,7 +333,7 @@ model User {
   verified      Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  
+
   // Relations (coming soon)
   // chats         ChatMember[]
   // sentMessages  Message[]
@@ -414,16 +426,16 @@ sequenceDiagram
     Note over AliceClient,BobClient: Initial Key Exchange
     AliceClient->>AliceClient: Generate key pair (ECDH)
     BobClient->>BobClient: Generate key pair (ECDH)
-    
+
     AliceClient->>Server: Send public key
     BobClient->>Server: Send public key
-    
+
     Server->>AliceClient: Bob's public key
     Server->>BobClient: Alice's public key
-    
+
     AliceClient->>AliceClient: Compute shared secret
     BobClient->>BobClient: Compute shared secret
-    
+
     Note over AliceClient,BobClient: Message Sending
     Alice->>AliceClient: Type message
     AliceClient->>AliceClient: Encrypt with AES-256-GCM
@@ -466,15 +478,15 @@ sequenceDiagram
 
 ### Infrastructure
 
-| Service | Provider | Purpose |
-|---------|----------|---------|
-| Client Hosting | Vercel | Next.js deployment, Serverless functions |
-| Auth Database | Vercel Postgres | PostgreSQL (managed) |
-| WS Server | Railway | Node.js container |
-| Chat Database | MongoDB Atlas | Managed MongoDB cluster |
-| Cache/Session | Upstash Redis | Serverless Redis |
-| File Storage | Cloudinary | Image/file CDN |
-| DNS | Vercel | Domain management |
+| Service        | Provider        | Purpose                                  |
+| -------------- | --------------- | ---------------------------------------- |
+| Client Hosting | Vercel          | Next.js deployment, Serverless functions |
+| Auth Database  | Vercel Postgres | PostgreSQL (managed)                     |
+| WS Server      | Railway         | Node.js container                        |
+| Chat Database  | MongoDB Atlas   | Managed MongoDB cluster                  |
+| Cache/Session  | Upstash Redis   | Serverless Redis                         |
+| File Storage   | Cloudinary      | Image/file CDN                           |
+| DNS            | Vercel          | Domain management                        |
 
 ---
 

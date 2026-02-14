@@ -18,6 +18,7 @@ Common questions about Batiyoun, answered.
 ### What is Batiyoun?
 
 Batiyoun is a Progressive Web App (PWA) for private, encrypted messaging. Unlike traditional chat apps, Batiyoun gives you:
+
 - End-to-end encryption (coming soon)
 - Offline functionality
 - Local data storage
@@ -34,20 +35,21 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 
 ### How is Batiyoun different from WhatsApp/Telegram/Signal?
 
-| Feature | Batiyoun | WhatsApp | Telegram | Signal |
-|---------|----------|----------|----------|--------|
-| **Open Source** | ✅ Fully | ❌ No | Partially | ✅ Yes |
-| **PWA (No install)** | ✅ Yes | ❌ No | ❌ No | ❌ No |
-| **Offline Chats** | ✅ Yes | Limited | Limited | Limited |
-| **Data Ownership** | ✅ Local storage | ❌ Server | ❌ Server | ⚠️ Encrypted server |
-| **E2E Encryption** | 🚧 Coming | ✅ Yes | Opt-in | ✅ Yes |
-| **Self-Hostable** | ✅ Yes | ❌ No | ❌ No | ✅ Yes |
+| Feature              | Batiyoun         | WhatsApp  | Telegram  | Signal              |
+| -------------------- | ---------------- | --------- | --------- | ------------------- |
+| **Open Source**      | ✅ Fully         | ❌ No     | Partially | ✅ Yes              |
+| **PWA (No install)** | ✅ Yes           | ❌ No     | ❌ No     | ❌ No               |
+| **Offline Chats**    | ✅ Yes           | Limited   | Limited   | Limited             |
+| **Data Ownership**   | ✅ Local storage | ❌ Server | ❌ Server | ⚠️ Encrypted server |
+| **E2E Encryption**   | 🚧 Coming        | ✅ Yes    | Opt-in    | ✅ Yes              |
+| **Self-Hostable**    | ✅ Yes           | ❌ No     | ❌ No     | ✅ Yes              |
 
 **Key Difference:** Batiyoun focuses on client-side storage and progressive web capabilities, making it installable and usable offline without app stores.
 
 ### Is Batiyoun production-ready?
 
 **Not yet.** Batiyoun is in active development (v0.x). Current features:
+
 - ✅ Authentication
 - ✅ PWA installation
 - ✅ Offline sessions
@@ -63,6 +65,7 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### What features are currently available?
 
 **Live Now (v0.2):**
+
 - Google OAuth login
 - Email/password registration with OTP
 - PWA installation (install as app)
@@ -72,6 +75,7 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 - Avatar uploads
 
 **Coming Soon:**
+
 - Real-time messaging
 - End-to-end encryption
 - Group chats
@@ -81,6 +85,7 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### Can I use Batiyoun offline?
 
 **Yes!** Batiyoun is designed as an offline-first PWA:
+
 - ✅ View cached messages
 - ✅ Compose messages (sent when online)
 - ✅ Browse chat history
@@ -90,16 +95,19 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### How do I install Batiyoun as an app?
 
 **Chrome/Edge (Desktop):**
+
 1. Visit [batiyoun.vercel.app](https://batiyoun.vercel.app/)
 2. Click the install icon in the address bar
 3. Click "Install"
 
 **Chrome (Android):**
+
 1. Visit the site
 2. Tap the menu (⋮) → "Add to Home Screen"
 3. Tap "Add"
 
 **Safari (iOS):**
+
 1. Visit the site
 2. Tap Share button → "Add to Home Screen"
 3. Tap "Add"
@@ -107,6 +115,7 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### Can I use Batiyoun on my phone?
 
 **Yes!** Batiyoun is a PWA and works on:
+
 - ✅ Android (Chrome, Edge, Samsung Internet)
 - ✅ iOS/iPadOS (Safari)
 - ✅ Desktop (Chrome, Edge, Safari, Firefox)
@@ -114,6 +123,7 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### Will there be a native app?
 
 **Unlikely.** The whole point is to avoid app stores and their restrictions. PWAs offer:
+
 - No app store approval delays
 - Instant updates
 - Cross-platform support
@@ -126,12 +136,14 @@ Yes! Batiyoun is 100% free and open-source under the MIT license. There are no p
 ### What technology stack does Batiyoun use?
 
 **Frontend:**
+
 - Next.js 15 (React 19)
 - TypeScript
 - Tailwind CSS
 - shadcn/ui
 
 **Backend:**
+
 - Node.js + Express
 - Socket.io (WebSockets)
 - PostgreSQL (user data)
@@ -143,6 +155,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for details.
 ### Can I self-host Batiyoun?
 
 **Yes!** Batiyoun is open-source. Requirements:
+
 - Node.js v20+
 - PostgreSQL database
 - MongoDB database
@@ -167,6 +180,7 @@ See [INSTALLATION.md](./INSTALLATION.md) for setup.
 ### Is Batiyoun end-to-end encrypted?
 
 **Not yet.** E2E encryption is in development:
+
 - 🚧 ECDH key exchange
 - 🚧 AES-256-GCM encryption
 - 🚧 Client-side key generation
@@ -178,14 +192,17 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 ### Where is my data stored?
 
 **User Data (email, password, profile):**
+
 - PostgreSQL database (server-side)
 - Password hashed with bcrypt
 
 **Messages:**
+
 - MongoDB database (server-side)
 - Will be encrypted end-to-end (future)
 
 **Local Cache:**
+
 - IndexedDB in your browser
 - Service Worker cache
 - Can be cleared anytime
@@ -199,6 +216,7 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 ### What data do you collect?
 
 **We collect:**
+
 - Email address (for login)
 - Username
 - Display name (optional)
@@ -207,6 +225,7 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 - Login sessions
 
 **We do NOT collect:**
+
 - Browsing history
 - Device information (beyond what's necessary)
 - Location data
@@ -215,6 +234,7 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 ### Do you sell user data?
 
 **Absolutely not.** We:
+
 - ❌ Don't sell data
 - ❌ Don't show ads
 - ❌ Don't share with third parties
@@ -223,6 +243,7 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 ### Can I delete my data?
 
 **Yes.** You can:
+
 - Delete individual messages
 - Delete conversations
 - Delete your account → deletes all your data
@@ -234,6 +255,7 @@ Messages are currently encrypted in transit (HTTPS/WSS) but not end-to-end.
 Report security issues to **kushkumarkashyap7280@gmail.com** (not GitHub issues).
 
 We'll:
+
 1. Acknowledge within 24 hours
 2. Assess severity
 3. Patch within 7-30 days
@@ -248,6 +270,7 @@ See [SECURITY.md](./SECURITY.md) for details.
 ### I can't log in. What should I do?
 
 **Checklist:**
+
 - ✅ Is your email verified? Check inbox for OTP
 - ✅ Correct password? Try "Forgot Password"
 - ✅ Browser cookies enabled?
@@ -259,16 +282,19 @@ Still stuck? Report on [GitHub Issues](https://github.com/kushkumarkashyap7280/b
 ### App won't install on my device
 
 **Chrome/Edge:**
+
 - Make sure you're using HTTPS
 - Check if already installed (look in apps list)
 - Try clearing browser cache
 
 **Safari (iOS):**
+
 - Use "Add to Home Screen" (not automatic)
 
 ### Messages not sending
 
 **Check:**
+
 - ✅ Internet connection
 - ✅ Server status (check GitHub for incidents)
 - ✅ Try refreshing the page
@@ -277,6 +303,7 @@ Still stuck? Report on [GitHub Issues](https://github.com/kushkumarkashyap7280/b
 ### Offline mode not working
 
 **Requirements:**
+
 - Must have visited the site at least once online
 - Service Worker must be registered
 - Check: DevTools → Application → Service Workers
@@ -284,9 +311,11 @@ Still stuck? Report on [GitHub Issues](https://github.com/kushkumarkashyap7280/b
 ### How do I clear local data?
 
 **Option 1: In-app (coming soon)**
+
 - Settings → Privacy → Clear Data
 
 **Option 2: Browser**
+
 1. DevTools (F12)
 2. Application → Storage
 3. Click "Clear site data"
@@ -298,6 +327,7 @@ Still stuck? Report on [GitHub Issues](https://github.com/kushkumarkashyap7280/b
 ### How can I help?
 
 Many ways:
+
 - 🐛 Report bugs
 - 💡 Suggest features
 - 🧑‍💻 Write code
@@ -310,6 +340,7 @@ Many ways:
 ### I'm not a developer. Can I still contribute?
 
 **Absolutely!** You can:
+
 - Test the app and report issues
 - Write documentation
 - Create tutorials/videos

@@ -21,6 +21,7 @@ Complete step-by-step guide to set up Batiyoun locally for development.
 - **Git:** Latest version ([Download](https://git-scm.com/))
 
 Verify installations:
+
 ```bash
 node --version  # Should be v20+
 npm --version   # Should be v10+
@@ -100,6 +101,7 @@ npm install
 ```
 
 This installs packages for:
+
 - Root workspace
 - `client/` (Next.js app)
 - `server/` (Node.js WebSocket server)
@@ -117,18 +119,20 @@ This installs packages for:
 #### Option B: Local PostgreSQL
 
 1. Install PostgreSQL:
+
    ```bash
    # Ubuntu/Debian
    sudo apt-get install postgresql postgresql-contrib
-   
+
    # macOS (with Homebrew)
    brew install postgresql
    brew services start postgresql
-   
+
    # Windows: Download from postgresql.org
    ```
 
 2. Create a database:
+
    ```bash
    psql -U postgres
    CREATE DATABASE batiyoun;
@@ -156,15 +160,16 @@ This installs packages for:
 #### Option B: Local MongoDB
 
 1. Install MongoDB:
+
    ```bash
    # Ubuntu/Debian
    sudo apt-get install mongodb
-   
+
    # macOS
    brew tap mongodb/brew
    brew install mongodb-community
    brew services start mongodb-community
-   
+
    # Windows: Download from mongodb.com
    ```
 
@@ -298,6 +303,7 @@ cd ..
 ```
 
 This will:
+
 - Create tables in PostgreSQL
 - Generate Prisma Client
 - Sync your schema
@@ -311,6 +317,7 @@ npm run dev
 ```
 
 This starts:
+
 - **Client:** [http://localhost:3000](http://localhost:3000)
 - **Server:** [http://localhost:4000](http://localhost:4000)
 
@@ -323,6 +330,7 @@ This starts:
 #### 1. "Prisma Client is not generated"
 
 **Solution:**
+
 ```bash
 cd client
 npx prisma generate
@@ -332,6 +340,7 @@ cd ..
 #### 2. "Database connection failed"
 
 **Checklist:**
+
 - ✅ Is your `DATABASE_URL` correct?
 - ✅ Is PostgreSQL running?
 - ✅ Can you connect with `psql`?
@@ -340,6 +349,7 @@ cd ..
 #### 3. "Port 3000 already in use"
 
 **Solution:**
+
 ```bash
 # Find and kill the process
 lsof -ti:3000 | xargs kill -9
@@ -351,6 +361,7 @@ PORT=3001 npm run dev
 #### 4. "Redis connection failed"
 
 **Solution:** Redis is optional for development. Comment out Redis-related code or:
+
 ```bash
 # Check if Redis is running
 redis-cli ping  # Should return "PONG"
@@ -367,6 +378,7 @@ brew services start redis         # macOS
 #### 6. Google OAuth not working
 
 **Checklist:**
+
 - ✅ Redirect URI matches exactly: `http://localhost:3000/api/auth/google/callback`
 - ✅ Google+ API is enabled
 - ✅ Credentials are in `client/.env`

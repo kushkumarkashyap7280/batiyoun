@@ -1,10 +1,8 @@
 'use client';
-import React from 'react'
+import React from 'react';
 
 function page() {
-  return (
-    <div>User Profile page</div>
-  )
+  return <div>User Profile page</div>;
 }
 
-export default page
+export default page;

@@ -2,22 +2,22 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Zap, 
-  Atom, 
-  FileCode2, 
-  Database, 
-  Leaf, 
-  Circle, 
-  Plug, 
-  Box, 
-  Palette, 
-  Film, 
-  Package, 
-  Lock, 
-  HardDrive, 
-  CheckCircle2, 
-  Server 
+import {
+  Zap,
+  Atom,
+  FileCode2,
+  Database,
+  Leaf,
+  Circle,
+  Plug,
+  Box,
+  Palette,
+  Film,
+  Package,
+  Lock,
+  HardDrive,
+  CheckCircle2,
+  Server,
 } from 'lucide-react';
 
 const techStack = [
@@ -69,9 +69,7 @@ export function TechStackTicker() {
                   className="flex items-center gap-2 px-4 py-2.5 bg-background border border-border rounded-lg hover:border-green-500/50 hover:shadow-md transition-all shrink-0"
                 >
                   <Icon className="w-4 h-4 text-green-600" />
-                  <span className="font-semibold text-sm whitespace-nowrap">
-                    {tech.name}
-                  </span>
+                  <span className="font-semibold text-sm whitespace-nowrap">{tech.name}</span>
                 </div>
               );
             })}

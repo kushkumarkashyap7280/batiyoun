@@ -1,51 +1,49 @@
-import type { Metadata ,Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
 
-
-import { Toaster } from "sonner";
-import ServiceWorkerRegister from "@/components/landing/ServiceWorkerRegister";
-import { AppProvider } from "@/components/providers/AppProvider";
-import { UpdatePrompt } from "@/components/pwa/UpdatePrompt";
-
+import { Toaster } from 'sonner';
+import ServiceWorkerRegister from '@/components/landing/ServiceWorkerRegister';
+import { UpdatePrompt } from '@/components/pwa/UpdatePrompt';
+import { AuthInitializer } from '@/components/auth-components/AuthInitializer';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Batiyoun - Secure Messaging",
-  description: "End-to-end encrypted messaging. Offline-first architecture. No compromises.",
-  manifest: "/manifest.json",
+  title: 'Batiyoun - Secure Messaging',
+  description: 'End-to-end encrypted messaging. Offline-first architecture. No compromises.',
+  manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: "/icon", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: '/icon', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: "/apple-icon",
+    apple: '/apple-icon',
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Batiyoun",
+    statusBarStyle: 'black-translucent',
+    title: 'Batiyoun',
   },
-  applicationName: "Batiyoun",
-  keywords: ["chat", "messaging", "encrypted", "secure", "privacy", "e2e"],
-}
+  applicationName: 'Batiyoun',
+  keywords: ['chat', 'messaging', 'encrypted', 'secure', 'privacy', 'e2e'],
+};
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: "#09090b",
-}
+  themeColor: '#09090b',
+};
 
 export default function RootLayout({
   children,
@@ -64,18 +62,15 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Batiyoun" />
         <link rel="apple-touch-icon" href="/apple-icon" />
-      
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-page dark:bg-slate-950 text-default dark:text-white transition-theme`}
       >
-            <AppProvider>
-              <ServiceWorkerRegister /> 
-              <Toaster richColors position="top-center" />
-              <UpdatePrompt />
-              {children}
-            </AppProvider>
-            
+        <ServiceWorkerRegister />
+        <AuthInitializer />
+        <Toaster richColors position="top-center" />
+        <UpdatePrompt />
+        {children}
       </body>
     </html>
   );

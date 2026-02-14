@@ -58,6 +58,7 @@ docs/
 ### New Contributors
 
 Start here:
+
 1. Read [INSTALLATION.md](./INSTALLATION.md) to set up locally
 2. Check [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines
 3. Look for `good first issue` labels on GitHub
@@ -90,6 +91,7 @@ Documentation is code! Help us improve it:
 - 📸 Add screenshots or diagrams
 
 **How to contribute:**
+
 1. Fork the repository
 2. Edit files in `docs/`
 3. Submit a pull request

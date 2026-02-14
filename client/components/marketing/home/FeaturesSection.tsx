@@ -6,54 +6,58 @@ import { Shield, Lock, Zap, MessageSquare, Code2, CheckCircle2 } from 'lucide-re
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.6 },
 };
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-  }
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
 };
 
 const features = [
   {
     icon: Lock,
     title: 'High Encryption',
-    description: 'End-to-end encrypted with RSA-OAEP and AES-256-GCM. Your messages are locked tight.',
-    delay: 0
+    description:
+      'End-to-end encrypted with RSA-OAEP and AES-256-GCM. Your messages are locked tight.',
+    delay: 0,
   },
   {
     icon: Zap,
     title: 'Real-time Chatting',
     description: 'Instant messaging with WebSocket and Socket.io. Messages arrive in milliseconds.',
-    delay: 0.2
+    delay: 0.2,
   },
   {
     icon: MessageSquare,
     title: 'One-on-One Chat',
-    description: 'Direct private conversations. No group leaks. Just you and the person you\'re talking to.',
-    delay: 0.4
+    description:
+      "Direct private conversations. No group leaks. Just you and the person you're talking to.",
+    delay: 0.4,
   },
   {
     icon: Shield,
     title: 'Offline First',
-    description: 'IndexedDB storage keeps your chats on your device. Works perfectly even without internet.',
-    delay: 0.6
+    description:
+      'IndexedDB storage keeps your chats on your device. Works perfectly even without internet.',
+    delay: 0.6,
   },
   {
     icon: Code2,
     title: 'Open Source',
     description: 'Every line of code is on GitHub. Audit it yourself. No secrets, no surprises.',
-    delay: 0.8
+    delay: 0.8,
   },
   {
     icon: CheckCircle2,
     title: 'As We Go Further',
-    description: 'File sharing, voice calls, group chats coming soon. We\'re building this in public.',
-    delay: 1
-  }
+    description:
+      "File sharing, voice calls, group chats coming soon. We're building this in public.",
+    delay: 1,
+  },
 ];
 
 export function FeaturesSection() {
@@ -71,14 +75,15 @@ export function FeaturesSection() {
             What Makes Batiyoun Special
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            High encryption. Real-time chatting. One-on-one conversations. As we go further, more features coming.
+            High encryption. Real-time chatting. One-on-one conversations. As we go further, more
+            features coming.
           </p>
         </motion.div>
 
         <div className="relative">
           {/* Connecting line - hidden on mobile */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-green-500/30 to-transparent -translate-y-1/2" />
-          
+
           <motion.div
             variants={container}
             initial="hidden"
@@ -96,7 +101,7 @@ export function FeaturesSection() {
                   className="group relative p-6 md:p-8 rounded-2xl border-2 border-border bg-card hover:border-green-500 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-linear-to-br from-green-500/0 via-transparent to-transparent group-hover:from-green-500/10 transition-all" />
-                  <motion.div 
+                  <motion.div
                     className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
                     animate={{ scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: feature.delay }}

@@ -28,17 +28,26 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Product</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="#features" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#features"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Security
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Roadmap
                 </Link>
               </li>
@@ -50,17 +59,26 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="#" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                <Link
+                  href="#"
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
                   Security Report
                 </Link>
               </li>
@@ -72,7 +90,11 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Connect</h4>
             <div className="flex gap-2">
               <Button variant="outline" size="icon" asChild>
-                <a href="https://github.com/kushkumarkashyap7280" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://github.com/kushkumarkashyap7280"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Github className="w-4 h-4" />
                 </a>
               </Button>
@@ -99,7 +121,12 @@ export function Footer() {
             </p>
             <p className="text-sm font-semibold flex items-center gap-1">
               <span>Built with ❤️ and 🔐 by</span>
-              <Link href="https://github.com/kushkumarkashyap7280" target="_blank" rel="noopener noreferrer" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300">
+              <Link
+                href="https://github.com/kushkumarkashyap7280"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+              >
                 Kush
               </Link>
             </p>

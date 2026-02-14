@@ -1,4 +1,3 @@
-
 const OTP_LENGTH = 6;
 
 function generateOtp(length = OTP_LENGTH) {

@@ -64,11 +64,10 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
       await updateAvatarUrl(avatarUrl.trim());
       setSuccess('Avatar updated successfully!');
       setAvatarUrl('');
-      
+
       setTimeout(() => {
         onClose?.();
       }, 1500);
-
     } catch (error: any) {
       setError(error.message || 'Failed to update avatar');
     }
@@ -85,11 +84,10 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
       setSuccess('Avatar uploaded successfully!');
       setSelectedFile(null);
       setPreviewUrl('');
-      
+
       setTimeout(() => {
         onClose?.();
       }, 1500);
-
     } catch (error: any) {
       setError(error.message || 'Failed to upload avatar');
     }
@@ -102,10 +100,7 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-default">Update Avatar</h2>
           {onClose && (
-            <button 
-              onClick={onClose}
-              className="p-2 hover:hover-surface rounded transition-colors"
-            >
+            <button onClick={onClose} className="p-2 hover:hover-surface rounded transition-colors">
               <X className="w-5 h-5 text-muted" />
             </button>
           )}
@@ -115,11 +110,7 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
         <div className="flex flex-col items-center mb-6">
           <div className="w-20 h-20 rounded-full overflow-hidden bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-2">
             {user?.avatar ? (
-              <img 
-                src={user.avatar} 
-                alt={user.username} 
-                className="w-full h-full object-cover"
-              />
+              <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
             ) : (
               <User className="w-8 h-8 text-white" />
             )}
@@ -157,9 +148,7 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
         {uploadMethod === 'url' && (
           <form onSubmit={handleUrlSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-default mb-2">
-                Avatar URL
-              </label>
+              <label className="block text-sm font-medium text-default mb-2">Avatar URL</label>
               <input
                 type="url"
                 value={avatarUrl}
@@ -198,9 +187,7 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
           <div className="space-y-4">
             {/* File Input */}
             <div>
-              <label className="block text-sm font-medium text-default mb-2">
-                Select Image
-              </label>
+              <label className="block text-sm font-medium text-default mb-2">Select Image</label>
               <input
                 type="file"
                 accept="image/*"
@@ -208,17 +195,15 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
                 className="w-full px-3 py-2 bg-tertiary border border-line rounded-lg focus:outline-none focus:border-green-500 text-default file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-green-600 file:text-white file:text-sm file:font-medium hover:file:bg-green-700 transition-colors"
                 disabled={isUploading}
               />
-              <p className="text-xs text-subtle mt-1">
-                Max 5MB • JPG, JPEG, PNG, GIF, WebP
-              </p>
+              <p className="text-xs text-subtle mt-1">Max 5MB • JPG, JPEG, PNG, GIF, WebP</p>
             </div>
 
             {/* Preview */}
             {previewUrl && (
               <div className="flex items-center gap-4">
-                <img 
-                  src={previewUrl} 
-                  alt="Preview" 
+                <img
+                  src={previewUrl}
+                  alt="Preview"
                   className="w-16 h-16 rounded-full object-cover"
                 />
                 <div className="flex-1">
@@ -233,7 +218,7 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
             {/* Progress */}
             {isUploading && uploadProgress > 0 && (
               <div className="w-full bg-tertiary rounded-full h-2">
-                <div 
+                <div
                   className="bg-green-600 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${uploadProgress}%` }}
                 />
@@ -278,7 +263,8 @@ export function AvatarUpload({ onClose }: AvatarUploadProps) {
         {/* Info */}
         <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
           <p className="text-sm text-blue-600 dark:text-blue-400">
-            <strong>Recommended:</strong> Use avatar URL from external services like Gravatar, GitHub, or Google for better performance.
+            <strong>Recommended:</strong> Use avatar URL from external services like Gravatar,
+            GitHub, or Google for better performance.
           </p>
         </div>
       </div>

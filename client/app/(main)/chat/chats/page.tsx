@@ -1,11 +1,41 @@
 'use client';
 
 const mockChats = [
-  { id: '1', name: 'Aarav Sharma', lastMessage: 'Did you check the build?', time: '2:40 PM', unread: 2 },
-  { id: '2', name: 'Priya Nair', lastMessage: 'Lets sync after lunch.', time: '1:18 PM', unread: 0 },
-  { id: '3', name: 'Kabir Joshi', lastMessage: 'Sent the files to you.', time: '11:05 AM', unread: 1 },
-  { id: '4', name: 'Sana Khan', lastMessage: 'Can we review the UI today?', time: '9:32 AM', unread: 0 },
-  { id: '5', name: 'Rohan Mehta', lastMessage: 'Thanks! Looks good.', time: 'Yesterday', unread: 0 },
+  {
+    id: '1',
+    name: 'Aarav Sharma',
+    lastMessage: 'Did you check the build?',
+    time: '2:40 PM',
+    unread: 2,
+  },
+  {
+    id: '2',
+    name: 'Priya Nair',
+    lastMessage: 'Lets sync after lunch.',
+    time: '1:18 PM',
+    unread: 0,
+  },
+  {
+    id: '3',
+    name: 'Kabir Joshi',
+    lastMessage: 'Sent the files to you.',
+    time: '11:05 AM',
+    unread: 1,
+  },
+  {
+    id: '4',
+    name: 'Sana Khan',
+    lastMessage: 'Can we review the UI today?',
+    time: '9:32 AM',
+    unread: 0,
+  },
+  {
+    id: '5',
+    name: 'Rohan Mehta',
+    lastMessage: 'Thanks! Looks good.',
+    time: 'Yesterday',
+    unread: 0,
+  },
 ];
 
 export default function ChatsTab() {
@@ -25,7 +55,9 @@ export default function ChatsTab() {
         </div>
 
         <section className="mt-4 bg-surface border border-line rounded-2xl p-3 sm:p-4 shadow-sm">
-          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide px-1 sm:px-2 mb-2">Recent</h2>
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide px-1 sm:px-2 mb-2">
+            Recent
+          </h2>
           <div className="space-y-2">
             {mockChats.map((chat) => (
               <div

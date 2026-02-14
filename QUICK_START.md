@@ -5,6 +5,7 @@ Essential commands and information for developers.
 ## ⚡ Quick Commands
 
 ### Setup
+
 ```bash
 # Clone and install
 git clone https://github.com/kushkumarkashyap7280/batiyoun.git
@@ -24,6 +25,7 @@ npm run dev
 ```
 
 ### Development
+
 ```bash
 npm run dev              # Start both client & server
 npm run dev:client       # Start only client (port 3000)
@@ -40,6 +42,7 @@ npm run format           # Format with Prettier
 ```
 
 ### Database
+
 ```bash
 npm run prisma:studio    # Open Prisma Studio
 npm run prisma:generate  # Generate Prisma Client
@@ -53,6 +56,7 @@ npx prisma format        # Format schema file
 ```
 
 ### Workspace Commands
+
 ```bash
 # Run command in specific workspace
 npm run dev -w client
@@ -75,27 +79,28 @@ batiyoun/
 
 ## 🔑 Key Files
 
-| File | Purpose |
-|------|---------|
-| `client/.env` | Client environment variables |
-| `server/.env` | Server environment variables |
-| `client/prisma/schema.prisma` | Database schema |
-| `client/app/layout.tsx` | Root layout |
-| `server/src/index.ts` | WebSocket server entry |
-| `client/types/types.ts` | Shared TypeScript types |
-| `client/utils/errors.ts` | Error handling utilities |
+| File                          | Purpose                      |
+| ----------------------------- | ---------------------------- |
+| `client/.env`                 | Client environment variables |
+| `server/.env`                 | Server environment variables |
+| `client/prisma/schema.prisma` | Database schema              |
+| `client/app/layout.tsx`       | Root layout                  |
+| `server/src/index.ts`         | WebSocket server entry       |
+| `client/types/types.ts`       | Shared TypeScript types      |
+| `client/utils/errors.ts`      | Error handling utilities     |
 
 ## 🌐 URLs
 
-| Service | Development | Production |
-|---------|-------------|------------|
-| Client | http://localhost:3000 | https://batiyoun.vercel.app |
-| Server | http://localhost:4000 | https://batiyoun-server.railway.app |
-| Prisma Studio | http://localhost:5555 | N/A |
+| Service       | Development           | Production                          |
+| ------------- | --------------------- | ----------------------------------- |
+| Client        | http://localhost:3000 | https://batiyoun.vercel.app         |
+| Server        | http://localhost:4000 | https://batiyoun-server.railway.app |
+| Prisma Studio | http://localhost:5555 | N/A                                 |
 
 ## 🔧 Environment Variables (Quick Reference)
 
 ### Client (.env)
+
 ```env
 DATABASE_URL="postgresql://..."
 NEXTAUTH_SECRET="generate-with: openssl rand -base64 32"
@@ -107,6 +112,7 @@ CLOUDINARY_CLOUD_NAME="..."
 ```
 
 ### Server (.env)
+
 ```env
 MONGO_URI="mongodb://..."
 PORT=4000
@@ -117,12 +123,12 @@ NODE_ENV="development"
 
 ## 🐛 Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Port 3000 in use | `lsof -ti:3000 \| xargs kill -9` |
-| Prisma not generated | `npx prisma generate` in client/ |
-| Database connection failed | Check DATABASE_URL in .env |
-| Module not found | `rm -rf node_modules && npm install` |
+| Issue                      | Solution                             |
+| -------------------------- | ------------------------------------ |
+| Port 3000 in use           | `lsof -ti:3000 \| xargs kill -9`     |
+| Prisma not generated       | `npx prisma generate` in client/     |
+| Database connection failed | Check DATABASE_URL in .env           |
+| Module not found           | `rm -rf node_modules && npm install` |
 
 ## 📚 Documentation
 
@@ -136,15 +142,18 @@ NODE_ENV="development"
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - Next.js 15, React 19, TypeScript
 - Tailwind CSS, shadcn/ui
 - Zustand, Workbox
 
 ### Backend
+
 - Node.js, Express, Socket.io
 - PostgreSQL (Prisma), MongoDB, Redis
 
 ### DevOps
+
 - Vercel (client), Railway (server)
 - GitHub Actions (CI/CD)
 

@@ -1,13 +1,11 @@
-import { Redis } from "@upstash/redis";
-import { ApiError } from "@/utils/errors";
-import { env } from "@/config/env";
+import { Redis } from '@upstash/redis';
+import { ApiError } from '@/utils/errors';
+import { env } from '@/config/env';
 
 const redis = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,
   token: env.UPSTASH_REDIS_REST_TOKEN,
 });
-
-
 
 export const REDIS_KEYS = {
   OTP: (email: string) => `otp:${email}`,
@@ -26,10 +24,10 @@ export async function setOtpWithRateLimit(email: string, otp: string) {
       const ttl = await redis.ttl(limitKey);
       const minutesLeft = Math.ceil(ttl / 60);
       const attemptsUsed = attempts;
-      
+
       throw new ApiError(
-        `Maximum OTP requests (${attemptsUsed}/3) reached. Please try again in ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}.`, 
-        429
+        `Maximum OTP requests (${attemptsUsed}/3) reached. Please try again in ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}.`,
+        429,
       );
     }
 
@@ -38,7 +36,7 @@ export async function setOtpWithRateLimit(email: string, otp: string) {
     pipeline.incr(limitKey);
 
     const results = await pipeline.exec();
-    
+
     const newCount = results[1] as number;
     if (newCount === 1) {
       await redis.expire(limitKey, 3600); // Rate limit resets after 1 hour
@@ -51,7 +49,7 @@ export async function setOtpWithRateLimit(email: string, otp: string) {
       throw error;
     }
     // Redis connection error
-    throw new ApiError("Failed to process OTP. Please try again.", 500);
+    throw new ApiError('Failed to process OTP. Please try again.', 500);
   }
 }
 
@@ -63,21 +61,18 @@ export async function verifyOtp(email: string, inputOtp: string) {
     const storedOtp = await redis.get<string>(otpKey);
 
     if (!storedOtp) {
-      throw new ApiError("OTP has expired or not found. Please request a new one.", 400);
+      throw new ApiError('OTP has expired or not found. Please request a new one.', 400);
     }
 
     // Convert both to strings and trim any whitespace
     const storedOtpStr = String(storedOtp).trim();
     const inputOtpStr = String(inputOtp).trim();
-    
+
     if (storedOtpStr !== inputOtpStr) {
-      throw new ApiError("Invalid OTP code. Please check and try again.", 400);
+      throw new ApiError('Invalid OTP code. Please check and try again.', 400);
     }
 
-    await Promise.all([
-      redis.del(otpKey),
-      redis.del(limitKey)
-    ]);
+    await Promise.all([redis.del(otpKey), redis.del(limitKey)]);
 
     return true;
   } catch (error) {
@@ -86,7 +81,7 @@ export async function verifyOtp(email: string, inputOtp: string) {
       throw error;
     }
     // Redis connection error
-    throw new ApiError("Failed to verify OTP. Please try again.", 500);
+    throw new ApiError('Failed to verify OTP. Please try again.', 500);
   }
 }
 

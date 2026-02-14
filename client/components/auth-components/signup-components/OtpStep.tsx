@@ -136,14 +136,14 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
         const message = result.message || 'Failed to resend OTP';
         const attemptsMatch = message.match(/(\d+)\s+attempts?\s+left/);
         const timeMatch = message.match(/Try again in (\d+) minutes?/);
-        
+
         if (attemptsMatch) {
           setAttemptsLeft(parseInt(attemptsMatch[1]));
         }
         if (timeMatch) {
           setNextAttemptTime(timeMatch[1] + ' minutes');
         }
-        
+
         toast.error(message);
       }
     } catch (err) {
@@ -168,12 +168,12 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
         transition={{ duration: 0.5 }}
         className="text-center space-y-2"
       >
-        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
-          Verify Email
-        </h2>
+        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">Verify Email</h2>
         <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           Enter the 6-digit code sent to{' '}
-          <span className="font-semibold text-foreground block sm:inline mt-1 sm:mt-0 break-all">{email}</span>
+          <span className="font-semibold text-foreground block sm:inline mt-1 sm:mt-0 break-all">
+            {email}
+          </span>
         </p>
       </motion.div>
 
@@ -189,7 +189,9 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
           {otp.map((digit, index) => (
             <input
               key={index}
-              ref={(el) => { otpRefs.current[index] = el; }}
+              ref={(el) => {
+                otpRefs.current[index] = el;
+              }}
               type="text"
               inputMode="numeric"
               maxLength={1}
@@ -216,7 +218,12 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
         <div className="flex flex-col items-center gap-2 sm:gap-3">
           <div className="text-xs sm:text-sm text-muted-foreground text-center">
             {resendTimer > 0 ? (
-              <span>Code expires in <span className="font-semibold text-green-600 dark:text-green-400">{formatTime(resendTimer)}</span></span>
+              <span>
+                Code expires in{' '}
+                <span className="font-semibold text-green-600 dark:text-green-400">
+                  {formatTime(resendTimer)}
+                </span>
+              </span>
             ) : (
               <span className="text-amber-600 dark:text-amber-400">Code expired</span>
             )}
@@ -230,7 +237,11 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
               <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="text-center">
                 {attemptsLeft} {attemptsLeft === 1 ? 'attempt' : 'attempts'} left
-                {nextAttemptTime && <span className="block sm:inline sm:before:content-['_•_']">Next: {nextAttemptTime}</span>}
+                {nextAttemptTime && (
+                  <span className="block sm:inline sm:before:content-['_•_']">
+                    Next: {nextAttemptTime}
+                  </span>
+                )}
               </span>
             </motion.div>
           )}
@@ -265,7 +276,7 @@ export function OtpStep({ email, onSuccess, onBack }: OtpStepProps) {
             <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Change email</span>
           </button>
-          
+
           {canResend ? (
             <button
               type="button"

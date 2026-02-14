@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
-import { env } from "@/config/env";
-import { cookies } from "next/headers";
-import prisma from "@/lib/prisma";
-import { generateAccessToken, generateRefreshToken } from "@/utils/tokens";
-import { TokenPayload,UsernameSchema } from "@/types/types";
-import { ApiError } from "@/utils/errors";
+import { NextResponse } from 'next/server';
+import { env } from '@/config/env';
+import { cookies } from 'next/headers';
+import prisma from '@/lib/prisma';
+import { generateAccessToken, generateRefreshToken } from '@/utils/tokens';
+import { TokenPayload, UsernameSchema } from '@/types/types';
+import { ApiError } from '@/utils/errors';
 
 interface GoogleTokenResponse {
   access_token: string;
@@ -27,63 +27,56 @@ interface GoogleUserInfo {
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const code = url.searchParams.get("code");
-  const error = url.searchParams.get("error");
+  const code = url.searchParams.get('code');
+  const error = url.searchParams.get('error');
 
   const originUrl = url.origin;
 
   if (error) {
-    return NextResponse.redirect(
-      `${originUrl}/login?error=${error}`
-    );
+    return NextResponse.redirect(`${originUrl}/login?error=${error}`);
   }
 
   if (!code) {
-    return NextResponse.redirect(
-      `${originUrl}/login?error=no_code`
-    );
+    return NextResponse.redirect(`${originUrl}/login?error=no_code`);
   }
 
   try {
     const cookieStore = await cookies();
-    const codeVerifier = cookieStore.get("pkce_verifier")?.value;
+    const codeVerifier = cookieStore.get('pkce_verifier')?.value;
 
     if (!codeVerifier) {
-      throw new ApiError("PKCE verifier not found", 400);
+      throw new ApiError('PKCE verifier not found', 400);
     }
 
-    const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
         code,
         client_id: env.GOOGLE_CLIENT_ID,
         client_secret: env.GOOGLE_CLIENT_SECRET,
         redirect_uri: env.GOOGLE_REDIRECT_URI,
-        grant_type: "authorization_code",
+        grant_type: 'authorization_code',
         code_verifier: codeVerifier,
       }),
     });
 
     if (!tokenResponse.ok) {
       const errorData = await tokenResponse.json();
-      console.error("Token exchange failed:", errorData);
-      throw new ApiError("Failed to exchange code for token", 400);
+      console.error('Token exchange failed:', errorData);
+      throw new ApiError('Failed to exchange code for token', 400);
     }
 
     const tokens: GoogleTokenResponse = await tokenResponse.json();
 
-    const userInfoResponse = await fetch(
-      "https://www.googleapis.com/oauth2/v2/userinfo",
-      {
-        headers: {
-          Authorization: `Bearer ${tokens.access_token}`,
-        },
-      }
-    );
+    const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: {
+        Authorization: `Bearer ${tokens.access_token}`,
+      },
+    });
 
     if (!userInfoResponse.ok) {
-      throw new ApiError("Failed to fetch user info", 400);
+      throw new ApiError('Failed to fetch user info', 400);
     }
 
     const googleUser: GoogleUserInfo = await userInfoResponse.json();
@@ -106,10 +99,10 @@ export async function GET(req: Request) {
           },
         });
       } else {
-        const emailPrefix = googleUser.email.split("@")[0].replace(/[^a-zA-Z0-9_]/g, "");
+        const emailPrefix = googleUser.email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '');
         const timestamp = Date.now().toString(36);
-        const username = (emailPrefix || "user") + "_" + timestamp;
-        
+        const username = (emailPrefix || 'user') + '_' + timestamp;
+
         user = await prisma.user.create({
           data: {
             googleId: googleUser.id,
@@ -144,36 +137,34 @@ export async function GET(req: Request) {
       data: { refreshToken: refreshToken },
     });
 
-    cookieStore.delete("pkce_verifier");
+    cookieStore.delete('pkce_verifier');
 
     const redirectUrl = new URL(`/`, req.url);
     const response = NextResponse.redirect(redirectUrl);
 
     response.cookies.set({
-      name: "refresh_token",
+      name: 'refresh_token',
       value: refreshToken,
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: env.NODE_ENV === 'production',
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60,
-      path: "/",
+      path: '/',
     });
 
     response.cookies.set({
-      name: "access_token",
+      name: 'access_token',
       value: accessToken,
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: env.NODE_ENV === 'production',
+      sameSite: 'lax',
       maxAge: 15 * 60,
-      path: "/",
+      path: '/',
     });
 
     return response;
   } catch (error) {
-    console.error("Google OAuth callback error:", error);
-    return NextResponse.redirect(
-      `${originUrl}/login?error=oauth_failed`
-    );
+    console.error('Google OAuth callback error:', error);
+    return NextResponse.redirect(`${originUrl}/login?error=oauth_failed`);
   }
 }

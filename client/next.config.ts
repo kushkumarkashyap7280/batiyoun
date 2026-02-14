@@ -1,16 +1,16 @@
-import withPWA from "@ducanh2912/next-pwa";
-import type { NextConfig } from "next";
+import withPWA from '@ducanh2912/next-pwa';
+import type { NextConfig } from 'next';
 
 const pwaConfig = withPWA({
-  dest: "public",
- disable: process.env.NODE_ENV === "development",
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
   register: true,
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
   workboxOptions: {
     disableDevLogs: true,
-    skipWaiting: false, 
+    skipWaiting: false,
     clientsClaim: false,
   },
 });

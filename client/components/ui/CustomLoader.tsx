@@ -32,13 +32,13 @@ const CustomLoader: React.FC = () => {
               key={index}
               animate={{
                 scale: [1, 1.5, 1],
-                opacity: [0.4, 1, 0.4]
+                opacity: [0.4, 1, 0.4],
               }}
               transition={{
                 duration: 1.4,
                 repeat: Infinity,
                 delay: index * 0.25,
-                ease: 'easeInOut'
+                ease: 'easeInOut',
               }}
               className="w-2.5 h-2.5 bg-green-600 dark:bg-green-400 rounded-full"
             />

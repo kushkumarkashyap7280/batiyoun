@@ -16,23 +16,17 @@ export async function POST(request: NextRequest) {
     const userId = request.headers.get('x-user-id');
 
     if (!userId) {
-      return NextResponse.json(
-        { success: false, message: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
     // Fetch user data
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, cloudinaryId: true, avatar: true }
+      select: { id: true, cloudinaryId: true, avatar: true },
     });
 
     if (!user) {
-      return NextResponse.json(
-        { success: false, message: 'User not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
     }
 
     // Delete old Cloudinary image if exists
@@ -57,7 +51,7 @@ export async function POST(request: NextRequest) {
       resource_type: 'image',
       transformation: [
         { width: 400, height: 400, crop: 'fill', gravity: 'face' },
-        { quality: 'auto', fetch_format: 'auto' }
+        { quality: 'auto', fetch_format: 'auto' },
       ],
     };
 
@@ -69,7 +63,7 @@ export async function POST(request: NextRequest) {
         transformation: 'w_400,h_400,c_fill,g_face/q_auto,f_auto',
         timestamp,
       },
-      env.CLOUDINARY_API_SECRET
+      env.CLOUDINARY_API_SECRET,
     );
 
     return NextResponse.json({
@@ -80,15 +74,14 @@ export async function POST(request: NextRequest) {
         cloudName: env.CLOUDINARY_CLOUD_NAME,
         apiKey: env.CLOUDINARY_API_KEY,
         publicId,
-        uploadParams
-      }
+        uploadParams,
+      },
     });
-
   } catch (error) {
     console.error('Avatar upload signature generation failed:', error);
     return NextResponse.json(
       { success: false, message: 'Failed to generate upload signature' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -99,10 +92,7 @@ export async function PATCH(request: NextRequest) {
     const userId = request.headers.get('x-user-id');
 
     if (!userId) {
-      return NextResponse.json(
-        { success: false, message: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
@@ -111,7 +101,7 @@ export async function PATCH(request: NextRequest) {
     if (!avatar) {
       return NextResponse.json(
         { success: false, message: 'Avatar URL or cloudinary_id is required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -120,7 +110,7 @@ export async function PATCH(request: NextRequest) {
       // Fetch current user to delete existing Cloudinary image if any
       const user = await prisma.user.findUnique({
         where: { id: userId },
-        select: { cloudinaryId: true }
+        select: { cloudinaryId: true },
       });
 
       // Delete old Cloudinary image if switching from Cloudinary to URL
@@ -138,20 +128,20 @@ export async function PATCH(request: NextRequest) {
         where: { id: userId },
         data: {
           avatar: avatar,
-          cloudinaryId: null // Clear cloudinary_id since using URL
+          cloudinaryId: null, // Clear cloudinary_id since using URL
         },
         select: {
           id: true,
           avatar: true,
           cloudinaryId: true,
-          username: true
-        }
+          username: true,
+        },
       });
 
       return NextResponse.json({
         success: true,
         message: 'Avatar URL updated successfully',
-        user: updatedUser
+        user: updatedUser,
       });
     }
 
@@ -159,7 +149,7 @@ export async function PATCH(request: NextRequest) {
     if (!cloudinaryId) {
       return NextResponse.json(
         { success: false, message: 'cloudinary_id is required for Cloudinary uploads' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -168,27 +158,26 @@ export async function PATCH(request: NextRequest) {
       where: { id: userId },
       data: {
         avatar: avatar,
-        cloudinaryId: cloudinaryId
+        cloudinaryId: cloudinaryId,
       },
       select: {
         id: true,
         avatar: true,
         cloudinaryId: true,
-        username: true
-      }
+        username: true,
+      },
     });
 
     return NextResponse.json({
       success: true,
       message: 'Avatar updated successfully',
-      user: updatedUser
+      user: updatedUser,
     });
-
   } catch (error) {
     console.error('Avatar update failed:', error);
     return NextResponse.json(
       { success: false, message: 'Failed to update avatar' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### 🚧 In Progress
+
 - Real-time messaging via WebSocket (Socket.io)
 - End-to-end encryption with ECDH + AES-256-GCM
 - IndexedDB storage for offline message caching
@@ -19,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2026-02-13
 
 ### ✨ Added
+
 - PWA automatic update mechanism via Service Worker
 - Update prompt UI component
 - Offline session persistence
@@ -33,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Apple touch icon for iOS
 
 ### 🔧 Changed
+
 - Improved Service Worker registration flow
 - Enhanced PWA manifest with screenshots
 - Better error handling for authentication flows
@@ -40,12 +43,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated landing page design
 
 ### 🐛 Fixed
+
 - Session timeout issues
 - Avatar upload failures in some browsers
 - Service Worker registration errors in Safari
 - Mobile layout issues on smaller screens
 
 ### 📚 Documentation
+
 - Created comprehensive main README
 - Added CONTRIBUTING.md guide
 - Added ARCHITECTURE.md documentation
@@ -63,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ✨ Added - Initial Release
 
 **Authentication System:**
+
 - Email/password registration with bcrypt hashing
 - Email verification with OTP (6-digit code via Resend)
 - Google OAuth 2.0 integration
@@ -73,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - User logout functionality
 
 **Progressive Web App:**
+
 - PWA manifest for installability
 - Service Worker for offline capability
 - App icons (72x72 to 512x512)
@@ -81,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Themed icons for Android
 
 **User Interface:**
+
 - Landing page with hero section
 - Features showcase section
 - CTA (Call-to-Action) sections
@@ -92,6 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - shadcn/ui components integration
 
 **Database & Schema:**
+
 - PostgreSQL setup with Prisma ORM
 - User model with relations
 - Database migrations
@@ -99,6 +108,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - MongoDB connection setup (for future messaging)
 
 **Developer Experience:**
+
 - Monorepo structure with npm workspaces
 - TypeScript across the stack
 - ESLint configuration
@@ -108,6 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Code organization and file structure
 
 **Infrastructure:**
+
 - Next.js 15 with App Router
 - Node.js WebSocket server setup
 - Redis integration (Upstash)
@@ -116,6 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hot module replacement (HMR)
 
 ### 🔧 Technical Stack
+
 - **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS
 - **Backend:** Node.js, Express, Socket.io (setup)
 - **Databases:** PostgreSQL (Prisma), MongoDB (Mongoose - setup), Redis
@@ -129,6 +141,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-01-15
 
 ### 🎉 Project Initialization
+
 - Repository created
 - Basic folder structure
 - Next.js project setup
@@ -158,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 **Links:**
+
 - [Unreleased]: https://github.com/kushkumarkashyap7280/batiyoun/compare/v0.2.0...HEAD
 - [0.2.0]: https://github.com/kushkumarkashyap7280/batiyoun/compare/v0.1.0...v0.2.0
 - [0.1.0]: https://github.com/kushkumarkashyap7280/batiyoun/compare/v0.0.1...v0.1.0

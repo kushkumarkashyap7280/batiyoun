@@ -8,7 +8,9 @@ export default function UploadTab() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 pb-20">
         <div className="bg-surface border border-line rounded-2xl p-4 sm:p-5 shadow-sm">
           <h1 className="text-lg sm:text-xl font-semibold text-default mb-3">Upload Media</h1>
-          <p className="text-sm text-muted mb-4">Share files, images, and videos with your contacts</p>
+          <p className="text-sm text-muted mb-4">
+            Share files, images, and videos with your contacts
+          </p>
         </div>
 
         {/* Upload Area */}
@@ -25,7 +27,9 @@ export default function UploadTab() {
 
         {/* Quick Upload Options */}
         <section className="mt-8">
-          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide mb-4">Quick Upload</h2>
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide mb-4">
+            Quick Upload
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {/* Image Upload */}
             <button className="p-4 rounded-xl bg-surface border border-line hover:bg-hover-surface transition-colors flex flex-col items-center gap-3">

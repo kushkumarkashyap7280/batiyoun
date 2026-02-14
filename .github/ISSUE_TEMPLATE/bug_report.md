@@ -32,24 +32,28 @@ If applicable, add screenshots to help explain your problem.
 ## 💻 Environment
 
 **Browser:**
+
 - [ ] Chrome
 - [ ] Firefox
 - [ ] Safari
 - [ ] Edge
-- [ ] Other: 
+- [ ] Other:
 
 **Device:**
+
 - [ ] Desktop
 - [ ] Mobile (Android)
 - [ ] Mobile (iOS)
 - [ ] Tablet
 
 **Details:**
+
 - OS: [e.g., Windows 11, macOS 14, Ubuntu 22.04, Android 13, iOS 17]
 - Browser Version: [e.g., Chrome 120]
 - Node Version (if applicable): [e.g., 20.10.0]
 
 **Is the app installed as PWA?**
+
 - [ ] Yes
 - [ ] No
 
@@ -60,6 +64,7 @@ Add any other context about the problem here.
 ## 🔍 Error Messages
 
 If applicable, paste any error messages from:
+
 - Browser console (F12 → Console)
 - Network tab errors
 - Server logs
@@ -75,6 +80,7 @@ Link to any related issues: #
 ---
 
 **Checklist:**
+
 - [ ] I have searched existing issues to avoid duplicates
 - [ ] I have provided all requested information
 - [ ] I can reproduce this bug consistently

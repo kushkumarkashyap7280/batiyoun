@@ -70,35 +70,29 @@ export function UserSignupForm() {
         transition={{ duration: 0.3 }}
         className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl w-full min-w-0"
       >
-      {step === 1 && (
-        <EmailStep
-          onSuccess={(email) => {
-            setEmail(email);
-            setStep(2);
-          }}
-        />
-      )}
-      
-      {step === 2 && (
-        <OtpStep
-          email={email}
-          onSuccess={() => setStep(3)}
-          onBack={() => setStep(1)}
-        />
-      )}
-      
-      {step === 3 && (
-        <UsernameStep
-          onSuccess={(username) => {
-            setUsername(username);
-            setStep(4);
-          }}
-        />
-      )}
-      
-      {step === 4 && (
-        <CompleteStep username={username} />
-      )}
+        {step === 1 && (
+          <EmailStep
+            onSuccess={(email) => {
+              setEmail(email);
+              setStep(2);
+            }}
+          />
+        )}
+
+        {step === 2 && (
+          <OtpStep email={email} onSuccess={() => setStep(3)} onBack={() => setStep(1)} />
+        )}
+
+        {step === 3 && (
+          <UsernameStep
+            onSuccess={(username) => {
+              setUsername(username);
+              setStep(4);
+            }}
+          />
+        )}
+
+        {step === 4 && <CompleteStep username={username} />}
       </motion.div>
     </div>
   );

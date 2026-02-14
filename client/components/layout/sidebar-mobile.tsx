@@ -43,12 +43,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
   return (
     <>
       {/* Mobile Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={onClose}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />}
 
       {/* Sidebar - Full screen drawer on mobile */}
       <aside
@@ -77,7 +72,9 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
               </div>
             )}
             <div className="text-left flex-1 min-w-0">
-              <p className="font-semibold text-default text-sm truncate">{user?.fullName || 'User'}</p>
+              <p className="font-semibold text-default text-sm truncate">
+                {user?.fullName || 'User'}
+              </p>
               <p className="text-xs text-muted truncate">@{user?.username}</p>
             </div>
           </button>
@@ -119,11 +116,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
             onClick={toggleTheme}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-muted hover:bg-hover-surface hover:text-default transition-all duration-200"
           >
-            {isDark ? (
-              <Sun className="w-5 h-5 shrink-0" />
-            ) : (
-              <Moon className="w-5 h-5 shrink-0" />
-            )}
+            {isDark ? <Sun className="w-5 h-5 shrink-0" /> : <Moon className="w-5 h-5 shrink-0" />}
             <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
           </button>
 

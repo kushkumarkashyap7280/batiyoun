@@ -4,7 +4,13 @@ import { useState, useEffect } from 'react';
 import { Palette, Sun, Moon, Monitor, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { UserSettings } from '@/types/types';
 
 interface AppearanceSettingsProps {
@@ -44,7 +50,9 @@ export function AppearanceSettings({ userId, initialSettings }: AppearanceSettin
     if (updates.theme) {
       const root = document.documentElement;
       if (updates.theme === 'system') {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
         root.classList.toggle('dark', systemTheme === 'dark');
       } else {
         root.classList.toggle('dark', updates.theme === 'dark');
@@ -96,7 +104,9 @@ export function AppearanceSettings({ userId, initialSettings }: AppearanceSettin
               </div>
               <div>
                 <CardTitle className="text-default">Appearance Settings</CardTitle>
-                <CardDescription className="text-muted">Personalize your experience</CardDescription>
+                <CardDescription className="text-muted">
+                  Personalize your experience
+                </CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -142,7 +152,9 @@ export function AppearanceSettings({ userId, initialSettings }: AppearanceSettin
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="font-size" className="text-default font-medium">Font Size</Label>
+              <Label htmlFor="font-size" className="text-default font-medium">
+                Font Size
+              </Label>
               <p className="text-sm text-muted mb-2">Adjust text size for better readability</p>
               <Select
                 value={settings.fontSize}
@@ -150,19 +162,30 @@ export function AppearanceSettings({ userId, initialSettings }: AppearanceSettin
                   handleUpdate({ fontSize: value })
                 }
               >
-                <SelectTrigger id="font-size" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="font-size"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="small" className="text-default">Small</SelectItem>
-                  <SelectItem value="medium" className="text-default">Medium</SelectItem>
-                  <SelectItem value="large" className="text-default">Large</SelectItem>
+                  <SelectItem value="small" className="text-default">
+                    Small
+                  </SelectItem>
+                  <SelectItem value="medium" className="text-default">
+                    Medium
+                  </SelectItem>
+                  <SelectItem value="large" className="text-default">
+                    Large
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="font-style" className="text-default font-medium">Font Style</Label>
+              <Label htmlFor="font-style" className="text-default font-medium">
+                Font Style
+              </Label>
               <p className="text-sm text-muted mb-2">Choose your preferred font family</p>
               <Select
                 value={settings.fontStyle}
@@ -170,19 +193,30 @@ export function AppearanceSettings({ userId, initialSettings }: AppearanceSettin
                   handleUpdate({ fontStyle: value })
                 }
               >
-                <SelectTrigger id="font-style" className="bg-surface border-line text-default w-full">
+                <SelectTrigger
+                  id="font-style"
+                  className="bg-surface border-line text-default w-full"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-surface border-line">
-                  <SelectItem value="sans-serif" className="text-default">Sans Serif</SelectItem>
-                  <SelectItem value="serif" className="text-default">Serif</SelectItem>
-                  <SelectItem value="monospace" className="text-default">Monospace</SelectItem>
+                  <SelectItem value="sans-serif" className="text-default">
+                    Sans Serif
+                  </SelectItem>
+                  <SelectItem value="serif" className="text-default">
+                    Serif
+                  </SelectItem>
+                  <SelectItem value="monospace" className="text-default">
+                    Monospace
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2 p-3 sm:p-4 bg-page rounded-lg">
-              <Label htmlFor="accent-color" className="text-default font-medium">Accent Color</Label>
+              <Label htmlFor="accent-color" className="text-default font-medium">
+                Accent Color
+              </Label>
               <p className="text-sm text-muted mb-2">Customize your theme accent color</p>
               <div className="flex items-center gap-3">
                 <input

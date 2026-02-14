@@ -45,7 +45,7 @@ Who would benefit from this feature?
 - [ ] Mobile users
 - [ ] Desktop users
 - [ ] Developers
-- [ ] Other: 
+- [ ] Other:
 
 ## 🔧 Technical Considerations
 
@@ -63,6 +63,7 @@ Add any other context, screenshots, or examples about the feature request here.
 ---
 
 **Checklist:**
+
 - [ ] I have searched existing feature requests to avoid duplicates
 - [ ] I have clearly described the use case
 - [ ] I have considered how this fits with Batiyoun's mission

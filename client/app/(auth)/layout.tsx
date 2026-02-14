@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Navbar } from '@/components/landing/Navbar';
 import { useUserStore } from '@/store/zustandUserStore';
 
-
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
@@ -28,7 +27,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   // Redirect when user becomes available (from rehydration OR AppProvider verification)
   useEffect(() => {
     if (isHydrated && user) {
-      router.replace('/chat');
+      router.replace('/chat/chats');
     }
   }, [isHydrated, user, router]);
 

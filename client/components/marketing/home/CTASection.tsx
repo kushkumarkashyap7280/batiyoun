@@ -15,11 +15,10 @@ export function CTASection() {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto text-center space-y-8"
       >
-        <h2 className="font-heading font-bold text-4xl md:text-5xl">
-          Ready to Chat Privately?
-        </h2>
+        <h2 className="font-heading font-bold text-4xl md:text-5xl">Ready to Chat Privately?</h2>
         <p className="text-muted-foreground text-lg">
-          No signup required to play with the encryption demo above. Just hit that button and see the keys generate in real-time.
+          No signup required to play with the encryption demo above. Just hit that button and see
+          the keys generate in real-time.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" asChild className="bg-green-600 hover:bg-green-700">
@@ -29,7 +28,11 @@ export function CTASection() {
             </Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <a href="https://github.com/kushkumarkashyap7280/batiyoun" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://github.com/kushkumarkashyap7280/batiyoun"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Code2 className="mr-2 w-4 h-4" />
               Read the Code
             </a>

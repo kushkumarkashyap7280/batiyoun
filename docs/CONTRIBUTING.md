@@ -36,6 +36,7 @@ This project and everyone participating in it is governed by respect, inclusivit
 Before creating bug reports, please check existing issues to avoid duplicates.
 
 When creating a bug report, include:
+
 - **Clear title** describing the issue
 - **Steps to reproduce** the behavior
 - **Expected behavior** vs **actual behavior**
@@ -44,11 +45,13 @@ When creating a bug report, include:
 - **Error messages** or logs
 
 **Template:**
+
 ```markdown
 **Bug Description**
 A clear description of what the bug is.
 
 **To Reproduce**
+
 1. Go to '...'
 2. Click on '...'
 3. See error
@@ -60,9 +63,10 @@ What you expected to happen.
 If applicable, add screenshots.
 
 **Environment:**
- - OS: [e.g., Ubuntu 22.04]
- - Browser: [e.g., Chrome 120]
- - Node Version: [e.g., 20.10.0]
+
+- OS: [e.g., Ubuntu 22.04]
+- Browser: [e.g., Chrome 120]
+- Node Version: [e.g., 20.10.0]
 ```
 
 ### 💡 Suggesting Features
@@ -70,6 +74,7 @@ If applicable, add screenshots.
 We love feature ideas! Before suggesting, check if someone else has already proposed it.
 
 **Include:**
+
 - **Use case** - Why is this feature needed?
 - **Proposed solution** - How should it work?
 - **Alternatives** - What other solutions did you consider?
@@ -80,6 +85,7 @@ We love feature ideas! Before suggesting, check if someone else has already prop
 #### First Time Contributors
 
 Look for issues labeled:
+
 - `good first issue` - Great for newcomers
 - `help wanted` - We need community help
 - `documentation` - Improve our docs
@@ -108,17 +114,20 @@ Look for issues labeled:
 ### Step-by-Step Setup
 
 1. **Fork and Clone**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/batiyoun.git
    cd batiyoun
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Configuration**
+
    ```bash
    # Client
    cp client/sample.env client/.env
@@ -130,6 +139,7 @@ Look for issues labeled:
    ```
 
 4. **Database Setup**
+
    ```bash
    cd client
    npx prisma migrate dev
@@ -138,6 +148,7 @@ Look for issues labeled:
    ```
 
 5. **Start Development**
+
    ```bash
    npm run dev
    ```
@@ -217,24 +228,30 @@ npm run type-check
 
 ```markdown
 ## Description
+
 Brief description of what this PR does.
 
 ## Related Issues
+
 Fixes #123
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 How did you test this?
 
 ## Screenshots (if applicable)
+
 Add screenshots here.
 
 ## Checklist
+
 - [ ] My code follows the project's style guidelines
 - [ ] I have performed a self-review
 - [ ] I have commented my code where needed
@@ -434,6 +451,7 @@ common/
 ## Recognition
 
 Contributors will be:
+
 - 🌟 Listed in our README
 - 🏆 Recognized in release notes
 - 💖 Forever appreciated by the community
@@ -441,4 +459,3 @@ Contributors will be:
 ---
 
 **Thank you for contributing to Batiyoun! Your efforts help make secure, private messaging accessible to everyone.** 🎉
-

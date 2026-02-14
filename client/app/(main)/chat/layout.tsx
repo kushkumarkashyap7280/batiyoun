@@ -25,9 +25,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex flex-col h-full relative w-full overflow-hidden">
-      <div className="flex-1 overflow-auto w-full">
-        {children}
-      </div>
+      <div className="flex-1 overflow-auto w-full">{children}</div>
       {isMobile && <MobileTabbar />}
     </div>
   );

@@ -17,25 +17,25 @@ if (!fs.existsSync(outputDir)) {
 
 async function generateIcons() {
   console.log('🎨 Generating PWA icons...');
-  
+
   for (const size of sizes) {
     const outputFile = path.join(outputDir, `icon-${size}x${size}.png`);
-    
+
     try {
       await sharp(inputFile)
         .resize(size, size, {
           fit: 'contain',
-          background: { r: 9, g: 9, b: 11, alpha: 1 } // #09090b
+          background: { r: 9, g: 9, b: 11, alpha: 1 }, // #09090b
         })
         .png()
         .toFile(outputFile);
-      
+
       console.log(`✅ Generated ${size}x${size}`);
     } catch (error) {
       console.error(`❌ Failed to generate ${size}x${size}:`, error.message);
     }
   }
-  
+
   console.log('✨ Done!');
 }
 

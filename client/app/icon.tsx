@@ -1,11 +1,11 @@
-export const runtime = 'edge'
+export const runtime = 'edge';
 
 export const size = {
   width: 32,
   height: 32,
-}
+};
 
-export const contentType = 'image/svg+xml'
+export const contentType = 'image/svg+xml';
 
 export default function Icon() {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -30,12 +30,12 @@ export default function Icon() {
   
   <!-- Security indicator -->
   <circle cx="24" cy="8" r="3" fill="#fbbf24" stroke="#ffffff" stroke-width="0.5"/>
-</svg>`
+</svg>`;
 
   return new Response(svg, {
     headers: {
       'Content-Type': contentType,
       'Cache-Control': 'public, max-age=31536000, immutable',
     },
-  })
+  });
 }

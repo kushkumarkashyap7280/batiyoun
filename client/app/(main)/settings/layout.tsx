@@ -1,11 +1,8 @@
-'use client'
-import React from 'react'
-
+'use client';
+import React from 'react';
 
 function layout() {
-  return (
-    <div> settings layout</div>
-  )
+  return <div> settings layout</div>;
 }
 
-export default layout
+export default layout;

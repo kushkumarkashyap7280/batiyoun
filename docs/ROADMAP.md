@@ -7,6 +7,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Mission:** Empower users with a secure, privacy-focused messaging platform that puts them in control of their data while being accessible everywhere through progressive web technology.
 
 **Core Principles:**
+
 1. **Privacy First** - End-to-end encryption, no data mining
 2. **User Ownership** - Your data, your device, your control
 3. **Universal Access** - Works everywhere, no app stores
@@ -39,6 +40,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Status:** Live in production
 
 **Features:**
+
 - ✅ Email/password registration
 - ✅ OTP verification via email
 - ✅ Google OAuth integration
@@ -60,12 +62,14 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** March 2026
 
 **Completed:**
+
 - ✅ WebSocket server setup (Socket.io)
 - ✅ MongoDB schema design
 - ✅ Basic event architecture
 - ✅ Redis pub/sub setup
 
 **In Progress:**
+
 - 🔨 1-on-1 chat implementation
 - 🔨 Message persistence (MongoDB)
 - 🔨 Real-time message delivery
@@ -74,6 +78,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 🔨 Message history pagination
 
 **Upcoming:**
+
 - 📋 Message editing
 - 📋 Message deletion
 - 📋 Search within conversation
@@ -87,6 +92,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** April-May 2026
 
 **Core Features:**
+
 - 🔐 **ECDH Key Exchange** (Curve25519)
 - 🔐 **AES-256-GCM Encryption** for messages
 - 🔐 **Client-side key generation** (Web Crypto API)
@@ -95,6 +101,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 🔐 **Safety numbers** for key verification
 
 **Implementation Steps:**
+
 1. Crypto library integration
 2. Key generation & storage (IndexedDB)
 3. Key exchange protocol
@@ -104,6 +111,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 7. Security audit
 
 **Security Goals:**
+
 - Server cannot read messages
 - Perfect forward secrecy
 - Resistant to MITM attacks
@@ -116,6 +124,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** June-July 2026
 
 **Group Chats:**
+
 - 👥 Create groups (max 256 members initially)
 - 👥 Group encryption (multi-cast)
 - 👥 Admin roles & permissions
@@ -124,6 +133,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 👥 Group invites
 
 **Media Sharing:**
+
 - 📷 Image upload & send
 - 🎥 Video upload (size limits)
 - 📄 Document sharing
@@ -132,6 +142,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 🔗 Link previews
 
 **Message Features:**
+
 - ↩️ Reply to messages
 - ⏩ Forward messages
 - 📌 Pin important messages
@@ -146,11 +157,13 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** August-September 2026
 
 **Technologies:**
+
 - WebRTC for P2P connections
 - TURN/STUN servers for NAT traversal
 - End-to-end encrypted calls
 
 **Features:**
+
 - 📞 1-on-1 voice calls
 - 📹 1-on-1 video calls
 - 🎙️ Mute/unmute
@@ -160,6 +173,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 📊 Connection quality indicators
 
 **Future:**
+
 - Group voice calls
 - Group video calls (up to 8 participants)
 - Screen sharing
@@ -171,6 +185,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** October 2026
 
 **Offline Capabilities:**
+
 - 💾 Full message history offline (IndexedDB)
 - 💾 Media caching
 - 💾 Intelligent sync when online
@@ -178,6 +193,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 💾 Conflict resolution
 
 **Storage Management:**
+
 - 🗂️ **Visual File Manager**
   - Browse cached messages
   - View storage usage
@@ -186,6 +202,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
   - Selective sync (choose what to cache)
 
 **Data Export/Import:**
+
 - 📤 Export chat history (JSON/CSV)
 - 📥 Import from other apps
 - 🔄 Backup to cloud (encrypted)
@@ -198,6 +215,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** November 2026
 
 **Features:**
+
 - 🔒 Two-Factor Authentication (2FA)
 - 🔒 Biometric authentication (fingerprint, Face ID)
 - 🔒 App lock with PIN
@@ -208,6 +226,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 🔒 Encrypted voice notes
 
 **Privacy:**
+
 - 🕵️ Last seen privacy controls
 - 🕵️ Profile photo privacy
 - 🕵️ Who can add me to groups
@@ -223,6 +242,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** December 2026
 
 **Themes:**
+
 - 🎨 Dark mode (system-aware)
 - 🎨 Light mode
 - 🎨 Custom themes
@@ -230,6 +250,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - 🎨 Message bubble styles
 
 **Personalization:**
+
 - 😊 Emoji reactions
 - 🎭 Stickers (custom packs)
 - 🖼️ Custom notification sounds
@@ -237,6 +258,7 @@ Our vision and development timeline for making Batiyoun the best private messagi
 - ⚙️ Advanced settings panel
 
 **Accessibility:**
+
 - ♿ Screen reader support
 - ♿ Keyboard navigation
 - ♿ Font size controls
@@ -250,18 +272,21 @@ Our vision and development timeline for making Batiyoun the best private messagi
 **Target:** Q1 2027
 
 **Multi-Device:**
+
 - 💻 Desktop app (Electron wrapper)
 - 📱 Better iPad/tablet experience
 - 🔄 Device sync
 - 📲 QR code device linking
 
 **Integrations:**
+
 - 🔗 Webhooks for bots
 - 🤖 Bot API
 - 🔌 Third-party integrations
 - 📧 Email bridge (send/receive)
 
 **Developer Tools:**
+
 - 📚 Public API documentation
 - 🔧 SDK for custom clients
 - 🧪 Test environment
@@ -287,15 +312,15 @@ Our vision and development timeline for making Batiyoun the best private messagi
 
 ### By v1.0 (Mid-2027)
 
-| Metric | Goal |
-|--------|------|
-| **Monthly Active Users** | 10,000+ |
-| **GitHub Stars** | 1,000+ |
-| **Contributors** | 50+ |
-| **Test Coverage** | 80%+ |
-| **Security Audit** | ✅ Passed |
-| **Performance Score** | 95+ (Lighthouse) |
-| **Bundle Size** | < 500KB (gzipped) |
+| Metric                   | Goal              |
+| ------------------------ | ----------------- |
+| **Monthly Active Users** | 10,000+           |
+| **GitHub Stars**         | 1,000+            |
+| **Contributors**         | 50+               |
+| **Test Coverage**        | 80%+              |
+| **Security Audit**       | ✅ Passed         |
+| **Performance Score**    | 95+ (Lighthouse)  |
+| **Bundle Size**          | < 500KB (gzipped) |
 
 ---
 

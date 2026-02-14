@@ -83,9 +83,7 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
         transition={{ duration: 0.5 }}
         className="text-center space-y-2"
       >
-        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">
-          Choose Username
-        </h2>
+        <h2 className="font-heading font-bold text-xl sm:text-2xl lg:text-3xl">Choose Username</h2>
         <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
           This will be your unique identifier
         </p>
@@ -150,7 +148,9 @@ export function UsernameStep({ onSuccess }: UsernameStepProps) {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className={`mt-1.5 text-xs sm:text-sm ${
-                isAvailable ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                isAvailable
+                  ? 'text-green-600 dark:text-green-400'
+                  : 'text-red-600 dark:text-red-400'
               }`}
             >
               {availabilityMessage}

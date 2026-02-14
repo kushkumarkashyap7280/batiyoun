@@ -36,7 +36,7 @@ export function useAvatarUpload() {
       }
 
       const signatureData: UploadResponse = await signatureResponse.json();
-      
+
       if (!signatureData.success || !signatureData.data) {
         throw new Error(signatureData.message || 'Failed to get upload signature');
       }
@@ -58,7 +58,7 @@ export function useAvatarUpload() {
         {
           method: 'POST',
           body: formData,
-        }
+        },
       );
 
       if (!uploadResponse.ok) {
@@ -87,7 +87,7 @@ export function useAvatarUpload() {
       }
 
       const updateData: UploadResponse = await updateResponse.json();
-      
+
       if (updateData.success && updateData.user) {
         // Update Zustand store
         setUser(updateData.user);
@@ -95,7 +95,6 @@ export function useAvatarUpload() {
 
       setUploadProgress(100);
       return cloudinaryResult.secure_url;
-
     } catch (error) {
       console.error('Avatar upload failed:', error);
       throw error;
@@ -127,7 +126,7 @@ export function useAvatarUpload() {
       }
 
       const data: UploadResponse = await response.json();
-      
+
       if (data.success && data.user) {
         // Update Zustand store
         setUser(data.user);
@@ -135,7 +134,6 @@ export function useAvatarUpload() {
       }
 
       throw new Error(data.message || 'Failed to update avatar');
-
     } catch (error) {
       console.error('Avatar URL update failed:', error);
       throw error;

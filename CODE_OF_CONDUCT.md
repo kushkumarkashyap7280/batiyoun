@@ -36,6 +36,7 @@ Project maintainers have the right and responsibility to remove, edit, or reject
 ## Scope
 
 This Code of Conduct applies within all community spaces, including:
+
 - GitHub repository (issues, pull requests, discussions)
 - Project communication channels (Discord, email, etc.)
 - Social media when representing the project
@@ -84,6 +85,7 @@ This Code of Conduct is adapted from the Contributor Covenant, version 2.1.
 ## Questions?
 
 If you have questions about this Code of Conduct, please reach out:
+
 - Email: kushkumar.officialsoftwaredev@gmail.com
 - GitHub Discussions: https://github.com/kushkumarkashyap7280/batiyoun/discussions
 

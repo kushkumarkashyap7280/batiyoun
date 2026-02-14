@@ -9,7 +9,7 @@ import { EncryptionPlayground } from '@/components/marketing/home/EncryptionPlay
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.6 },
 };
 
 export function HeroSection() {
@@ -17,7 +17,7 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Animated background grid */}
       <div className="absolute inset-0 bg-grid-small-black/[0.1] dark:bg-grid-small-white/[0.05]" />
-      
+
       <div className="absolute inset-0 bg-linear-to-br from-green-500/10 via-transparent to-transparent" />
 
       <div className="relative max-w-6xl mx-auto w-full">
@@ -45,7 +45,9 @@ export function HeroSection() {
           >
             Privacy is not a
             <br />
-            <span className="bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">feature.</span>
+            <span className="bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              feature.
+            </span>
             <br />
             <span className="text-foreground">It's the architecture.</span>
           </motion.h1>
@@ -57,7 +59,8 @@ export function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
           >
-            End-to-end encrypted messaging running entirely in your browser. No trackers. No servers reading your chats. Just you and them.
+            End-to-end encrypted messaging running entirely in your browser. No trackers. No servers
+            reading your chats. Just you and them.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -74,7 +77,11 @@ export function HeroSection() {
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="https://github.com/kushkumarkashyap7280/batiyoun" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/kushkumarkashyap7280/batiyoun"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Code2 className="mr-2 w-4 h-4" />
                 View Source Code
               </a>

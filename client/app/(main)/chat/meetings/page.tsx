@@ -27,7 +27,9 @@ export default function MeetingsTab() {
           <div className="bg-linear-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-6 sm:p-8">
             <VideoIcon className="w-10 h-10 text-green-500 mb-3" />
             <h3 className="text-lg font-semibold text-default mb-2">Start a New Meeting</h3>
-            <p className="text-sm text-muted mb-4">Instantly start a video call or create a meeting link to share</p>
+            <p className="text-sm text-muted mb-4">
+              Instantly start a video call or create a meeting link to share
+            </p>
             <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition-colors">
               Start Meeting
             </button>
@@ -36,7 +38,9 @@ export default function MeetingsTab() {
 
         {/* Upcoming Meetings */}
         <section className="mt-8">
-          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide px-1 sm:px-2 mb-4">Upcoming</h2>
+          <h2 className="text-sm font-semibold text-subtle uppercase tracking-wide px-1 sm:px-2 mb-4">
+            Upcoming
+          </h2>
           <div className="space-y-3">
             {mockMeetings.map((meeting) => (
               <div

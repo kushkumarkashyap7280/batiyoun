@@ -7,10 +7,15 @@ import { DesktopTopbar } from '@/components/layout/desktop-topbar';
 import { SidebarDesktop } from '@/components/layout/sidebar-desktop';
 import { SidebarMobile } from '@/components/layout/sidebar-mobile';
 import { useUserStore } from '@/store/zustandUserStore';
+import { SocketProvider } from '@/components/providers/SocketProvider'; // 👈 Import 1
 import CustomLoader from '@/components/ui/CustomLoader';
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+
+  // 👇 CHANGE 1: Use the hook so this component re-renders if user becomes null
+  const user = useUserStore((state) => state.user);
+
   const [isHydrated, setIsHydrated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -24,22 +29,21 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     setPathname(currentPathname);
   }, [currentPathname]);
 
+  // 1. HYDRATION CHECK (Run once)
   useEffect(() => {
     const init = async () => {
       await useUserStore.persist.rehydrate();
-      const user = useUserStore.getState().user;
-
-      if (!user) {
-        router.replace('/home');
-      } else {
-        setIsHydrated(true);
-      }
+      setIsHydrated(true);
     };
-
     init();
   }, []);
 
-  // Handle responsive sidebar - closed by default on mobile
+  useEffect(() => {
+    if (isHydrated && !user) {
+      router.replace('/home');
+    }
+  }, [isHydrated, user, router]);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -48,10 +52,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         setIsSidebarOpen(true);
       }
     };
-
-    // Set initial state
     handleResize();
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -60,10 +61,8 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Handle swipe gesture for mobile sidebar toggle
   useEffect(() => {
     if (!isMobile) return;
-
     let isSwiping = false;
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -74,16 +73,14 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!touchStartX.current) return;
-
       const touchCurrentX = e.touches[0].clientX;
       const touchCurrentY = e.touches[0].clientY;
       const diffX = touchCurrentX - touchStartX.current;
       const diffY = touchCurrentY - touchStartY.current;
 
-      // Only handle horizontal swipes from left edge
       if (Math.abs(diffX) > Math.abs(diffY) && touchStartX.current < 30 && diffX > 10) {
         isSwiping = true;
-        e.preventDefault(); // Prevent browser back gesture
+        e.preventDefault();
       }
     };
 
@@ -93,23 +90,17 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       const diffX = touchEndX - touchStartX.current;
       const diffY = touchEndY - touchStartY.current;
 
-      // Only consider horizontal swipe if vertical movement is minimal
       if (Math.abs(diffY) > Math.abs(diffX)) {
         isSwiping = false;
         return;
       }
-
-      // Right swipe (left to right) from edge to open sidebar
       if (diffX > 50 && touchStartX.current < 30) {
         e.preventDefault();
         setIsSidebarOpen(true);
-      }
-      // Left swipe (right to left) to close sidebar
-      else if (diffX < -50 && isSidebarOpen) {
+      } else if (diffX < -50 && isSidebarOpen) {
         e.preventDefault();
         setIsSidebarOpen(false);
       }
-
       isSwiping = false;
     };
 
@@ -118,7 +109,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       mainElement.addEventListener('touchstart', handleTouchStart, { passive: false });
       mainElement.addEventListener('touchmove', handleTouchMove, { passive: false });
       mainElement.addEventListener('touchend', handleTouchEnd, { passive: false });
-
       return () => {
         mainElement.removeEventListener('touchstart', handleTouchStart);
         mainElement.removeEventListener('touchmove', handleTouchMove);
@@ -129,65 +119,64 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)');
-
     const handleChange = () => {
       setIsMobile(mediaQuery.matches);
       setIsViewportReady(true);
     };
-
     handleChange();
     mediaQuery.addEventListener('change', handleChange);
-
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  if (!isHydrated || !isViewportReady) {
+  if (!isHydrated || !isViewportReady || !user) {
     return <CustomLoader />;
   }
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
-        <DesktopTopbar onToggleSidebar={toggleSidebar} />
-        
-        <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <SocketProvider>
+        <div className="flex flex-col h-screen w-screen overflow-hidden bg-background overscroll-none">
+          <DesktopTopbar onToggleSidebar={toggleSidebar} />
 
-        <main 
-          className="flex-1 overflow-auto overscroll-none touch-pan-y" 
-          style={{ overscrollBehaviorX: 'none' }}
-        >
-          {children}
-        </main>
-      </div>
+          <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+
+          <main
+            className="flex-1 overflow-auto overscroll-none touch-pan-y"
+            style={{ overscrollBehaviorX: 'none' }}
+          >
+            {children}
+          </main>
+        </div>
+      </SocketProvider>
     );
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
-      <DesktopTopbar onToggleSidebar={toggleSidebar} />
+    <SocketProvider>
+      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background">
+        <DesktopTopbar onToggleSidebar={toggleSidebar} />
 
-      <div className="flex flex-1 overflow-hidden relative w-full">
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
+        <div className="flex flex-1 overflow-hidden relative w-full">
+          {isSidebarOpen && (
+            <div
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
 
-        <aside
-          className={`
-            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-            fixed md:absolute top-0 left-0 z-50 h-full
-            transition-transform duration-300 ease-in-out
-          `}
-        >
-          <SidebarDesktop onMobileClose={() => setIsSidebarOpen(false)} />
-        </aside>
+          <aside
+            className={`
+              ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+              fixed md:absolute top-0 left-0 z-50 h-full
+              transition-transform duration-300 ease-in-out
+            `}
+          >
+            <SidebarDesktop onMobileClose={() => setIsSidebarOpen(false)} />
+          </aside>
 
-        <main className="flex-1 overflow-auto w-full">
-          {children}
-        </main>
+          <main className="flex-1 overflow-auto w-full">{children}</main>
+        </div>
       </div>
-    </div>
+    </SocketProvider>
   );
 }

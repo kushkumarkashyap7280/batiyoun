@@ -1,8 +1,6 @@
-import { Resend } from "resend";
-import { env } from "@/config/env";
-import { OtpType } from "@/types/types";
-
-
+import { Resend } from 'resend';
+import { env } from '@/config/env';
+import { OtpType } from '@/types/types';
 
 export const resend = new Resend(env.RESEND_API_KEY);
 
@@ -10,13 +8,11 @@ export const emailConfig = {
   fromEmail: env.RESEND_FROM_EMAIL,
 };
 
-
-
-
-const templates: Record<OtpType, (otp: string) => { subject: string; html: string; text: string }> = {
-  "SIGNUP": (otp) => ({
-    subject: "Verify your Batiyoun account",
-    html: `
+const templates: Record<OtpType, (otp: string) => { subject: string; html: string; text: string }> =
+  {
+    SIGNUP: (otp) => ({
+      subject: 'Verify your Batiyoun account',
+      html: `
       <div style="font-family: sans-serif; padding: 20px; text-align: center;">
         <h2>Verify your email</h2>
         <p>Use the code below to complete your sign up:</p>
@@ -24,11 +20,11 @@ const templates: Record<OtpType, (otp: string) => { subject: string; html: strin
         <p style="color: #666; font-size: 12px;">This code expires in 10 minutes.</p>
       </div>
     `,
-    text: `Your verification code is ${otp}. It expires in 10 minutes.`,
-  }),
-  "RESET_PASSWORD": (otp) => ({
-    subject: "Reset your Password",
-    html: `
+      text: `Your verification code is ${otp}. It expires in 10 minutes.`,
+    }),
+    RESET_PASSWORD: (otp) => ({
+      subject: 'Reset your Password',
+      html: `
       <div style="font-family: sans-serif; padding: 20px; text-align: center;">
         <h2>Reset Password</h2>
         <p>You requested a password reset. Use this code:</p>
@@ -36,11 +32,11 @@ const templates: Record<OtpType, (otp: string) => { subject: string; html: strin
         <p style="color: #666; font-size: 12px;">If you didn't request this, ignore this email.</p>
       </div>
     `,
-    text: `Your password reset code is ${otp}.`,
-  }),
-  "FORGOT_PASSWORD": (otp) => ({
-    subject: "Forgot Password OTP",
-    html: `
+      text: `Your password reset code is ${otp}.`,
+    }),
+    FORGOT_PASSWORD: (otp) => ({
+      subject: 'Forgot Password OTP',
+      html: `
       <div style="font-family: sans-serif; padding: 20px; text-align: center;">
         <h2>Forgot Password</h2>
         <p>Use this OTP to reset your password:</p>
@@ -48,9 +44,9 @@ const templates: Record<OtpType, (otp: string) => { subject: string; html: strin
         <p style="color: #666; font-size: 12px;">This code expires in 10 minutes.</p>
       </div>
     `,
-    text: `Your forgot password OTP is ${otp}. It expires in 10 minutes.`,
-  }), 
-};
+      text: `Your forgot password OTP is ${otp}. It expires in 10 minutes.`,
+    }),
+  };
 /**
  * Send an OTP email.
  * @param otp - the OTP code to send
@@ -62,7 +58,7 @@ export async function sendOtpEmail(
   otp: string,
   to: string,
   type: OtpType,
-): Promise<{ success: boolean; message?: string; }> {
+): Promise<{ success: boolean; message?: string }> {
   const tpl = templates[type](otp);
 
   try {
@@ -73,10 +69,11 @@ export async function sendOtpEmail(
       html: tpl.html,
       text: tpl.text,
     });
-    return { success: true, message: "OTP email sent successfully." };
+    return { success: true, message: 'OTP email sent successfully.' };
   } catch (err: any) {
-    return { success: false , message: `Failed to send OTP email: ${err.message || "Unknown error"}` };
+    return {
+      success: false,
+      message: `Failed to send OTP email: ${err.message || 'Unknown error'}`,
+    };
   }
 }
-
-

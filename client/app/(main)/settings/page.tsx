@@ -1,10 +1,8 @@
 'use client';
-import React from 'react'
+import React from 'react';
 
 function page() {
-  return (
-    <div>Settings page</div>
-  )
+  return <div>Settings page</div>;
 }
 
-export default page
+export default page;

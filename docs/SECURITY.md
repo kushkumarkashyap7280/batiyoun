@@ -13,12 +13,14 @@ We take security vulnerabilities seriously. If you discover a security issue, pl
 ### How to Report
 
 **DO:**
+
 - ✅ Email security reports to: **kushkumar.officialsoftwaredev@gmail.com**
 - ✅ Include detailed steps to reproduce the vulnerability
 - ✅ Provide your assessment of the impact and severity
 - ✅ Give us reasonable time to fix the issue before public disclosure
 
 **DON'T:**
+
 - ❌ Open a public GitHub issue for security vulnerabilities
 - ❌ Exploit the vulnerability beyond proof-of-concept
 - ❌ Access or modify other users' data
@@ -47,7 +49,7 @@ We take security vulnerabilities seriously. If you discover a security issue, pl
 
 We'll publicly recognize security researchers who responsibly disclose vulnerabilities:
 
-*No reports yet - you could be first!*
+_No reports yet - you could be first!_
 
 ---
 
@@ -98,6 +100,7 @@ We'll publicly recognize security researchers who responsibly disclose vulnerabi
 - 🚧 **Forward Secrecy:** New keys for each session
 
 **E2EE Flow:**
+
 ```
 1. User A generates ECDH key pair on client
 2. User B generates ECDH key pair on client
@@ -204,6 +207,7 @@ We'll publicly recognize security researchers who responsibly disclose vulnerabi
 ### Planned (Application Layer)
 
 **Message Encryption:**
+
 ```
 Algorithm: AES-256-GCM
 Key Size: 256 bits
@@ -212,6 +216,7 @@ Tag Size: 128 bits (16 bytes)
 ```
 
 **Key Exchange:**
+
 ```
 Algorithm: ECDH (Elliptic Curve Diffie-Hellman)
 Curve: Curve25519 (X25519)
@@ -219,6 +224,7 @@ Key Size: 256 bits
 ```
 
 **Key Derivation:**
+
 ```
 Algorithm: HKDF (HMAC-based KDF)
 Hash: SHA-256
@@ -247,6 +253,7 @@ Salt: Random 256-bit value
 ### Data Deletion
 
 Users can request data deletion:
+
 1. Account deletion deletes all user data within 30 days
 2. Message deletion is immediate
 3. Backups are purged after 90 days

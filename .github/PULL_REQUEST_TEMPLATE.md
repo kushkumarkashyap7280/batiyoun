@@ -5,6 +5,7 @@
 ## 🔗 Related Issue
 
 <!-- Link to the issue this PR addresses -->
+
 Fixes #(issue number)
 
 ## 📋 Type of Change
@@ -30,18 +31,21 @@ Fixes #(issue number)
 - [ ] All existing tests pass
 
 **Test steps:**
-1. 
-2. 
-3. 
+
+1.
+2.
+3.
 
 ## 📸 Screenshots
 
 <!-- If applicable, add screenshots showing the changes -->
 
 ### Before
+
 <!-- Screenshot before changes -->
 
 ### After
+
 <!-- Screenshot after changes -->
 
 ## ✅ Checklist
@@ -93,4 +97,5 @@ Fixes #(issue number)
 ---
 
 **Reviewer Notes:**
+
 <!-- Anything specific you want reviewers to focus on -->
