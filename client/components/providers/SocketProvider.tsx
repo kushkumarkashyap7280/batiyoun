@@ -33,6 +33,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
 
+    if(!navigator.onLine) {
+      console.warn("⚠️ Offline: Socket connection will be attempted when back online.");
+      return;
+    }
+
     const socketInstance = io(process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:4000", {
       withCredentials: true,
       autoConnect: false,
