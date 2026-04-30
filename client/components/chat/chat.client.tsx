@@ -6,6 +6,7 @@ import { Send, Menu, Settings, Users, LogOut, Search, PlusCircle, User, Loader2 
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";
 import { logoutBUser } from "@/apis/api";
+import UserSearch from "./UserSearch";
 
 type Message = {
   id: string;
@@ -20,6 +21,8 @@ export default function ChatClientPage() {
   const { socket, isConnected } = useSocket();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -69,6 +72,13 @@ export default function ChatClientPage() {
     }
   };
 
+  const handleSelectUser = (selectedUserData: any) => {
+    setSelectedUser(selectedUserData);
+    setIsSearchOpen(false);
+    console.log("Selected user:", selectedUserData);
+    // You can add additional logic here like opening a direct chat with the selected user
+  };
+
   if (!user) {
     return (
       <div className={styles.loadingContainer}>
@@ -91,6 +101,15 @@ export default function ChatClientPage() {
           <Search size={18} className={styles.searchIcon} />
           <input type="text" placeholder="Search chats..." className={styles.searchInput} />
         </div>
+
+        <button
+          type="button"
+          className={styles.searchUsersButton}
+          onClick={() => setIsSearchOpen(true)}
+        >
+          <Search size={16} />
+          Search users
+        </button>
 
         <div className={styles.chatList}>
           <div className={`${styles.chatItem} ${styles.chatItemActive}`}>
@@ -133,7 +152,13 @@ export default function ChatClientPage() {
             </span>
           </div>
           <div className={styles.headerActions}>
-            <button className={styles.iconButton}><Search size={20} /></button>
+            <button 
+              className={styles.iconButton}
+              onClick={() => setIsSearchOpen(true)}
+              title="Search users"
+            >
+              <Search size={20} />
+            </button>
             <button className={styles.iconButton}><Settings size={20} /></button>
           </div>
         </header>
@@ -190,6 +215,13 @@ export default function ChatClientPage() {
           </button>
         </form>
       </main>
+
+      {/* User Search Modal */}
+      <UserSearch 
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onSelectUser={handleSelectUser}
+      />
     </div>
   );
 }

@@ -1,0 +1,232 @@
+.inlineSearchShell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.searchField {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 18px;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.searchIcon {
+  color: #98a2b3;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.95rem;
+  color: #101828;
+}
+
+.searchInput::placeholder {
+  color: #98a2b3;
+}
+
+.clearButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  color: #475467;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+.searchButton {
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #a060ff 0%, #5b8cff 100%);
+  color: white;
+  padding: 0.95rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.searchButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.searchButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.stateCard,
+.helperCard,
+.resultsCard,
+.emptyCard {
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.05);
+}
+
+.stateCard,
+.helperCard,
+.emptyCard {
+  padding: 1rem 1.05rem;
+  color: #667085;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 0.6rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorCard {
+  color: #b42318;
+  background: rgba(254, 243, 242, 0.92);
+  border-color: rgba(255, 125, 125, 0.2);
+}
+
+.resultsCard {
+  overflow: hidden;
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  font-size: 0.85rem;
+  color: #667085;
+}
+
+.resultsList {
+  display: grid;
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  background: transparent;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.resultItem:hover {
+  background: rgba(160, 96, 255, 0.05);
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: 800;
+  background: linear-gradient(135deg, #a060ff 0%, #5b8cff 100%);
+}
+
+.resultMeta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultMeta strong,
+.resultMeta span,
+.resultMeta p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resultMeta strong {
+  color: #101828;
+}
+
+.resultMeta span {
+  color: #475467;
+  font-size: 0.85rem;
+}
+
+.resultMeta p {
+  color: #98a2b3;
+  font-size: 0.8rem;
+}
+
+.paginationBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  color: #667085;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.paginationButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  background: white;
+  color: #344054;
+  padding: 0.55rem 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.paginationButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 780px) {
+  .searchBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+
+  .paginationBar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -83,6 +83,30 @@
   border-color: var(--primary);
 }
 
+.searchUsersButton {
+  margin: 0 1rem 0.75rem;
+  width: calc(100% - 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--foreground);
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.searchUsersButton:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+  background: rgba(160, 96, 255, 0.08);
+}
+
 .chatList {
   flex: 1;
   overflow-y: auto;

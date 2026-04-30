@@ -44,7 +44,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       
       // If logged in and on a public page, redirect to chat
       if (isPublicPath) {
-        router.push("/chat");
+        router.push("/chats");
       }
     } catch (error) {
       console.error("Auth failed:", error);
