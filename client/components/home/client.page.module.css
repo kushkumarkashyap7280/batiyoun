@@ -1,0 +1,122 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.brandName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--foreground);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--primary);
+}
+
+.primaryButton {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(160, 96, 255, 0.3);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem;
+  }
+  
+  .brandName {
+    font-size: 1.25rem;
+  }
+  
+  .navLink {
+    display: none; /* Hide Features link on small screens */
+  }
+  
+  .primaryButton {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .logoContainer {
+    gap: 0.4rem;
+  }
+  
+  .logo {
+    height: 32px;
+  }
+  
+  .primaryButton {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

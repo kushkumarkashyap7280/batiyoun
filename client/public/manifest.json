@@ -1,0 +1,21 @@
+{
+  "name": "Batiyoun",
+  "short_name": "Batiyoun",
+  "description": "Connect Beyond Boundaries with Batiyoun",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a060ff",
+  "icons": [
+    {
+      "src": "/batiyoun-logo-removed-bg.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/batiyoun-logo-removed-bg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

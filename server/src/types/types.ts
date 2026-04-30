@@ -1,31 +1,40 @@
-import { z } from 'zod';
-
-export const UsernameSchema = z.object({
-  username: z
-    .string()
-    .min(3, 'Username must be at least 3 chars')
-    .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers, and underscores allowed'),
-});
-
-export type UsernameData = z.infer<typeof UsernameSchema>;
-
-export const EmailSchema = z.object({
-  email: z.string().email('Invalid email address'),
-});
-
-export type EmailData = z.infer<typeof EmailSchema>;
-
+import {z } from "zod";
 
 export const UserSchema = z.object({
-  _id: z.string({ message: 'User ID is required' }),
-  username: UsernameSchema.shape.username,
-  email: EmailSchema.shape.email,
-  fullName: z.string({ message: 'Full name is required' }),
-  avatar: z.string().nullable().optional(),
-  isAdmin: z.boolean().default(false),
+  username: z.string(),
+  email: z.string().email(),
+  fullName: z.string(),
+  password: z.string().optional(),
+  googleId: z.string().optional(),
+  avatar: z.string().nullable(),
   isOnline: z.boolean().default(false),
-  lastSeen: z.coerce.date().default(() => new Date()),
-  publicKey: z.string().nullable().optional(),
+  lastSeen: z.date().default(new Date()),
+  publicKey: z.string().nullable(),
 });
 
-export type User = z.infer<typeof UserSchema>;
+export type BUser = z.infer<typeof UserSchema>;
+
+
+export const ConversationSchema = z.object({
+    participants: z.array(z.string()),
+    lastMessage: z.string().optional(),
+    isGroup: z.boolean().default(false),
+    groupName: z.string().optional(),
+    groupAvatar: z.string().optional(),
+    groupDescription: z.string().optional(),
+    groupAdmins: z.array(z.string()).optional(),
+});
+
+export type BConversation = z.infer<typeof ConversationSchema>;
+
+
+
+
+export const MessageSchema = z.object({
+  conversationId: z.string(),
+  senderId: z.string(),
+  content: z.string(),
+  timestamp: z.date().optional(),
+});
+
+export type BMessage = z.infer<typeof MessageSchema>;

@@ -2,8 +2,7 @@ import { Server } from "socket.io";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
-import { userHandler } from "./handlers/user.handler";
-// import { chatHandler } from "./handlers/chat.handler"; // Future
+
 
 export const initializeSocket = (io: Server) => {
   
@@ -33,7 +32,7 @@ export const initializeSocket = (io: Server) => {
     socket.join(user.id);
 
  
-    userHandler(io, socket);
+    // userHandler(io, socket);
     // chatHandler(io, socket); // In the future, just uncomment this!
   });
 };

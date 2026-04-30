@@ -13,9 +13,11 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/multer": "^2.0.0",
     "@upstash/redis": "^1.36.2",
+    "bcrypt": "^6.0.0",
     "cloudinary": "^2.9.0",
     "cookie": "^0.7.2",
     "cookie-parser": "^1.4.7",

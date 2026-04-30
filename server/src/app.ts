@@ -4,8 +4,7 @@ import cookieParser from "cookie-parser";
 import { env } from "./config/env";
 import { errorHandler } from "./middlewares/Error.middleware";
 import { ApiError } from "./utils/apiError";
-
-
+import userRouter from "./routes/user.routes";
 
 const app = express();
 
@@ -22,19 +21,15 @@ app.use(cookieParser());
 
 app.use(express.static("public"));
 
-
-
-
+app.use("/api/users", userRouter);
 
 app.get("/health", (_, res) => {
   res.status(200).json({ status: "active", service: "Batiyoun Backend" });
 });
 
-
 app.use((req, res, next) => {
   next(new ApiError(404, `Route not found: ${req.originalUrl}`));
 });
-
 
 app.use(errorHandler);
 
