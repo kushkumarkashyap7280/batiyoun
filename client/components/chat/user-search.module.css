@@ -4,6 +4,62 @@
   gap: 0.75rem;
 }
 
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.modalDialog {
+  width: min(720px, 100%);
+  max-height: min(84vh, 860px);
+  overflow: auto;
+  border-radius: 28px;
+  background: rgba(247, 248, 252, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 30px 90px rgba(15, 23, 42, 0.24);
+  padding: 1.25rem;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalTitle {
+  margin: 0;
+  color: #101828;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.modalDescription {
+  margin: 0.35rem 0 0;
+  color: #667085;
+  font-size: 0.95rem;
+}
+
+.modalCloseButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  color: #344054;
+  padding: 0.55rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 .searchBar {
   display: flex;
   align-items: center;
@@ -216,6 +272,11 @@
 }
 
 @media (max-width: 780px) {
+  .modalDialog {
+    padding: 1rem;
+    border-radius: 22px;
+  }
+
   .searchBar {
     flex-direction: column;
     align-items: stretch;

@@ -26,9 +26,11 @@ interface SearchResult {
 interface UserSearchProps {
   onSelectUser: (user: UserSearchResultUser) => void;
   className?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export default function UserSearch({ onSelectUser, className }: UserSearchProps) {
+export default function UserSearch({ onSelectUser, className, isOpen, onClose }: UserSearchProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -80,7 +82,11 @@ export default function UserSearch({ onSelectUser, className }: UserSearchProps)
     handleClear();
   };
 
-  return (
+  if (isOpen === false) {
+    return null;
+  }
+
+  const searchContent = (
     <section className={`${styles.inlineSearchShell} ${className || ""}`.trim()}>
       <form className={styles.searchBar} onSubmit={handleSubmit}>
         <div className={styles.searchField}>
@@ -173,5 +179,28 @@ export default function UserSearch({ onSelectUser, className }: UserSearchProps)
         </div>
       ) : null}
     </section>
+  );
+
+  return (
+    isOpen ? (
+      <div className={styles.modalBackdrop} role="presentation" onClick={onClose}>
+        <div className={styles.modalDialog} role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+          <div className={styles.modalHeader}>
+            <div>
+              <h2 className={styles.modalTitle}>Search users</h2>
+              <p className={styles.modalDescription}>Find someone to start a direct chat.</p>
+            </div>
+            {onClose ? (
+              <button type="button" className={styles.modalCloseButton} onClick={onClose} aria-label="Close search">
+                <X size={18} />
+              </button>
+            ) : null}
+          </div>
+          {searchContent}
+        </div>
+      </div>
+    ) : (
+      searchContent
+    )
   );
 }
