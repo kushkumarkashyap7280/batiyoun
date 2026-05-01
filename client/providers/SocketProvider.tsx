@@ -23,9 +23,14 @@ export const useSocket = () => useContext(SocketContext);
 export default function SocketProvider({ children }: { children: React.ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
+    // Wait for auth loading to complete before creating socket
+    if (isLoading) {
+      return;
+    }
+
     // Only connect socket if user is logged in
     if (!user) {
       // User is not logged in, disconnect if socket exists
@@ -50,7 +55,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
     });
 
     socketInstance.on("connect", () => {
-      console.log("SocketProvider: Socket connected for user:", user.id);
+      console.log("SocketProvider: Socket connected for user:", user);
       setIsConnected(true);
     });
 
@@ -69,7 +74,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
       console.log("SocketProvider: Cleanup - disconnecting socket");
       socketInstance.disconnect();
     };
-  }, [user?.id]);
+  }, [user?.id, isLoading]);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>
