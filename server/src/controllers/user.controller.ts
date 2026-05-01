@@ -110,6 +110,7 @@ const loginBUser = asyncHandler(async (req, res) => {
 // Verify the current user
 
 const verifyMeBUser = asyncHandler(async (req, res) => {
+  console.log("Received verify-me request with cookies:", req.cookies);
   const token = req.cookies["access_token"];
 
   if (!token) {
@@ -124,6 +125,7 @@ const verifyMeBUser = asyncHandler(async (req, res) => {
     }
     res.status(200).json(new ApiResponse(200, user, "User verified successfully"));
   } catch (err) {
+    console.error("verifyMeBUser error:", err);
     throw new ApiError(401, "session expired, please login again");
   }
 });
