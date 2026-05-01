@@ -78,14 +78,20 @@ const loginBUserInputDataSchema = z.object({
 type loginBUser = z.infer<typeof loginBUserInputDataSchema>;
 
 const loginBUser = asyncHandler(async (req, res) => {
+  console.log("Received login request with data:", req.body);
   const { email, password } = loginBUserInputDataSchema.parse(req.body);
 
   const user: any = await User.findOne({ email });
+
+  console.log("User found for login:", user);
   if (!user || !user.password) {
     throw new ApiError(401, "Invalid email or password");
   }
 
   const isMatch = await user.comparePassword(password);
+
+  console.log("Password match result:", isMatch);
+
   if (!isMatch) {
     throw new ApiError(401, "Invalid email or password");
   }

@@ -44,14 +44,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       
       // If logged in and on a public page, redirect to chat
       if (isPublicPath) {
-        router.push("/chats");
+        router.replace("/chats");
       }
     } catch (error) {
       console.error("Auth failed:", error);
       setUser(null);
       // If not logged in and on a protected page, redirect to home
       if (!isPublicPath) {
-        router.push("/home");
+        router.replace("/home");
       }
     } finally {
       setIsLoading(false);
@@ -61,7 +61,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     checkAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, isLoading, checkAuth }}>
