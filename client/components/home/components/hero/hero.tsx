@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from './hero.module.css';
 import { MessageCircle, Zap, Shield } from 'lucide-react';
 
@@ -18,14 +19,14 @@ export default function Hero() {
           Batiyoun delivers lightning-fast, secure, and beautiful messaging for teams and communities. Experience real-time communication reimagined.
         </p>
         <div className={styles.ctaGroup}>
-          <button className={styles.primaryBtn}>
+          <Link href="/signup" className={styles.primaryBtn} style={{ textDecoration: 'none' }}>
             <MessageCircle size={20} />
             Start Chatting Free
-          </button>
-          <button className={styles.secondaryBtn}>
+          </Link>
+          <a href="#features" className={styles.secondaryBtn} style={{ textDecoration: 'none' }}>
             <Shield size={20} />
             Learn More
-          </button>
+          </a>
         </div>
       </div>
       <div className={styles.visual}>

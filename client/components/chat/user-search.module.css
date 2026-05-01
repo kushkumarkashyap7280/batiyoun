@@ -1,6 +1,18 @@
 .inlineSearchShell {
+  position: relative;
+  z-index: 40;
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resultsOverlay {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: grid;
   gap: 0.75rem;
 }
 
@@ -167,6 +179,7 @@
 }
 
 .resultsCard {
+  position: relative;
   overflow: hidden;
 }
 

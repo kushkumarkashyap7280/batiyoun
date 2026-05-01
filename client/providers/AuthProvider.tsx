@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { verifyMeBUser } from "@/apis/api";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 type User = {
   id: string;
@@ -29,6 +30,7 @@ export const useAuth = () => useContext(AuthContext);
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [queryClient] = useState(() => new QueryClient());
   const router = useRouter();
   const pathname = usePathname();
 
@@ -64,8 +66,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, checkAuth }}>
-      {children}
-    </AuthContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContext.Provider value={{ user, isLoading, checkAuth }}>
+        {children}
+      </AuthContext.Provider>
+    </QueryClientProvider>
   );
 }

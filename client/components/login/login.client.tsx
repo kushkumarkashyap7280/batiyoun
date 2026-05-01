@@ -6,6 +6,7 @@ import { LogIn, Mail, Lock, AlertCircle } from "lucide-react";
 import { loginBUser } from "@/apis/api";
 import { useAuth } from "@/providers/AuthProvider";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function LoginClientPage() {
   const [email, setEmail] = useState("");
@@ -32,6 +33,11 @@ export default function LoginClientPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginCard}>
+        <div style={{ marginBottom: "1.5rem" }}>
+          <Link href="/home" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+            <ArrowLeft size={16} /> Back to Home
+          </Link>
+        </div>
         <div className={styles.header}>
           <img src="/batiyoun-logo-removed-bg.png" alt="Batiyoun Logo" className={styles.logo} />
           <h1 className={styles.title}>Welcome Back</h1>

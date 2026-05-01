@@ -1,7 +1,8 @@
+
 .shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: 80px minmax(0, 1fr);
   background:
     radial-gradient(circle at top left, rgba(160, 96, 255, 0.12), transparent 32%),
     linear-gradient(180deg, #f7f7fb 0%, #eef1f8 100%);
@@ -28,17 +29,17 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  padding: 1.25rem;
+  align-items: center;
+  padding: 1.25rem 0;
   border-right: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(18px);
 }
 
 .brandBlock {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.8rem 0.75rem 1.25rem;
+  display: grid;
+  place-items: center;
+  padding-bottom: 2rem;
 }
 
 .brandLogo {
@@ -46,42 +47,30 @@
   height: 42px;
 }
 
-.brandKicker {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #667085;
-}
-
-.brandTitle {
-  margin: 0.15rem 0 0;
-  font-size: 1.35rem;
-  line-height: 1;
-}
-
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  width: 100%;
 }
 
 .navItem {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   border-radius: 16px;
-  padding: 0.95rem 1rem;
   color: #344054;
   text-decoration: none;
-  font-weight: 600;
   transition: background-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 
 .navItem:hover {
   background: rgba(160, 96, 255, 0.08);
-  transform: translateX(2px);
+  transform: translateY(-2px);
   color: #121826;
 }
 
@@ -93,18 +82,21 @@
 
 .sidebarFooter {
   margin-top: auto;
-  display: grid;
-  gap: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
   padding-top: 1rem;
 }
 
 .profileChip {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  border-radius: 18px;
-  padding: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: rgba(15, 23, 42, 0.04);
+  cursor: pointer;
 }
 
 .avatar {
@@ -118,42 +110,36 @@
   font-weight: 700;
 }
 
-.profileMeta {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.profileMeta strong,
-.profileMeta span {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.profileMeta span {
-  color: #667085;
-  font-size: 0.85rem;
-}
-
 .logoutButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(148, 163, 184, 0.3);
   border-radius: 14px;
-  padding: 0.9rem 1rem;
   background: white;
   color: #344054;
-  font-weight: 600;
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
-.logoutButton:hover {
+.logoutButton:hover:not(:disabled) {
   transform: translateY(-1px);
   border-color: rgba(160, 96, 255, 0.28);
+}
+
+.logoutButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .content {
@@ -164,10 +150,32 @@
 @media (max-width: 900px) {
   .shell {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
 
   .sidebar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 1.25rem;
     border-right: 0;
     border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  }
+
+  .brandBlock {
+    padding-bottom: 0;
+  }
+
+  .nav {
+    flex-direction: row;
+    gap: 1rem;
+    width: auto;
+    padding: 0;
+  }
+
+  .sidebarFooter {
+    margin-top: 0;
+    flex-direction: row;
+    gap: 1rem;
+    padding-top: 0;
   }
 }

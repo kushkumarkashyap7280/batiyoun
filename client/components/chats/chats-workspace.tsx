@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";
 import UserSearch, { UserSearchResultUser } from "@/components/chat/UserSearch";
-import { ArrowUpRight, Bell, MessageSquareText, Send, Sparkles, Users } from "lucide-react";
+import { ArrowUpRight, Bell, MessageSquareText, Send, Sparkles, Users, Loader2 } from "lucide-react";
 import styles from "./chats-workspace.module.css";
 
 type ChatMessage = {
@@ -86,6 +86,7 @@ export default function ChatsWorkspace() {
   const [threads, setThreads] = useState<ChatThread[]>(createSeedThreads);
   const [activeThreadId, setActiveThreadId] = useState(globalRoomId);
   const [composerValue, setComposerValue] = useState("");
+  const [isSending, setIsSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const activeThread = useMemo(
@@ -154,31 +155,36 @@ export default function ChatsWorkspace() {
     setActiveThreadId(threadId);
   };
 
-  const handleSendMessage = (event: React.FormEvent) => {
+  const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!composerValue.trim() || !user || !activeThread) return;
+    if (!composerValue.trim() || !user || !activeThread || isSending) return;
 
-    const newMessage: ChatMessage = {
-      id: `${Date.now()}`,
-      senderId: user.id,
-      senderName: user.fullName || user.username,
-      content: composerValue.trim(),
-      timestamp: new Date().toISOString(),
-    };
+    setIsSending(true);
+    try {
+      const newMessage: ChatMessage = {
+        id: `${Date.now()}`,
+        senderId: user.id,
+        senderName: user.fullName || user.username,
+        content: composerValue.trim(),
+        timestamp: new Date().toISOString(),
+      };
 
-    setThreads((currentThreads) =>
-      currentThreads.map((thread) =>
-        thread.id === activeThread.id
-          ? { ...thread, messages: [...thread.messages, newMessage] }
-          : thread
-      )
-    );
+      setThreads((currentThreads) =>
+        currentThreads.map((thread) =>
+          thread.id === activeThread.id
+            ? { ...thread, messages: [...thread.messages, newMessage] }
+            : thread
+        )
+      );
 
-    if (activeThread.kind === "room" && socket && isConnected) {
-      socket.emit("sendMessage", newMessage);
+      if (activeThread.kind === "room" && socket && isConnected) {
+        socket.emit("sendMessage", newMessage);
+      }
+
+      setComposerValue("");
+    } finally {
+      setIsSending(false);
     }
-
-    setComposerValue("");
   };
 
   const activeMessages = activeThread?.messages || [];
@@ -278,8 +284,12 @@ export default function ChatsWorkspace() {
               className={styles.composerInput}
             />
           </div>
-          <button type="submit" className={styles.sendButton} disabled={!composerValue.trim()}>
-            <Send size={16} />
+          <button type="submit" className={styles.sendButton} disabled={!composerValue.trim() || isSending}>
+            {isSending ? (
+              <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+            ) : (
+              <Send size={16} />
+            )}
             Send
           </button>
         </form>

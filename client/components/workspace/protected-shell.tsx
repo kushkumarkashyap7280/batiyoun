@@ -2,28 +2,33 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-import { LayoutGrid, MessageSquareText, Settings2, UserCircle2, LogOut } from "lucide-react";
+import React, { useState } from "react";
+import { LayoutGrid, MessageSquareText, Settings2, UserCircle2, LogOut, Loader2 } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
 import { logoutBUser } from "@/apis/api";
 import styles from "./protected-shell.module.css";
 
 const navigationItems = [
   { href: "/chats", label: "Chats", icon: MessageSquareText },
-  { href: "/settings", label: "Settings", icon: Settings2 },
   { href: "/profile", label: "Profile", icon: UserCircle2 },
+  { href: "/settings", label: "Settings", icon: Settings2 },
 ];
 
 export default function ProtectedShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, isLoading, checkAuth } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
     try {
       await logoutBUser();
       await checkAuth();
     } catch (error) {
       console.error("Logout failed", error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -43,15 +48,11 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
       <aside className={styles.sidebar}>
         <div className={styles.brandBlock}>
           <img src="/batiyoun-logo-removed-bg.png" alt="Batiyoun" className={styles.brandLogo} />
-          <div>
-            <p className={styles.brandKicker}>Workspace</p>
-            <h1 className={styles.brandTitle}>Batiyoun</h1>
-          </div>
         </div>
 
         <nav className={styles.nav} aria-label="Primary">
           {navigationItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname.startsWith(item.href);
             const Icon = item.icon;
 
             return (
@@ -59,26 +60,27 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
                 key={item.href}
                 href={item.href}
                 className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+                title={item.label}
               >
-                <Icon size={18} />
-                <span>{item.label}</span>
+                <Icon size={24} />
               </Link>
             );
           })}
         </nav>
 
         <div className={styles.sidebarFooter}>
-          <div className={styles.profileChip}>
+          <div className={styles.profileChip} title={user?.fullName || user?.username}>
             <div className={styles.avatar}>{(user?.fullName || user?.username || "U").charAt(0).toUpperCase()}</div>
-            <div className={styles.profileMeta}>
-              <strong>{user?.fullName || user?.username || "Guest"}</strong>
-              <span>@{user?.username || "unknown"}</span>
-            </div>
           </div>
 
-          <button type="button" className={styles.logoutButton} onClick={handleLogout}>
-            <LogOut size={16} />
-            Sign out
+          <button 
+            type="button" 
+            className={styles.logoutButton} 
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            title="Sign out"
+          >
+            {isLoggingOut ? <Loader2 size={24} className={styles.spin} /> : <LogOut size={24} />}
           </button>
         </div>
       </aside>
