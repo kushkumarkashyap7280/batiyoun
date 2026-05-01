@@ -6,7 +6,12 @@ import jwt from "jsonwebtoken";
 import { env } from "../config/env";
 import {z } from "zod";
 
-
+const authCookieOptions = {
+  httpOnly: true,
+  secure: env.NODE_ENV === "production",
+  sameSite: env.NODE_ENV === "production" ? ("none" as const) : ("lax" as const),
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
 
 // Create a new user
 const createBUserInputDataSchema = z.object({
@@ -48,12 +53,7 @@ const createBUser = asyncHandler(async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("access_token", token, {
-      httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    res.cookie("access_token", token, authCookieOptions);
 
     res.status(201).json(new ApiResponse(201,  {
       _id: newUser._id,
@@ -96,12 +96,7 @@ const loginBUser = asyncHandler(async (req, res) => {
     { expiresIn: "7d" }
   );
 
-  res.cookie("access_token", token, {
-    httpOnly: true,
-    secure: env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+  res.cookie("access_token", token, authCookieOptions);
 
   res.status(200).json(new ApiResponse(200, {
     _id: user._id,
@@ -141,7 +136,7 @@ const logoutBUser = asyncHandler(async (req, res) => {
   res.clearCookie("access_token", {
     httpOnly: true,
     secure: env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: env.NODE_ENV === "production" ? "none" : "lax",
   });
 
   res.status(200).json(new ApiResponse(200, null, "User logged out successfully"));
