@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 import { env } from "./config/env";
 import { errorHandler } from "./middlewares/Error.middleware";
 import { ApiError } from "./utils/apiError";
@@ -18,8 +19,13 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser()); 
 
+const publicDir = path.join(process.cwd(), "public");
 
-app.use(express.static("public"));
+app.use(express.static(publicDir));
+
+app.get("/", (_, res) => {
+  res.sendFile(path.join(publicDir, "index.html"));
+});
 
 app.use("/api/users", userRouter);
 

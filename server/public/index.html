@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Batiyoun backend landing page" />
+    <title>Batiyoun Server</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08111f;
+        --bg-2: #0f1c31;
+        --card: rgba(12, 22, 40, 0.82);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --text: #eaf2ff;
+        --muted: #9bb0d0;
+        --accent: #7ce2c8;
+        --accent-2: #6ea8fe;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(110, 168, 254, 0.24), transparent 35%),
+          radial-gradient(circle at top right, rgba(124, 226, 200, 0.18), transparent 28%),
+          linear-gradient(160deg, var(--bg), var(--bg-2));
+        overflow-x: hidden;
+      }
+
+      .noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.08;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(circle at center, black, transparent 90%);
+      }
+
+      .wrap {
+        position: relative;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+      }
+
+      .card {
+        width: min(1080px, 100%);
+        background: linear-gradient(180deg, rgba(14, 25, 44, 0.94), rgba(8, 15, 28, 0.9));
+        border: 1px solid var(--card-border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(124, 226, 200, 0.08), transparent 38%, rgba(110, 168, 254, 0.08));
+        pointer-events: none;
+      }
+
+      header {
+        padding: 32px 32px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .mark {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(145deg, rgba(124, 226, 200, 0.95), rgba(110, 168, 254, 0.95));
+        color: #03111a;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        box-shadow: 0 12px 30px rgba(110, 168, 254, 0.28);
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: clamp(1.35rem, 2vw, 1.9rem);
+        letter-spacing: 0.02em;
+      }
+
+      .brand p,
+      .hero p,
+      .endpoint p,
+      .meta,
+      .status {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(124, 226, 200, 0.1);
+        border: 1px solid rgba(124, 226, 200, 0.2);
+        font-size: 0.92rem;
+      }
+
+      .pulse {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 0 rgba(124, 226, 200, 0.7);
+        animation: pulse 2s infinite;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        padding: 32px;
+      }
+
+      .hero {
+        padding: 10px 4px 4px;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.75rem;
+        margin-bottom: 18px;
+      }
+
+      .hero h2 {
+        margin: 0;
+        font-size: clamp(2.6rem, 6vw, 5.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        max-width: 8ch;
+      }
+
+      .hero p {
+        max-width: 58ch;
+        margin-top: 18px;
+        font-size: 1.02rem;
+        line-height: 1.7;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        color: #04131e;
+        background: linear-gradient(135deg, var(--accent), #a7f3d0);
+      }
+
+      .button.secondary {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .panel {
+        display: grid;
+        gap: 16px;
+      }
+
+      .endpoint,
+      .stats {
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 18px;
+      }
+
+      .endpoint .label,
+      .stats .label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--accent-2);
+        margin-bottom: 8px;
+      }
+
+      .endpoint code {
+        display: block;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #d9e8ff;
+        font-size: 0.98rem;
+        overflow-x: auto;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .metric {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(6, 12, 22, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: 0.94rem;
+      }
+
+      footer {
+        padding: 0 32px 32px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(124, 226, 200, 0.7); }
+        70% { box-shadow: 0 0 0 12px rgba(124, 226, 200, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(124, 226, 200, 0); }
+      }
+
+      @media (max-width: 920px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        .hero h2 {
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .wrap {
+          padding: 16px;
+        }
+
+        header,
+        main,
+        footer {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="wrap">
+      <section class="card">
+        <header>
+          <div class="brand">
+            <div class="mark">B</div>
+            <div>
+              <h1>Batiyoun Server</h1>
+              <p>Realtime messaging backend and auth gateway</p>
+            </div>
+          </div>
+          <div class="status"><span class="pulse"></span> Online and ready</div>
+        </header>
+
+        <main>
+          <section class="hero">
+            <div class="kicker">Secure chat infrastructure</div>
+            <h2>Fast, private, and built for realtime conversations.</h2>
+            <p>
+              This server powers authentication, user lookup, socket sessions, and the API layer behind
+              Batiyoun. It is designed to stay lightweight while serving the app with low-latency messaging.
+            </p>
+
+            <div class="actions">
+              <a class="button primary" href="/health">Check health</a>
+              <a class="button secondary" href="/api/users">Explore API</a>
+            </div>
+          </section>
+
+          <aside class="panel">
+            <section class="endpoint">
+              <div class="label">Root endpoint</div>
+              <code>GET /</code>
+              <p class="meta">Serves this landing page instead of JSON.</p>
+            </section>
+
+            <section class="stats">
+              <div class="label">Capabilities</div>
+              <div class="grid">
+                <div class="metric">
+                  <strong>Auth</strong>
+                  <span>JWT login, signup, verification, and logout flows.</span>
+                </div>
+                <div class="metric">
+                  <strong>Realtime</strong>
+                  <span>Socket.IO session handling for active chat connections.</span>
+                </div>
+                <div class="metric">
+                  <strong>API</strong>
+                  <span>User search and backend endpoints under /api/users.</span>
+                </div>
+                <div class="metric">
+                  <strong>Health</strong>
+                  <span>Simple service check available at /health.</span>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </main>
+
+        <footer>
+          Built for the Batiyoun platform. API routes remain available for the client app and deployments.
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
