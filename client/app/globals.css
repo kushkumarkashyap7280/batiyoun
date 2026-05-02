@@ -1,40 +1,198 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #a060ff;
-  --primary-hover: #8f4ded;
-  --secondary: #00e4e3;
-  --secondary-hover: #00cfce;
-  --surface: #f9f9fb;
-  --border: #e2e8f0;
-  --text-muted: #64748b;
-  --error: #ef4444;
-  --success: #22c55e;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* ─── Batiyoun Brand Design Tokens ─────────────────────────────────────────── */
+/* Logo: Purple chat bubble (#7C3AED) + Cyan accent bubble (#06B6D4) */
+
+:root,
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-base:        #0a0a14;
+  --bg-surface:     #12121f;
+  --bg-elevated:    #1a1a2e;
+  --bg-overlay:     #1e1e35;
+  --bg-hover:       rgba(124, 58, 237, 0.08);
+  --bg-active:      rgba(124, 58, 237, 0.15);
+
+  /* Brand Colors */
+  --purple:         #7C3AED;
+  --purple-hover:   #6D28D9;
+  --purple-light:   #A78BFA;
+  --purple-glow:    rgba(124, 58, 237, 0.35);
+  --cyan:           #06B6D4;
+  --cyan-hover:     #0891B2;
+  --cyan-light:     #67E8F9;
+  --cyan-glow:      rgba(6, 182, 212, 0.25);
+
+  /* Text */
+  --text-primary:   #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted:     #64748B;
+  --text-on-purple: #ffffff;
+
+  /* Borders */
+  --border:         rgba(124, 58, 237, 0.18);
+  --border-subtle:  rgba(148, 163, 184, 0.1);
+  --border-focus:   rgba(124, 58, 237, 0.6);
+
+  /* States */
+  --success:        #10B981;
+  --error:          #F43F5E;
+  --warning:        #F59E0B;
+
+  /* Sidebar */
+  --sidebar-bg:     rgba(10, 10, 20, 0.85);
+  --sidebar-border: rgba(124, 58, 237, 0.15);
+
+  /* Shadows */
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:   0 16px 40px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 24px rgba(124, 58, 237, 0.3);
+
+  /* Misc */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+  --transition:  0.2s ease;
+
+  /* Legacy compat */
+  --background:  var(--bg-base);
+  --foreground:  var(--text-primary);
+  --surface:     var(--bg-surface);
+  --primary:     var(--purple);
+  --primary-hover: var(--purple-hover);
+  --secondary:   var(--cyan);
+  --secondary-hover: var(--cyan-hover);
+  --text-muted:  var(--text-secondary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0a1c; /* Deep purple tinted dark background */
-    --foreground: #ededed;
-    --primary: #a060ff;
-    --primary-hover: #b581ff;
-    --secondary: #00e4e3;
-    --secondary-hover: #33e9e8;
-    --surface: #1a1429;
-    --border: #2e2443;
-    --text-muted: #94a3b8;
-  }
+[data-theme="light"] {
+  --bg-base:        #F8F7FF;
+  --bg-surface:     #FFFFFF;
+  --bg-elevated:    #EEF2FF;
+  --bg-overlay:     #F1F5F9;
+  --bg-hover:       rgba(124, 58, 237, 0.06);
+  --bg-active:      rgba(124, 58, 237, 0.12);
+
+  --purple:         #7C3AED;
+  --purple-hover:   #6D28D9;
+  --purple-light:   #8B5CF6;
+  --purple-glow:    rgba(124, 58, 237, 0.2);
+  --cyan:           #0891B2;
+  --cyan-hover:     #0E7490;
+  --cyan-light:     #06B6D4;
+  --cyan-glow:      rgba(8, 145, 178, 0.15);
+
+  --text-primary:   #0F172A;
+  --text-secondary: #475569;
+  --text-muted:     #94A3B8;
+  --text-on-purple: #ffffff;
+
+  --border:         rgba(124, 58, 237, 0.2);
+  --border-subtle:  rgba(15, 23, 42, 0.1);
+  --border-focus:   rgba(124, 58, 237, 0.5);
+
+  --success:        #059669;
+  --error:          #E11D48;
+  --warning:        #D97706;
+
+  --sidebar-bg:     rgba(248, 247, 255, 0.92);
+  --sidebar-border: rgba(124, 58, 237, 0.18);
+
+  --shadow-sm:   0 1px 3px rgba(15,23,42,0.08);
+  --shadow-md:   0 4px 16px rgba(15,23,42,0.1);
+  --shadow-lg:   0 16px 40px rgba(15,23,42,0.12);
+  --shadow-glow: 0 0 24px rgba(124, 58, 237, 0.18);
+
+  --background:  var(--bg-base);
+  --foreground:  var(--text-primary);
+  --surface:     var(--bg-surface);
+  --primary:     var(--purple);
+  --primary-hover: var(--purple-hover);
+  --secondary:   var(--cyan);
+  --secondary-hover: var(--cyan-hover);
+}
+
+/* ─── Global Reset & Base ───────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  min-height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-*, *::before, *::after {
-  box-sizing: inherit;
+/* ─── Custom Scrollbars ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: var(--radius-full);
+  opacity: 0.4;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--purple-light);
+}
+
+/* ─── Focus Visible ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Global Animation Keyframes ────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--purple-glow); }
+  50%       { box-shadow: 0 0 12px 4px var(--purple-glow); }
+}
+
+/* ─── Utility Classes ───────────────────────────────────────────────────────── */
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
 }

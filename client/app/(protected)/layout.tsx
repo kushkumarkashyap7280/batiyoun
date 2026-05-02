@@ -1,6 +1,7 @@
 import React from "react";
 import SocketProvider from "@/providers/SocketProvider";
 import ProtectedShell from "@/components/workspace/protected-shell";
+import { WorkspaceProvider } from "@/providers/WorkspaceProvider";
 
 export default function ProtectedLayout({
   children,
@@ -8,8 +9,10 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SocketProvider>
-      <ProtectedShell>{children}</ProtectedShell>
-    </SocketProvider>
+    <WorkspaceProvider>
+      <SocketProvider>
+        <ProtectedShell>{children}</ProtectedShell>
+      </SocketProvider>
+    </WorkspaceProvider>
   );
 }

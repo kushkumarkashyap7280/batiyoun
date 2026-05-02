@@ -1,10 +1,10 @@
-import PanelPage from "@/components/workspace/panel-page";
+import ProfilePanel from "@/components/workspace/profile-panel";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile | Batiyoun",
+};
 
 export default function ProfilePage() {
-  return (
-    <PanelPage
-      title="Profile"
-      description="Manage your identity, avatar, and account details here."
-    />
-  );
+  return <ProfilePanel />;
 }

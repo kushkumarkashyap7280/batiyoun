@@ -1,181 +1,403 @@
-
+/* ── Shell layout ─────────────────────────────────────────────────────── */
 .shell {
-  min-height: 100vh;
   display: grid;
-  grid-template-columns: 80px minmax(0, 1fr);
-  background:
-    radial-gradient(circle at top left, rgba(160, 96, 255, 0.12), transparent 32%),
-    linear-gradient(180deg, #f7f7fb 0%, #eef1f8 100%);
-  color: #101828;
+  grid-template-columns: 72px 1fr;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg-base);
+  position: relative;
 }
 
-.loadingShell {
+/* ── Loading Screen ───────────────────────────────────────────────────── */
+.loadingScreen {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(180deg, #f7f7fb 0%, #eef1f8 100%);
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
 }
 
 .loadingCard {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  border-radius: 18px;
-  padding: 1rem 1.25rem;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  gap: 1.25rem;
+  padding: 2.5rem 3rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.4s ease-out;
 }
 
+.loadingLogo {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 6px;
+  border: 1px solid var(--border);
+}
+
+.loadingSpinner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────── */
 .sidebar {
+  grid-column: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.25rem 0;
-  border-right: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px);
+  padding: 1rem 0;
+  gap: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 50;
+  overflow: hidden;
 }
 
-.brandBlock {
-  display: grid;
-  place-items: center;
-  padding-bottom: 2rem;
+/* ── Brand ────────────────────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 0.75rem;
 }
 
-.brandLogo {
-  width: 42px;
-  height: 42px;
+.brandLogoWrap {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(6, 182, 212, 0.1));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 4px;
+  transition: box-shadow var(--transition);
 }
 
+.brandLogoWrap:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Nav ──────────────────────────────────────────────────────────────── */
 .nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 0.35rem;
+  flex: 1;
   width: 100%;
+  padding: 0.5rem 0.65rem;
 }
 
 .navItem {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  color: #344054;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.7rem 0.5rem;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
   text-decoration: none;
-  transition: background-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--transition), background var(--transition), transform var(--transition);
+  position: relative;
 }
 
 .navItem:hover {
-  background: rgba(160, 96, 255, 0.08);
-  transform: translateY(-2px);
-  color: #121826;
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  transform: translateY(-1px);
 }
 
 .navItemActive {
-  background: linear-gradient(135deg, rgba(160, 96, 255, 0.16), rgba(80, 120, 255, 0.12));
-  color: #121826;
-  box-shadow: inset 0 0 0 1px rgba(160, 96, 255, 0.18);
+  color: var(--purple-light) !important;
+  background: var(--bg-active) !important;
 }
 
+.navItemActive::before {
+  content: "";
+  position: absolute;
+  left: -0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(to bottom, var(--purple), var(--cyan));
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+}
+
+.navLabel {
+  font-size: 0.58rem;
+  line-height: 1;
+}
+
+/* ── Sidebar Footer ───────────────────────────────────────────────────── */
 .sidebarFooter {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  padding-top: 1rem;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.75rem 0.65rem 0.5rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
-.profileChip {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
+.userChip {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(15, 23, 42, 0.04);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
   cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-.avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #a060ff 0%, #5b8cff 100%);
-  color: white;
+.userChip:hover {
+  border-color: var(--purple-light);
+  box-shadow: 0 0 0 3px var(--purple-glow);
+}
+
+.userAvatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--cyan) 100%);
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
-.logoutButton {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 14px;
-  background: white;
-  color: #344054;
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: color var(--transition), border-color var(--transition),
+    background var(--transition), transform var(--transition);
 }
 
-.logoutButton:hover:not(:disabled) {
+.logoutBtn:hover:not(:disabled) {
+  color: var(--error);
+  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.08);
   transform: translateY(-1px);
-  border-color: rgba(160, 96, 255, 0.28);
 }
 
-.logoutButton:disabled {
-  opacity: 0.6;
+.logoutBtn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
+/* ── Main Content ─────────────────────────────────────────────────────── */
 .content {
+  grid-column: 2;
   min-width: 0;
-  padding: 1.5rem;
+  padding: 1.25rem;
+  overflow: auto;
+  height: 100vh;
+  height: 100dvh;
 }
 
+/* ── Spin animation ────────────────────────────────────────────────────── */
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Bottom Nav (mobile only — hidden on desktop) ─────────────────────── */
+.bottomNav {
+  display: none;
+}
+
+/* ── Responsive: Tablet ≤900px ────────────────────────────────────────── */
 @media (max-width: 900px) {
+  .sidebar {
+    padding: 0.75rem 0;
+  }
+
+  .navLabel {
+    display: none;
+  }
+}
+
+/* ── Responsive: Mobile ≤768px ────────────────────────────────────────── */
+@media (max-width: 768px) {
   .shell {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr auto;
   }
 
   .sidebar {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0.5rem 1.25rem;
-    border-right: 0;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    display: none;
   }
 
-  .brandBlock {
-    padding-bottom: 0;
-  }
-
-  .nav {
-    flex-direction: row;
-    gap: 1rem;
-    width: auto;
+  .content {
+    grid-column: 1;
+    /* Zero padding — each page/panel handles its own inner padding.
+       We only reserve space at the bottom for the floating nav. */
     padding: 0;
+    height: 100dvh;
+    overflow: auto;
+    padding-bottom: calc(60px + 1.25rem + 1.25rem);
+    transition: padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .sidebarFooter {
-    margin-top: 0;
-    flex-direction: row;
-    gap: 1rem;
-    padding-top: 0;
+  .contentNoPadding {
+    padding-bottom: 0 !important;
+  }
+
+  /* ── Floating Capsule Bottom Nav ─ */
+  .bottomNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2.5rem);
+    max-width: 320px;
+    height: 60px;
+    background: rgba(18, 18, 32, 0.85);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 9999px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 100;
+    padding: 0 0.75rem;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(124, 58, 237, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  [data-theme="light"] .bottomNav {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(124, 58, 237, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .bottomNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 0.2rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color var(--transition), transform var(--transition);
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 9999px;
+  }
+
+  .bottomNavItem:active {
+    transform: scale(0.9);
+  }
+
+  .bottomNavItemActive {
+    color: var(--purple-light);
+    position: relative;
+  }
+
+  /* Active glow dot indicator */
+  .bottomNavItemActive::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 6px var(--purple-glow);
+  }
+
+  /* ── Hide nav when inside a chat thread ─ */
+  .bottomNavHidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(calc(100% + 1.5rem));
+    transition:
+      opacity 0.25s ease,
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* ── Responsive: ≤480px ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .bottomNav {
+    max-width: calc(100% - 2rem);
+    height: 56px;
+    bottom: 1rem;
+  }
+
+  .bottomNavItem {
+    font-size: 0.55rem;
+    padding: 0.4rem 0.5rem;
+    gap: 0.15rem;
+  }
+}
+
+/* ── Responsive: Minimum 320px ───────────────────────────────────────── */
+@media (max-width: 360px) {
+  .bottomNav {
+    max-width: calc(100% - 1.5rem);
+    height: 52px;
+    bottom: 0.75rem;
+  }
+
+  .bottomNavItem {
+    font-size: 0.5rem;
+    gap: 0.1rem;
+    padding: 0.35rem 0.4rem;
   }
 }

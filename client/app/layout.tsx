@@ -1,22 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import PWAInstallPrompt from "@/components/pwa/PWAInstallPrompt";
 import AuthProvider from "@/providers/AuthProvider";
+import ThemeProvider from "@/providers/ThemeProvider";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#a060ff",
+  themeColor: "#7C3AED",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -24,12 +20,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Batiyoun | Connect Everywhere",
-  description: "Dynamic chat application ",
+  title: "Batiyoun — E2E Secure Chat",
+  description: "Batiyoun is a fast, end-to-end secure chat application that connects you globally.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "Batiyoun",
   },
 };
@@ -40,15 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className={inter.variable} data-theme="dark" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
           <AuthProvider>
-          {children}
+            {children}
           </AuthProvider>
-          {/* <PWAInstallPrompt /> */}
+        </ThemeProvider>
       </body>
     </html>
   );
