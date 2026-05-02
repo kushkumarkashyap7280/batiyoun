@@ -51,6 +51,9 @@ export default function SocketProvider({ children }: { children: React.ReactNode
     console.log("SocketProvider: Establishing socket connection for user:", user.id);
     const socketInstance = io(process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000", {
       withCredentials: true,
+      auth: {
+        token: user.socketToken
+      },
       transports: ["websocket"],
     });
 

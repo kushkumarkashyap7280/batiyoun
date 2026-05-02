@@ -9,9 +9,12 @@ export const initializeSocket = (io: Server) => {
 
   io.use((socket, next) => {
     try {
-      const rawCookies = socket.request.headers.cookie || "";
-      const parsedCookies = cookie.parse(rawCookies);
-      const token = parsedCookies["access_token"];
+      let token = socket.handshake.auth?.token;
+      if (!token) {
+        const rawCookies = socket.request.headers.cookie || "";
+        const parsedCookies = cookie.parse(rawCookies);
+        token = parsedCookies["access_token"];
+      }
 
       if (!token) return next(new Error("Authentication error"));
 

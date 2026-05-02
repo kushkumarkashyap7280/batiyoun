@@ -11,6 +11,7 @@ type User = {
   email: string;
   fullName: string;
   avatar?: string;
+  socketToken?: string;
 };
 
 type AuthContextType = {
@@ -40,9 +41,16 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const checkAuth = async () => {
     setIsLoading(true);
     try {
-      const data = await verifyMeBUser();
-      // Assume data.user or data exists
-      setUser(data.user || data);
+      const response = await verifyMeBUser();
+      const userData = response.data || response.user || response;
+      
+      // Ensure id is set from _id if it exists
+      const userToSet = {
+        ...userData,
+        id: userData.id || userData._id
+      };
+      
+      setUser(userToSet);
       
       // If logged in and on a public page, redirect to chat
       if (isPublicPath) {

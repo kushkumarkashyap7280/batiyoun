@@ -60,6 +60,7 @@ const createBUser = asyncHandler(async (req, res) => {
       username: newUser.username,
       email: newUser.email,
       fullName: newUser.fullName,
+      socketToken: token,
     }, "User created successfully"));
   } catch (err: any) {
     console.error("createBUser error:", err && (err.stack || err.message || err));
@@ -109,6 +110,7 @@ const loginBUser = asyncHandler(async (req, res) => {
     username: user.username,
     email: user.email,
     fullName: user.fullName,
+    socketToken: token,
   }, "User logged in successfully"));
 });
 
@@ -129,7 +131,8 @@ const verifyMeBUser = asyncHandler(async (req, res) => {
     if (!user) {
       throw new ApiError(404, "User not found");
     }
-    res.status(200).json(new ApiResponse(200, user, "User verified successfully"));
+    const userData = user.toObject ? user.toObject() : user;
+    res.status(200).json(new ApiResponse(200, { ...userData, socketToken: token }, "User verified successfully"));
   } catch (err) {
     console.error("verifyMeBUser error:", err);
     throw new ApiError(401, "session expired, please login again");
