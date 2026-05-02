@@ -38,7 +38,7 @@ export default function LoginClientPage() {
     <div className={styles.container}>
       <div className={styles.loginCard}>
         <div style={{ marginBottom: "1.5rem" }}>
-          <Link href="/" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+          <Link href="/home" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
             <ArrowLeft size={16} /> Back to Home
           </Link>
         </div>
