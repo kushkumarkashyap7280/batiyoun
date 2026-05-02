@@ -7,6 +7,7 @@ import { loginBUser } from "@/apis/api";
 import { useAuth } from "@/providers/AuthProvider";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 
 export default function LoginClientPage() {
   const [email, setEmail] = useState("");
@@ -22,9 +23,12 @@ export default function LoginClientPage() {
 
     try {
       await loginBUser({ email, password });
+      toast.success("Logged in successfully!");
       await checkAuth(); // This will fetch user info and redirect to /chat
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to log in. Please check your credentials.");
+      const errorMessage = err.response?.data?.message || "Failed to log in. Please check your credentials.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -34,7 +38,7 @@ export default function LoginClientPage() {
     <div className={styles.container}>
       <div className={styles.loginCard}>
         <div style={{ marginBottom: "1.5rem" }}>
-          <Link href="/home" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+          <Link href="/" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
             <ArrowLeft size={16} /> Back to Home
           </Link>
         </div>

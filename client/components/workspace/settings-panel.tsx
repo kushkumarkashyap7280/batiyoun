@@ -16,6 +16,7 @@ import {
   Palette,
 } from "lucide-react";
 import { logoutBUser } from "@/apis/api";
+import { toast } from "sonner";
 import styles from "./settings-panel.module.css";
 
 function SettingRow({
@@ -64,9 +65,12 @@ export default function SettingsPanel() {
     setIsLoggingOut(true);
     try {
       await logoutBUser();
+      toast.success("Logged out successfully!");
       await checkAuth();
-    } catch (err) {
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || "Logout failed. Please try again.";
       console.error("Logout failed", err);
+      toast.error(errorMessage);
     } finally {
       setIsLoggingOut(false);
     }

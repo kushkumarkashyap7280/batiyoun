@@ -34,7 +34,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const router = useRouter();
   const pathname = usePathname();
 
-  const publicPaths = ["/", "/home", "/login", "/signup"];
+  const publicPaths = ["/", "/login", "/signup"];
   const isPublicPath = publicPaths.includes(pathname);
 
   const checkAuth = async () => {
@@ -53,7 +53,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       setUser(null);
       // If not logged in and on a protected page, redirect to home
       if (!isPublicPath) {
-        router.replace("/home");
+        router.replace("/");
       }
     } finally {
       setIsLoading(false);

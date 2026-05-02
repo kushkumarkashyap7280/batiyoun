@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import styles from './pwa.module.css';
 import { Download, X } from 'lucide-react';
 
-export default function PWAInstallPrompt() {
+function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -25,8 +25,17 @@ export default function PWAInstallPrompt() {
 
     const handler = (e: Event) => {
       e.preventDefault();
+      
+      // If the user has already interacted with or dismissed the prompt in this session, don't show it again
+      const hasDismissed = sessionStorage.getItem('pwaPromptDismissed');
+      if (hasDismissed) {
+        return;
+      }
+
       setDeferredPrompt(e);
       setIsVisible(true);
+      // Mark as shown so it doesn't reappear on route changes if the component remounts
+      sessionStorage.setItem('pwaPromptDismissed', 'true');
     };
 
     window.addEventListener('beforeinstallprompt', handler);
@@ -38,6 +47,8 @@ export default function PWAInstallPrompt() {
 
   const handleInstallClick = async () => {
     setIsVisible(false);
+    sessionStorage.setItem('pwaPromptDismissed', 'true');
+    
     if (!deferredPrompt) {
       return;
     }
@@ -49,6 +60,7 @@ export default function PWAInstallPrompt() {
 
   const handleClose = () => {
     setIsVisible(false);
+    sessionStorage.setItem('pwaPromptDismissed', 'true');
   };
 
   if (!isVisible) return null;
@@ -78,3 +90,5 @@ export default function PWAInstallPrompt() {
     </div>
   );
 }
+
+export default memo(PWAInstallPrompt);

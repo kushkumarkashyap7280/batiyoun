@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/providers/AuthProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
 import PWAInstallPrompt from "@/components/pwa/PWAInstallPrompt";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({
           </AuthProvider>
         </ThemeProvider>
         <PWAInstallPrompt />
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

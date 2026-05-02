@@ -7,6 +7,7 @@ import { createBUser } from "@/apis/api";
 import { useAuth } from "@/providers/AuthProvider";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 
 export default function SignupClientPage() {
   const [fullName, setFullName] = useState("");
@@ -25,10 +26,13 @@ export default function SignupClientPage() {
     try {
       // Create user
       await createBUser({ fullName, username, email, password });
+      toast.success("Account created successfully!");
       // On success, we need to log them in or just check auth if the creation also logs them in
       await checkAuth();
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to create account. Please try again.");
+      const errorMessage = err.response?.data?.message || "Failed to create account. Please try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -38,7 +42,7 @@ export default function SignupClientPage() {
     <div className={styles.container}>
       <div className={styles.signupCard}>
         <div style={{ marginBottom: "1.5rem" }}>
-          <Link href="/home" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+          <Link href="/" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
             <ArrowLeft size={16} /> Back to Home
           </Link>
         </div>
