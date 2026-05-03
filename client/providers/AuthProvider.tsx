@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { verifyMeBUser } from "@/apis/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import LoadingAuth from "@/components/utils/LoadingAuth";
 
 type User = {
   id: string;
@@ -76,7 +77,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={{ user, isLoading, checkAuth }}>
-        {children}
+        {isLoading ? <LoadingAuth /> : children}
       </AuthContext.Provider>
     </QueryClientProvider>
   );

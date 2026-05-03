@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";
 import { useWorkspace } from "@/providers/WorkspaceProvider";
-import UserSearch, { UserSearchResultUser } from "@/components/chat/UserSearch";
+import UserSearch, { UserSearchResultUser } from "@/components/chats/UserSearch";
 import {
   Send,
   Loader2,

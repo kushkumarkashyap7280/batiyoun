@@ -34,7 +34,6 @@ export const MessageSchema = z.object({
   conversationId: z.string(),
   senderId: z.string(),
   content: z.string(),
-  timestamp: z.date().optional(),
 });
 
 export type BMessage = z.infer<typeof MessageSchema>;

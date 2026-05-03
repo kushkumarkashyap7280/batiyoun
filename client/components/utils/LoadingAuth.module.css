@@ -1,0 +1,256 @@
+/* LoadingAuth.module.css */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #0a0a0a;
+  color: white;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.decoration {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.decoration1 {
+  top: 15%;
+  left: 10%;
+  background-color: #3b82f6;
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+.decoration2 {
+  bottom: 15%;
+  right: 10%;
+  background-color: #a855f7;
+  animation: pulseSlow 6s ease-in-out infinite 1s;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 28rem;
+  width: 100%;
+  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.logoSection {
+  position: relative;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoGlow {
+  position: absolute;
+  inset: 0;
+  background-color: #3b82f6;
+  border-radius: 9999px;
+  filter: blur(40px);
+  opacity: 0.2;
+  animation: pulseMedium 2s ease-in-out infinite;
+}
+
+.logoRings {
+  position: relative;
+  width: 6.5rem;
+  height: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ringSvg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.ringOuter {
+  animation: rotateClockwise 4s linear infinite;
+}
+
+.ringInner {
+  inset: 0.4rem;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  animation: rotateCounterClockwise 3s linear infinite;
+}
+
+.logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  position: relative;
+  z-index: 10;
+  animation: logoBounce 3s ease-in-out infinite;
+}
+
+.statusSection {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.statusTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #9ca3af;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.featuresContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.featureItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.featureIconWrapper {
+  flex-shrink: 0;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconSecure { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+.iconPwa { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+.iconServer { background-color: rgba(168, 85, 247, 0.2); color: #a78bfa; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+
+.featureContent h3 {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #f3f4f6;
+  margin: 0;
+}
+
+.featureContent p {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 1rem;
+  }
+  
+  .logoRings {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+  
+  .logo {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .statusTitle {
+    font-size: 1.25rem;
+  }
+  
+  .featureItem {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .featureContent h3 {
+    font-size: 0.8rem;
+  }
+  
+  .featureContent p {
+    font-size: 0.7rem;
+  }
+}
+
+/* Animations */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.1); }
+}
+
+@keyframes pulseMedium {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.1); }
+}
+
+@keyframes rotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes logoBounce {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.05) translateY(-5px); }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
