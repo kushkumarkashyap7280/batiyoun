@@ -130,15 +130,15 @@
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .promptContent {
     margin-bottom: 8px;
   }
-  
+
   .actions {
     justify-content: space-between;
   }
-  
+
   .installBtn {
     flex: 1;
     justify-content: center;

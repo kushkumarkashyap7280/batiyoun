@@ -7,7 +7,7 @@ const LoadingAuth = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+      setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
     }, 500);
     return () => clearInterval(interval);
   }, []);
@@ -19,38 +19,63 @@ const LoadingAuth = () => {
       <div className={`${styles.decoration} ${styles.decoration2}`}></div>
 
       <div className={styles.contentWrapper}>
-        
         {/* Logo and Loader */}
         <div className={styles.logoSection}>
           <div className={styles.logoGlow}></div>
-          
+
           <div className={styles.logoRings}>
             {/* Outer spinning ring */}
             <svg className={`${styles.ringSvg} ${styles.ringOuter}`} viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(59, 130, 246, 0.2)" strokeWidth="2" />
-              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(59, 130, 246, 0.8)" strokeWidth="2" strokeDasharray="60 200" strokeLinecap="round" />
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="rgba(59, 130, 246, 0.2)"
+                strokeWidth="2"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="rgba(59, 130, 246, 0.8)"
+                strokeWidth="2"
+                strokeDasharray="60 200"
+                strokeLinecap="round"
+              />
             </svg>
-            
+
             {/* Inner pulsing ring */}
             <svg className={`${styles.ringSvg} ${styles.ringInner}`} viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(168, 85, 247, 0.2)" strokeWidth="2" />
-              <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(168, 85, 247, 0.8)" strokeWidth="2" strokeDasharray="40 200" strokeLinecap="round" />
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="rgba(168, 85, 247, 0.2)"
+                strokeWidth="2"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="48"
+                fill="none"
+                stroke="rgba(168, 85, 247, 0.8)"
+                strokeWidth="2"
+                strokeDasharray="40 200"
+                strokeLinecap="round"
+              />
             </svg>
 
             {/* Logo Image */}
-            <img 
-              src="/batiyoun-logo-removed-bg.png" 
-              alt="Batiyoun Logo" 
-              className={styles.logo}
-            />
+            <img src="/batiyoun-logo-removed-bg.png" alt="Batiyoun Logo" className={styles.logo} />
           </div>
         </div>
 
         {/* Status Text */}
         <div className={styles.statusSection}>
-          <h2 className={styles.statusTitle}>
-            Connecting Workspace
-          </h2>
+          <h2 className={styles.statusTitle}>Connecting Workspace</h2>
           <div className={styles.statusBadge}>
             <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
             <p className="text-sm tracking-wide">
@@ -68,10 +93,12 @@ const LoadingAuth = () => {
             </div>
             <div className={styles.featureContent}>
               <h3>
-                End-to-End Secure Chat <ShieldCheck className="inline w-4 h-4 text-green-400 ml-1" />
+                End-to-End Secure Chat{' '}
+                <ShieldCheck className="inline w-4 h-4 text-green-400 ml-1" />
               </h3>
               <p>
-                Your messages are fully encrypted. Complete privacy and security guaranteed with your partner in chat.
+                Your messages are fully encrypted. Complete privacy and security guaranteed with
+                your partner in chat.
               </p>
             </div>
           </div>
@@ -84,11 +111,12 @@ const LoadingAuth = () => {
             <div className={styles.featureContent}>
               <h3>Install as Native App</h3>
               <p>
-                Batiyoun is a PWA! You can download it as an app and work seamlessly across all your devices.
+                Batiyoun is a PWA! You can download it as an app and work seamlessly across all your
+                devices.
               </p>
             </div>
           </div>
-          
+
           {/* Feature 3: Server Wakeup */}
           <div className={styles.featureItem} style={{ animationDelay: '0.2s' }}>
             <div className={`${styles.featureIconWrapper} ${styles.iconServer}`}>
@@ -97,12 +125,12 @@ const LoadingAuth = () => {
             <div className={styles.featureContent}>
               <h3>Waking Up Server</h3>
               <p>
-                Free tier servers may take a moment to wake up if inactive. Thank you for your patience!
+                Free tier servers may take a moment to wake up if inactive. Thank you for your
+                patience!
               </p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -170,12 +170,12 @@
 
 .themeToggleDark {
   background: linear-gradient(135deg, #1e1b4b, #312e81);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .themeToggleLight {
   background: linear-gradient(135deg, #fef3c7, #fde68a);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .themeToggleKnob {
@@ -187,19 +187,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: left var(--transition), background var(--transition);
+  transition:
+    left var(--transition),
+    background var(--transition);
   box-shadow: var(--shadow-sm);
 }
 
 .themeToggleDark .themeToggleKnob {
   left: calc(100% - 25px);
-  background: #7C3AED;
+  background: #7c3aed;
   color: white;
 }
 
 .themeToggleLight .themeToggleKnob {
   left: 3px;
-  background: #F59E0B;
+  background: #f59e0b;
   color: white;
 }
 

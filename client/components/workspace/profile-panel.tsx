@@ -1,18 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useAuth } from "@/providers/AuthProvider";
-import {
-  User,
-  Mail,
-  AtSign,
-  Shield,
-  Edit3,
-  Check,
-  X,
-  Camera,
-} from "lucide-react";
-import styles from "./profile-panel.module.css";
+import React, { useState } from 'react';
+import { useAuth } from '@/providers/AuthProvider';
+import { User, Mail, AtSign, Shield, Edit3, Check, X, Camera } from 'lucide-react';
+import styles from './profile-panel.module.css';
 
 function InfoRow({
   icon: Icon,
@@ -30,7 +21,7 @@ function InfoRow({
       </div>
       <div className={styles.infoContent}>
         <span className={styles.infoLabel}>{label}</span>
-        <span className={styles.infoValue}>{value || "—"}</span>
+        <span className={styles.infoValue}>{value || '—'}</span>
       </div>
     </div>
   );
@@ -39,9 +30,9 @@ function InfoRow({
 export default function ProfilePanel() {
   const { user } = useAuth();
   const [editMode, setEditMode] = useState(false);
-  const [displayName, setDisplayName] = useState(user?.fullName || "");
+  const [displayName, setDisplayName] = useState(user?.fullName || '');
 
-  const userInitial = (user?.fullName || user?.username || "U").charAt(0).toUpperCase();
+  const userInitial = (user?.fullName || user?.username || 'U').charAt(0).toUpperCase();
 
   return (
     <div className={styles.panel}>
@@ -49,9 +40,7 @@ export default function ProfilePanel() {
       <div className={styles.pageHeader}>
         <p className={styles.kicker}>Account</p>
         <h1 className={styles.pageTitle}>Profile</h1>
-        <p className={styles.pageDesc}>
-          Manage your identity and account details.
-        </p>
+        <p className={styles.pageDesc}>Manage your identity and account details.</p>
       </div>
 
       {/* ── Content */}
@@ -79,10 +68,7 @@ export default function ProfilePanel() {
           <div className={styles.cardHeader}>
             <h3 className={styles.cardTitle}>Account Information</h3>
             {!editMode ? (
-              <button
-                className={styles.editButton}
-                onClick={() => setEditMode(true)}
-              >
+              <button className={styles.editButton} onClick={() => setEditMode(true)}>
                 <Edit3 size={14} />
                 <span>Edit</span>
               </button>
@@ -98,7 +84,7 @@ export default function ProfilePanel() {
                 <button
                   className={`${styles.editActionBtn} ${styles.editCancel}`}
                   onClick={() => {
-                    setDisplayName(user?.fullName || "");
+                    setDisplayName(user?.fullName || '');
                     setEditMode(false);
                   }}
                 >
@@ -125,10 +111,10 @@ export default function ProfilePanel() {
                 </div>
               </div>
             ) : (
-              <InfoRow icon={User} label="Full Name" value={user?.fullName || ""} />
+              <InfoRow icon={User} label="Full Name" value={user?.fullName || ''} />
             )}
-            <InfoRow icon={AtSign} label="Username" value={`@${user?.username || ""}`} />
-            <InfoRow icon={Mail} label="Email" value={user?.email || ""} />
+            <InfoRow icon={AtSign} label="Username" value={`@${user?.username || ''}`} />
+            <InfoRow icon={Mail} label="Email" value={user?.email || ''} />
           </div>
         </div>
 

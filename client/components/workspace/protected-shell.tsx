@@ -1,26 +1,19 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import {
-  MessageSquare,
-  UserCircle,
-  Settings,
-  LogOut,
-  Loader2,
-  Shield,
-} from "lucide-react";
-import { useAuth } from "@/providers/AuthProvider";
-import { logoutBUser } from "@/apis/api";
-import { useWorkspace } from "@/providers/WorkspaceProvider";
-import styles from "./protected-shell.module.css";
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
+import { MessageSquare, UserCircle, Settings, LogOut, Loader2, Shield } from 'lucide-react';
+import { useAuth } from '@/providers/AuthProvider';
+import { logoutBUser } from '@/apis/api';
+import { useWorkspace } from '@/providers/WorkspaceProvider';
+import styles from './protected-shell.module.css';
 
 const navigationItems = [
-  { href: "/chats", label: "Chats", icon: MessageSquare },
-  { href: "/profile", label: "Profile", icon: UserCircle },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: '/chats', label: 'Chats', icon: MessageSquare },
+  { href: '/profile', label: 'Profile', icon: UserCircle },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function ProtectedShell({ children }: { children: React.ReactNode }) {
@@ -36,7 +29,7 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
       await logoutBUser();
       await checkAuth();
     } catch (error) {
-      console.error("Logout failed", error);
+      console.error('Logout failed', error);
     } finally {
       setIsLoggingOut(false);
     }
@@ -64,7 +57,7 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
     );
   }
 
-  const userInitial = (user?.fullName || user?.username || "U").charAt(0).toUpperCase();
+  const userInitial = (user?.fullName || user?.username || 'U').charAt(0).toUpperCase();
 
   return (
     <div className={styles.shell}>
@@ -92,10 +85,10 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
               <Link
                 key={item.href}
                 href={item.href}
-                className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+                className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
                 title={item.label}
                 aria-label={item.label}
-                aria-current={isActive ? "page" : undefined}
+                aria-current={isActive ? 'page' : undefined}
               >
                 <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
                 <span className={styles.navLabel}>{item.label}</span>
@@ -127,11 +120,13 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
       </aside>
 
       {/* ── Main Content ──────────────────────────────── */}
-      <main className={`${styles.content} ${hideMobileNav ? styles.contentNoPadding : ""}`}>{children}</main>
+      <main className={`${styles.content} ${hideMobileNav ? styles.contentNoPadding : ''}`}>
+        {children}
+      </main>
 
       {/* ── Bottom Tab Bar (mobile) ───────────────────── */}
       <nav
-        className={`${styles.bottomNav} ${hideMobileNav ? styles.bottomNavHidden : ""}`}
+        className={`${styles.bottomNav} ${hideMobileNav ? styles.bottomNavHidden : ''}`}
         aria-label="Mobile navigation"
         aria-hidden={hideMobileNav}
       >
@@ -142,9 +137,9 @@ export default function ProtectedShell({ children }: { children: React.ReactNode
             <Link
               key={item.href}
               href={item.href}
-              className={`${styles.bottomNavItem} ${isActive ? styles.bottomNavItemActive : ""}`}
+              className={`${styles.bottomNavItem} ${isActive ? styles.bottomNavItemActive : ''}`}
               aria-label={item.label}
-              aria-current={isActive ? "page" : undefined}
+              aria-current={isActive ? 'page' : undefined}
             >
               <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
               <span>{item.label}</span>

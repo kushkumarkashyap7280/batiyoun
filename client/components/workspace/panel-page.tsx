@@ -1,4 +1,4 @@
-import styles from "./panel-page.module.css";
+import styles from './panel-page.module.css';
 
 type PanelPageProps = {
   title: string;

@@ -12,11 +12,12 @@ export default function Hero() {
           <span>Next-Generation Chat</span>
         </div>
         <h1 className={styles.title}>
-          Connect Beyond <br/>
+          Connect Beyond <br />
           <span className={styles.highlight}>Boundaries</span>
         </h1>
         <p className={styles.description}>
-          Batiyoun delivers lightning-fast, secure, and beautiful messaging for teams and communities. Experience real-time communication reimagined.
+          Batiyoun delivers lightning-fast, secure, and beautiful messaging for teams and
+          communities. Experience real-time communication reimagined.
         </p>
         <div className={styles.ctaGroup}>
           <Link href="/signup" className={styles.primaryBtn} style={{ textDecoration: 'none' }}>

@@ -1,32 +1,33 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styles from "./login.module.css";
-import { LogIn, Mail, Lock, AlertCircle } from "lucide-react";
-import { loginBUser } from "@/apis/api";
-import { useAuth } from "@/providers/AuthProvider";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import styles from './login.module.css';
+import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react';
+import { loginBUser } from '@/apis/api';
+import { useAuth } from '@/providers/AuthProvider';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function LoginClientPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { checkAuth } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
       await loginBUser({ email, password });
-      toast.success("Logged in successfully!");
+      toast.success('Logged in successfully!');
       await checkAuth(); // This will fetch user info and redirect to /chat
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || "Failed to log in. Please check your credentials.";
+      const errorMessage =
+        err.response?.data?.message || 'Failed to log in. Please check your credentials.';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -37,8 +38,12 @@ export default function LoginClientPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginCard}>
-        <div style={{ marginBottom: "1.5rem" }}>
-          <Link href="/" className={styles.link} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <Link
+            href="/"
+            className={styles.link}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}
+          >
             <ArrowLeft size={16} /> Back to Home
           </Link>
         </div>
@@ -57,7 +62,9 @@ export default function LoginClientPage() {
 
         <form className={styles.form} onSubmit={handleLogin}>
           <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
+            <label htmlFor="email" className={styles.label}>
+              Email
+            </label>
             <div className={styles.inputWrapper}>
               <Mail className={styles.inputIcon} size={20} />
               <input
@@ -73,7 +80,9 @@ export default function LoginClientPage() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>Password</label>
+            <label htmlFor="password" className={styles.label}>
+              Password
+            </label>
             <div className={styles.inputWrapper}>
               <Lock className={styles.inputIcon} size={20} />
               <input
@@ -89,13 +98,18 @@ export default function LoginClientPage() {
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={loading}>
-            {loading ? "Logging in..." : "Log In"}
+            {loading ? 'Logging in...' : 'Log In'}
             {!loading && <LogIn size={20} />}
           </button>
         </form>
 
         <div className={styles.footer}>
-          <p>Don't have an account? <Link href="/signup" className={styles.link}>Sign up</Link></p>
+          <p>
+            Don't have an account?{' '}
+            <Link href="/signup" className={styles.link}>
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

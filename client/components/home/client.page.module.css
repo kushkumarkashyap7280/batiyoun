@@ -91,15 +91,15 @@
   .header {
     padding: 1rem;
   }
-  
+
   .brandName {
     font-size: 1.25rem;
   }
-  
+
   .navLink {
     display: none; /* Hide Features link on small screens */
   }
-  
+
   .primaryButton {
     padding: 0.4rem 1rem;
     font-size: 0.875rem;
@@ -110,11 +110,11 @@
   .logoContainer {
     gap: 0.4rem;
   }
-  
+
   .logo {
     height: 32px;
   }
-  
+
   .primaryButton {
     padding: 0.35rem 0.75rem;
     font-size: 0.8rem;

@@ -1,0 +1,95 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  animation: slideUp 0.2s ease-out;
+}
+
+.timestampDivider {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 8px;
+}
+
+.timestampDivider span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  word-break: break-word;
+  position: relative;
+}
+
+/* My messages (right side) */
+.me {
+  align-items: flex-end;
+}
+
+.me .bubble {
+  background: var(--purple);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+/* Their messages (left side) */
+.them {
+  align-items: flex-start;
+}
+
+.them .bubble {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-bottom-left-radius: 4px;
+}
+
+.content {
+  white-space: pre-wrap;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.time {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+.pendingIcon {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.4; }
+}

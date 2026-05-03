@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from 'react';
 
 type WorkspaceContextType = {
   hideMobileNav: boolean;
-  setHideMobileNav: (v: boolean) => void;
+  setHideMobileNav: (hide: boolean) => void;
 };
 
 const WorkspaceContext = createContext<WorkspaceContextType>({
@@ -14,8 +14,9 @@ const WorkspaceContext = createContext<WorkspaceContextType>({
 
 export const useWorkspace = () => useContext(WorkspaceContext);
 
-export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
+export default function WorkspaceProvider({ children }: { children: React.ReactNode }) {
   const [hideMobileNav, setHideMobileNav] = useState(false);
+
   return (
     <WorkspaceContext.Provider value={{ hideMobileNav, setHideMobileNav }}>
       {children}

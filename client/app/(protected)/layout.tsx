@@ -1,18 +1,15 @@
-import React from "react";
-import SocketProvider from "@/providers/SocketProvider";
-import ProtectedShell from "@/components/workspace/protected-shell";
-import { WorkspaceProvider } from "@/providers/WorkspaceProvider";
+'use client';
 
-export default function ProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import SocketProvider from '@/providers/SocketProvider';
+import WorkspaceProvider from '@/providers/WorkspaceProvider';
+import ProtectedShell from '@/components/workspace/protected-shell';
+
+export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <WorkspaceProvider>
-      <SocketProvider>
+    <SocketProvider>
+      <WorkspaceProvider>
         <ProtectedShell>{children}</ProtectedShell>
-      </SocketProvider>
-    </WorkspaceProvider>
+      </WorkspaceProvider>
+    </SocketProvider>
   );
 }

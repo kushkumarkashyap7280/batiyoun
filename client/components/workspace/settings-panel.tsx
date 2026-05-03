@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useAuth } from "@/providers/AuthProvider";
-import { useTheme } from "@/providers/ThemeProvider";
+import React, { useState } from 'react';
+import { useAuth } from '@/providers/AuthProvider';
+import { useTheme } from '@/providers/ThemeProvider';
 import {
   Sun,
   Moon,
@@ -14,10 +14,10 @@ import {
   ChevronRight,
   Shield,
   Palette,
-} from "lucide-react";
-import { logoutBUser } from "@/apis/api";
-import { toast } from "sonner";
-import styles from "./settings-panel.module.css";
+} from 'lucide-react';
+import { logoutBUser } from '@/apis/api';
+import { toast } from 'sonner';
+import styles from './settings-panel.module.css';
 
 function SettingRow({
   icon: Icon,
@@ -33,17 +33,15 @@ function SettingRow({
   danger?: boolean;
 }) {
   return (
-    <div className={`${styles.settingRow} ${danger ? styles.settingRowDanger : ""}`}>
-      <div className={`${styles.settingIcon} ${danger ? styles.settingIconDanger : ""}`}>
+    <div className={`${styles.settingRow} ${danger ? styles.settingRowDanger : ''}`}>
+      <div className={`${styles.settingIcon} ${danger ? styles.settingIconDanger : ''}`}>
         <Icon size={16} />
       </div>
       <div className={styles.settingContent}>
-        <span className={`${styles.settingLabel} ${danger ? styles.settingLabelDanger : ""}`}>
+        <span className={`${styles.settingLabel} ${danger ? styles.settingLabelDanger : ''}`}>
           {label}
         </span>
-        {description && (
-          <span className={styles.settingDesc}>{description}</span>
-        )}
+        {description && <span className={styles.settingDesc}>{description}</span>}
       </div>
       <div className={styles.settingControl}>{children}</div>
     </div>
@@ -65,11 +63,11 @@ export default function SettingsPanel() {
     setIsLoggingOut(true);
     try {
       await logoutBUser();
-      toast.success("Logged out successfully!");
+      toast.success('Logged out successfully!');
       await checkAuth();
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || "Logout failed. Please try again.";
-      console.error("Logout failed", err);
+      const errorMessage = err.response?.data?.message || 'Logout failed. Please try again.';
+      console.error('Logout failed', err);
       toast.error(errorMessage);
     } finally {
       setIsLoggingOut(false);
@@ -82,9 +80,7 @@ export default function SettingsPanel() {
       <div className={styles.pageHeader}>
         <p className={styles.kicker}>Workspace</p>
         <h1 className={styles.pageTitle}>Settings</h1>
-        <p className={styles.pageDesc}>
-          Tune your preferences, notifications, and account.
-        </p>
+        <p className={styles.pageDesc}>Tune your preferences, notifications, and account.</p>
       </div>
 
       <div className={styles.content}>
@@ -95,16 +91,16 @@ export default function SettingsPanel() {
             <SettingRow
               icon={Palette}
               label="Theme"
-              description={`Currently using ${theme === "dark" ? "Dark" : "Light"} mode`}
+              description={`Currently using ${theme === 'dark' ? 'Dark' : 'Light'} mode`}
             >
               <button
                 type="button"
-                className={`${styles.themeToggle} ${theme === "dark" ? styles.themeToggleDark : styles.themeToggleLight}`}
+                className={`${styles.themeToggle} ${theme === 'dark' ? styles.themeToggleDark : styles.themeToggleLight}`}
                 onClick={toggleTheme}
-                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               >
                 <span className={styles.themeToggleKnob}>
-                  {theme === "dark" ? <Moon size={12} /> : <Sun size={12} />}
+                  {theme === 'dark' ? <Moon size={12} /> : <Sun size={12} />}
                 </span>
               </button>
             </SettingRow>
@@ -124,7 +120,7 @@ export default function SettingsPanel() {
                 type="button"
                 className={`${styles.toggle} ${notificationsOn ? styles.toggleOn : styles.toggleOff}`}
                 onClick={() => setNotificationsOn((p) => !p)}
-                aria-label={`${notificationsOn ? "Disable" : "Enable"} notifications`}
+                aria-label={`${notificationsOn ? 'Disable' : 'Enable'} notifications`}
               >
                 <span className={styles.toggleKnob} />
               </button>
@@ -173,7 +169,7 @@ export default function SettingsPanel() {
                 ) : (
                   <LogOut size={15} />
                 )}
-                <span>{isLoggingOut ? "Signing out…" : "Sign Out"}</span>
+                <span>{isLoggingOut ? 'Signing out…' : 'Sign Out'}</span>
               </button>
             </SettingRow>
           </div>

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { verifyMeBUser } from "@/apis/api";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import LoadingAuth from "@/components/utils/LoadingAuth";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { verifyMeBUser } from '@/apis/api';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import LoadingAuth from '@/components/utils/LoadingAuth';
 
 type User = {
   id: string;
@@ -36,7 +36,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const router = useRouter();
   const pathname = usePathname();
 
-  const publicPaths = ["/", "/login", "/signup"];
+  const publicPaths = ['/', '/login', '/signup'];
   const isPublicPath = publicPaths.includes(pathname);
 
   const checkAuth = async () => {
@@ -44,25 +44,25 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     try {
       const response = await verifyMeBUser();
       const userData = response.data || response.user || response;
-      
+
       // Ensure id is set from _id if it exists
       const userToSet = {
         ...userData,
-        id: userData.id || userData._id
+        id: userData.id || userData._id,
       };
-      
+
       setUser(userToSet);
-      
+
       // If logged in and on a public page, redirect to chat
       if (isPublicPath) {
-        router.replace("/chats");
+        router.replace('/chats');
       }
     } catch (error) {
-      console.error("Auth failed:", error);
+      console.error('Auth failed:', error);
       setUser(null);
       // If not logged in and on a protected page, redirect to home
       if (!isPublicPath) {
-        router.replace("/");
+        router.replace('/');
       }
     } finally {
       setIsLoading(false);

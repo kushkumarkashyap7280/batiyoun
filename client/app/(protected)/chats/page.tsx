@@ -1,5 +1,5 @@
-import ChatsWorkspace from "@/components/chats/chats-workspace";
+import ChatsClient from '@/components/pages/chats/ChatsClient';
 
 export default function ChatsPage() {
-  return <ChatsWorkspace />;
+  return <ChatsClient />;
 }

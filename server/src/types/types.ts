@@ -1,4 +1,4 @@
-import {z } from "zod";
+import { z } from 'zod';
 
 export const UserSchema = z.object({
   username: z.string(),
@@ -14,21 +14,17 @@ export const UserSchema = z.object({
 
 export type BUser = z.infer<typeof UserSchema>;
 
-
 export const ConversationSchema = z.object({
-    participants: z.array(z.string()),
-    lastMessage: z.string().optional(),
-    isGroup: z.boolean().default(false),
-    groupName: z.string().optional(),
-    groupAvatar: z.string().optional(),
-    groupDescription: z.string().optional(),
-    groupAdmins: z.array(z.string()).optional(),
+  participants: z.array(z.string()),
+  lastMessage: z.string().optional(),
+  isGroup: z.boolean().default(false),
+  groupName: z.string().optional(),
+  groupAvatar: z.string().optional(),
+  groupDescription: z.string().optional(),
+  groupAdmins: z.array(z.string()).optional(),
 });
 
 export type BConversation = z.infer<typeof ConversationSchema>;
-
-
-
 
 export const MessageSchema = z.object({
   conversationId: z.string(),

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState, memo } from 'react';
 import styles from './pwa.module.css';
@@ -18,14 +18,14 @@ function PWAInstallPrompt() {
           },
           (err) => {
             console.log('ServiceWorker registration failed: ', err);
-          }
+          },
         );
       });
     }
 
     const handler = (e: Event) => {
       e.preventDefault();
-      
+
       // If the user has already interacted with or dismissed the prompt in this session, don't show it again
       const hasDismissed = sessionStorage.getItem('pwaPromptDismissed');
       if (hasDismissed) {
@@ -48,7 +48,7 @@ function PWAInstallPrompt() {
   const handleInstallClick = async () => {
     setIsVisible(false);
     sessionStorage.setItem('pwaPromptDismissed', 'true');
-    
+
     if (!deferredPrompt) {
       return;
     }
@@ -70,11 +70,17 @@ function PWAInstallPrompt() {
       <div className={styles.promptCard}>
         <div className={styles.promptContent}>
           <div className={styles.iconContainer}>
-            <img src="/batiyoun-logo-removed-bg.png" alt="Batiyoun App" className={styles.appIcon} />
+            <img
+              src="/batiyoun-logo-removed-bg.png"
+              alt="Batiyoun App"
+              className={styles.appIcon}
+            />
           </div>
           <div className={styles.textContent}>
             <h4 className={styles.title}>Install Batiyoun</h4>
-            <p className={styles.description}>Add to home screen for faster access and offline use.</p>
+            <p className={styles.description}>
+              Add to home screen for faster access and offline use.
+            </p>
           </div>
         </div>
         <div className={styles.actions}>

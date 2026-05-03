@@ -77,19 +77,19 @@
   .featuresSection {
     padding: 3rem 1rem;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
+
   .subtitle {
     font-size: 1rem;
   }
-  
+
   .grid {
     grid-template-columns: 1fr;
   }
-  
+
   .card {
     padding: 1.5rem;
   }
@@ -99,7 +99,7 @@
   .featuresSection {
     padding: 2rem 0.5rem;
   }
-  
+
   .title {
     font-size: 1.75rem;
   }

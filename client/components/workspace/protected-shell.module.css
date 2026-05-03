@@ -127,7 +127,10 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: color var(--transition), background var(--transition), transform var(--transition);
+  transition:
+    color var(--transition),
+    background var(--transition),
+    transform var(--transition);
   position: relative;
 }
 
@@ -143,7 +146,7 @@
 }
 
 .navItemActive::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -0.65rem;
   top: 50%;
@@ -177,7 +180,9 @@
   border: 1.5px solid var(--border);
   overflow: hidden;
   cursor: pointer;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .userChip:hover {
@@ -208,8 +213,11 @@
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
-  transition: color var(--transition), border-color var(--transition),
-    background var(--transition), transform var(--transition);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
 }
 
 .logoutBtn:hover:not(:disabled) {
@@ -307,7 +315,7 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
-  [data-theme="light"] .bottomNav {
+  [data-theme='light'] .bottomNav {
     background: rgba(255, 255, 255, 0.88);
     border-color: rgba(124, 58, 237, 0.2);
     box-shadow:
@@ -333,7 +341,9 @@
     border: none;
     background: none;
     cursor: pointer;
-    transition: color var(--transition), transform var(--transition);
+    transition:
+      color var(--transition),
+      transform var(--transition);
     -webkit-tap-highlight-color: transparent;
     border-radius: 9999px;
   }
@@ -349,7 +359,7 @@
 
   /* Active glow dot indicator */
   .bottomNavItemActive::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 2px;
     left: 50%;

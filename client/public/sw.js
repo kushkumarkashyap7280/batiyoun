@@ -1,32 +1,25 @@
 const CACHE_NAME = 'batiyoun-cache-v1';
-const urlsToCache = [
-  '/',
-  '/manifest.json',
-  '/batiyoun-logo-removed-bg.png'
-];
+const urlsToCache = ['/', '/manifest.json', '/batiyoun-logo-removed-bg.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    }),
   );
 });
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).catch(() => {
-          // Fallback logic could go here
-        });
+    caches.match(event.request).then((response) => {
+      // Cache hit - return response
+      if (response) {
+        return response;
       }
-    )
+      return fetch(event.request).catch(() => {
+        // Fallback logic could go here
+      });
+    }),
   );
 });
 
@@ -39,8 +32,8 @@ self.addEventListener('activate', (event) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
           }
-        })
+        }),
       );
-    })
+    }),
   );
 });
